@@ -12,6 +12,6 @@ export function normalizeSettings(value){
     if(seen.has(p.id))return [];seen.add(p.id);
     return [{id:p.id,name:p.name.trim().slice(0,80),mix:cleanMix(p.mix)}];
   });
-  return {version:2,master:typeof v.master==='number'&&Number.isFinite(v.master)?masterVolume(v.master):.5,mix:cleanMix(v.mix),favorites:[...new Set((Array.isArray(v.favorites)?v.favorites:[]).filter(validId))].slice(0,500),saved,reducedEffects:v.reducedEffects===true};
+  return {version:2,locale:['en','zh-CN'].includes(v.locale)?v.locale:null,master:typeof v.master==='number'&&Number.isFinite(v.master)?masterVolume(v.master):.5,mix:cleanMix(v.mix),favorites:[...new Set((Array.isArray(v.favorites)?v.favorites:[]).filter(validId))].slice(0,500),saved,reducedEffects:v.reducedEffects===true};
 }
 export function parseSettings(raw){try{return normalizeSettings(JSON.parse(raw||'{}'));}catch{return normalizeSettings({});}}

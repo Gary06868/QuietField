@@ -1,10 +1,11 @@
+import {chineseUI} from './test-locale.mjs';
 import {_electron as electron} from 'playwright';
 import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';
 const root=process.cwd(),exe=process.argv[2];assert.ok(exe,'Pass the packaged executable');
 const out=path.join(root,'test-results'),env={...process.env,QUIET_FIELD_TEST_DATA:path.join(out,'expansion-'+Date.now())};delete env.ELECTRON_RUN_AS_NODE;
 const app=await electron.launch({executablePath:exe,args:[],env,timeout:60000});
 try{
- const page=await app.firstWindow(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const page=await app.firstWindow(),errors=[];await chineseUI(page);page.on('pageerror',e=>errors.push(e.message));
  await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];w.webContents.setAudioMuted(true);w.setBounds({x:50,y:50,width:1536,height:1024});w.showInactive();});
  await page.context().addInitScript(()=>{window.__sources=[];const Original=window.AudioContext;window.AudioContext=class extends Original{createBufferSource(){const s=super.createBufferSource();window.__sources.push(s);const stop=s.stop.bind(s);s.stop=(...a)=>{s.__stopped=true;return stop(...a);};return s;}};});
  await page.context().setOffline(true);await page.reload();await page.getByRole('heading',{name:'声音库',exact:true}).waitFor();assert.equal(await page.locator('.sound-card').count(),53);

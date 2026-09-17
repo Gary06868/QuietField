@@ -1,3 +1,4 @@
+import {chineseUI} from './test-locale.mjs';
 import {_electron as electron} from 'playwright';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -11,7 +12,7 @@ const windName=isPublic?'原野风声':'树林风声';
 const eightNames=isPublic?['小雨','原野风声','海浪','壁炉原录音','山间溪流','远处雷雨','餐厅原录音','棕噪声']:['小雨','树林风声','海浪','篝火','河流','雷声','咖啡馆','棕噪声'];
 const app=await electron.launch({...(executable?{executablePath:executable}:{}),args:executable?[]:[root],env,timeout:60000});
 try {
-  const page=await app.firstWindow();
+  const page=await app.firstWindow();await chineseUI(page);
   await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.setAudioMuted(true));
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.context().addInitScript(()=>{

@@ -1,0 +1,29 @@
+[
+  {
+    "file": "ocean.ogg",
+    "soundId": "bsb-1447",
+    "author": "Joseph SARDIN",
+    "source": "https://bigsoundbank.com/small-waves-froth-and-beach-s1447.html",
+    "license": "CC0 1.0",
+    "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "processing": "12-second excerpt; gain adjusted, 350 ms fade-in/out, Ogg Vorbis re-encode. App recording unchanged."
+  },
+  {
+    "file": "rain.ogg",
+    "soundId": "bsb-1293",
+    "author": "Joseph SARDIN",
+    "source": "https://bigsoundbank.com/rain-on-car-roof-s1293.html",
+    "license": "CC0 1.0",
+    "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "processing": "12-second excerpt; gain adjusted, 350 ms fade-in/out, Ogg Vorbis re-encode. App recording unchanged."
+  },
+  {
+    "file": "cat.ogg",
+    "soundId": "bsb-0981",
+    "author": "Joseph SARDIN",
+    "source": "https://bigsoundbank.com/cat-purring-2-s0981.html",
+    "license": "CC0 1.0",
+    "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "processing": "12-second excerpt; gain adjusted, 350 ms fade-in/out, Ogg Vorbis re-encode. App recording unchanged."
+  }
+]

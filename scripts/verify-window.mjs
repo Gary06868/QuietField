@@ -1,3 +1,4 @@
+import {chineseUI} from './test-locale.mjs';
 import {_electron as electron} from 'playwright';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -12,7 +13,7 @@ const eightNames=isPublic?['小雨','原野风声','海浪','壁炉原录音','�
 const app=await electron.launch({...(executable?{executablePath:executable}:{}),args:executable?[]:[root],env,timeout:60000});
 let closed=false;
 try{
-  const page=await app.firstWindow(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+  const page=await app.firstWindow(),errors=[];await chineseUI(page);page.on('pageerror',e=>errors.push(e.message));
   await page.getByRole('heading',{name:'今天，听见宁静。'}).waitFor();
   await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];w.webContents.setAudioMuted(true);w.setBounds({x:60,y:60,width:1536,height:1024});w.showInactive();});
   await page.evaluate(()=>document.fonts.ready);

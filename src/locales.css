@@ -1,0 +1,16 @@
+/* Language controls remain available without opening a modal. */
+.language-switch{display:flex;gap:3px;margin:14px 12px 0;padding:3px;border:1px solid #658db54a;border-radius:10px;align-self:flex-start;background:#07172580;flex-shrink:0}
+.language-switch button{padding:5px 12px;border:0;border-radius:7px;background:transparent;color:#a9bfd6;font:inherit;font-size:12px;cursor:pointer}
+.language-switch button[aria-pressed=true]{background:#188ddd40;color:#c3ecff}
+.language-switch button:focus-visible{outline:2px solid #69c7ff;outline-offset:2px}
+html:lang(en) .brand{font-family:'Segoe UI',sans-serif;letter-spacing:-.6px;font-size:23px;gap:10px;white-space:nowrap}
+html:lang(en) .tagline{font-size:10px;letter-spacing:0;margin-left:12px}
+html:lang(en) .intro h1{font-family:Georgia,'Times New Roman',serif;letter-spacing:-1px;font-weight:400}
+html:lang(en) .intro p{letter-spacing:0;line-height:1.6}
+html:lang(en) .sound-toggle>span{line-height:1.35;overflow-wrap:anywhere}
+html:lang(en) .mix-name{gap:8px}html:lang(en) .mix-name>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+html:lang(en) .mix-name>span:last-child{flex-shrink:0}html:lang(en) .nav-item{letter-spacing:0}
+html:lang(en) .gain-hint{font-size:10px}html:lang(en) .mix-actions button{padding-left:9px;padding-right:9px}
+html:lang(en) dialog{max-height:85dvh;overflow-y:auto}html:lang(en) .play-status strong{letter-spacing:0}
+@media(max-width:1180px){html:lang(en) .brand{font-size:18px;gap:7px}html:lang(en) .brand-icon{width:30px;height:30px}html:lang(en) .nav-item{gap:10px;font-size:11px}html:lang(en) .tagline{font-size:8px;margin-left:8px}html:lang(en) .intro p{max-width:260px}}
+@media(max-width:540px){.language-switch{margin:0 0 12px;align-self:auto;width:fit-content}.language-switch button{padding:4px 12px}html:lang(en) .brand{font-size:24px}html:lang(en) .intro p{max-width:220px}html:lang(en) .timer select{font-size:13px}html:lang(en) .transport .play-status{min-width:65px}html:lang(en) .master>span:first-child{display:none}}

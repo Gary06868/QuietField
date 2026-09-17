@@ -1,0 +1,31 @@
+name: Bug report / 问题反馈
+description: Help reproduce an app issue / 帮助复现问题
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: "English or 中文 are welcome. Remove private information from screenshots and logs."
+  - type: input
+    id: version
+    attributes:
+      label: App version / 应用版本
+      placeholder: "1.5.0 public"
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: System and display / 系统与显示器
+      description: "Windows version, resolution, scaling, audio output type / Windows 版本、分辨率、缩放、音频设备类型"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps, expected and actual result / 操作步骤、预期与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshots or context / 截图或补充信息

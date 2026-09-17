@@ -1,7 +1,8 @@
+import {chineseUI} from './test-locale.mjs';
 import {_electron as electron} from 'playwright';import path from 'node:path';import fs from 'node:fs/promises';
 const env={...process.env,QUIET_FIELD_TEST_DATA:path.resolve('test-results/preview-'+Date.now())};delete env.ELECTRON_RUN_AS_NODE;
 const app=await electron.launch({executablePath:process.argv[2],args:[],env,timeout:60000});
-try{const page=await app.firstWindow();await page.getByRole('heading',{name:'今天，听见宁静。'}).waitFor();
+try{const page=await app.firstWindow();await chineseUI(page);await page.getByRole('heading',{name:'今天，听见宁静。'}).waitFor();
 await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];w.webContents.setAudioMuted(true);w.showInactive();});await page.setViewportSize({width:1536,height:1000});
 for(const name of ['猫咪呼噜','风铃轻奏','车内听雨'])await page.getByRole('button',{name:'播放'+name,exact:true}).click();
 await page.waitForFunction(()=>document.querySelectorAll('.mix-track').length===3&&[...document.querySelectorAll('.mix-name')].every(n=>!n.textContent.includes('准备中')),null,{timeout:120000});

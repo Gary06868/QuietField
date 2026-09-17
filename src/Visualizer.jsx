@@ -1,7 +1,8 @@
+import {useLocale} from './LocaleContext.jsx';
 import React,{useEffect,useRef} from 'react';
 
 export function Visualizer({engine,playing,disabled=false,mode='ring'}) {
-  const ref=useRef();
+  const {t,locale}=useLocale();const ref=useRef();
   useEffect(()=>{
     if(disabled)return;
     const canvas=ref.current,ctx=canvas.getContext('2d');
@@ -29,7 +30,7 @@ export function Visualizer({engine,playing,disabled=false,mode='ring'}) {
           ctx.beginPath();ctx.moveTo(x+Math.cos(a)*r,y+Math.sin(a)*r);ctx.lineTo(x+Math.cos(a)*(r+extent),y+Math.sin(a)*(r+extent));ctx.stroke();
           const rr=r*1.2+(i%7)*2;ctx.fillStyle=`rgba(67,177,255,${.18+level*.55})`;ctx.fillRect(x+Math.cos(a)*rr,y+Math.sin(a)*rr,1.2,1.2);
         }
-        ctx.textAlign='center';ctx.fillStyle=playing?'#b7dcff':'#8ba3bc';ctx.font='11px "Quiet Sans", sans-serif';ctx.fillText(playing?'随声音呼吸':'静候，下一刻',x,y+4);
+        ctx.textAlign='center';ctx.fillStyle=playing?'#b7dcff':'#8ba3bc';ctx.font='11px "Quiet Sans", sans-serif';ctx.fillText(t(playing?'随声音呼吸':'静候，下一刻'),x,y+4);
       }else{
         const bars=40,step=w/bars;
         for(let i=0;i<bars;i++){
@@ -41,6 +42,6 @@ export function Visualizer({engine,playing,disabled=false,mode='ring'}) {
     };
     frame=requestAnimationFrame(draw);
     return()=>{disposed=true;cancelAnimationFrame(frame);};
-  },[engine,playing,mode,disabled]);
+  },[engine,playing,mode,disabled,locale]);
   return <canvas ref={ref} className={`visualizer ${mode}`} aria-hidden="true"/>;
 }

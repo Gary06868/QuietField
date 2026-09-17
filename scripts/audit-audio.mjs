@@ -1,3 +1,4 @@
+import {chineseUI} from './test-locale.mjs';
 import {_electron as electron} from 'playwright';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -8,7 +9,7 @@ const worker=(await fs.readdir('dist/assets')).find(x=>x.startsWith('audio-worke
 const env={...process.env,QUIET_FIELD_TEST_DATA:path.join(out,'audio-audit-'+Date.now())};delete env.ELECTRON_RUN_AS_NODE;
 const app=await electron.launch({args:[root],env,timeout:60000});
 try {
-  const page=await app.firstWindow();page.on('console',msg=>{if(msg.text().startsWith('MATCH'))console.log(msg.text());});await page.getByRole('heading',{name:'声音库'}).waitFor();
+  const page=await app.firstWindow();await chineseUI(page);page.on('console',msg=>{if(msg.text().startsWith('MATCH'))console.log(msg.text());});await page.getByRole('heading',{name:'声音库'}).waitFor();
   await page.context().setOffline(true);
   const results=[];
   for(const sound of catalog.filter(s=>!process.env.AUDIT_SOUND||s.id===process.env.AUDIT_SOUND)) {

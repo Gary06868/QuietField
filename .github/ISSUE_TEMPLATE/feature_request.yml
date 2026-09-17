@@ -1,0 +1,15 @@
+name: Feature or sound request / 功能或音源建议
+description: Suggest an improvement / 推荐改进方向
+title: "[Suggestion] "
+body:
+  - type: textarea
+    id: request
+    attributes:
+      label: What would you like, and why? / 希望增加什么、解决什么问题？
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Recording source and license / 音源原始页面与许可
+      description: "For recordings, include the original author page and redistribution license. / 推荐录音请附原作者页面和明确的再分发授权。"

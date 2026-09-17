@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gary06868.github.io/QuietField/sitemap.xml
