@@ -1,0 +1,142 @@
+import {_electron as electron} from 'playwright';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+const root=process.cwd(),out=path.join(root,'test-results');await fs.mkdir(out,{recursive:true});
+const env={...process.env,QUIET_FIELD_TEST_DATA:path.join(out,'profile-'+Date.now())};delete env.ELECTRON_RUN_AS_NODE;
+const executable=process.argv[2];
+const catalog=JSON.parse(await fs.readFile(executable?path.join(path.dirname(executable),'resources/app/dist/catalog.json'):'dist/catalog.json','utf8'));
+const isPublic=catalog.some(s=>s.id==='blanket-rain');
+const windName=isPublic?'原野风声':'树林风声';
+const eightNames=isPublic?['小雨','原野风声','海浪','壁炉原录音','山间溪流','远处雷雨','餐厅原录音','棕噪声']:['小雨','树林风声','海浪','篝火','河流','雷声','咖啡馆','棕噪声'];
+const app=await electron.launch({...(executable?{executablePath:executable}:{}),args:executable?[]:[root],env,timeout:60000});
+try {
+  const page=await app.firstWindow();
+  await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.setAudioMuted(true));
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.context().addInitScript(()=>{
+    window.__qa={contexts:[],sources:[],gains:[],shapers:[],analysers:[],compressors:[]};
+    const Original=window.AudioContext;
+    window.AudioContext=class extends Original{
+      constructor(...args){super(...args);window.__qa.contexts.push(this);}
+      createBufferSource(){const s=super.createBufferSource();window.__qa.sources.push(s);const stop=s.stop.bind(s);s.stop=(...args)=>{s.__stopped=true;return stop(...args);};return s;}
+      createGain(){const g=super.createGain();window.__qa.gains.push(g);return g;}
+      createWaveShaper(){const s=super.createWaveShaper();window.__qa.shapers.push(s);return s;}
+      createAnalyser(){const s=super.createAnalyser();window.__qa.analysers.push(s);return s;}
+      createDynamicsCompressor(){const s=super.createDynamicsCompressor();window.__qa.compressors.push(s);return s;}
+    };
+  });
+  await page.reload();await page.getByRole('heading',{name:'今天，听见宁静。'}).waitFor();
+  console.log((await page.locator('body').ariaSnapshot()).slice(0,3300));
+  assert.equal(await page.locator('.sound-card').count(),catalog.length);
+  await page.getByRole('button',{name:'播放小雨',exact:true}).click();
+  await page.waitForFunction(()=>window.__qa.sources.some(s=>s.buffer&&s.loop));
+  await page.getByRole('button',{name:'播放'+windName,exact:true}).click();
+  await page.waitForFunction(()=>window.__qa.sources.filter(s=>!s.__stopped&&s.buffer).length===2);
+  assert.equal(await page.getByRole('button',{name:'暂停全部'}).count(),1);
+  await page.getByRole('slider',{name:'总音量',exact:true}).fill('35');
+  await page.getByRole('slider',{name:'混音 小雨音量',exact:true}).fill('250');
+  await page.setViewportSize({width:1536,height:1024});
+  await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].showInactive());
+  await page.waitForFunction(()=>!document.hidden);
+  await page.waitForTimeout(300);
+  const frameA=await page.locator('canvas.ring').evaluate(c=>c.toDataURL());
+  await page.waitForTimeout(250);
+  const frameB=await page.locator('canvas.ring').evaluate(c=>c.toDataURL());
+  assert.ok(frameA!==frameB,'real audio visualizer should react while playing');
+  await page.screenshot({path:path.join(out,'desktop-playing.png')});
+  await page.getByRole('button',{name:'收藏小雨',exact:true}).click();
+  await page.getByRole('button',{name:'保存组合',exact:true}).click();
+  await page.getByLabel('给组合起个名字').fill('验收 · 雨林');
+  await page.getByRole('dialog').getByRole('button',{name:'保存组合',exact:true}).click();
+  await page.getByRole('button',{name:'我的组合',exact:true}).click();
+  assert.ok(await page.getByRole('heading',{name:'验收 · 雨林'}).isVisible());
+  await page.getByRole('button',{name:'全部声音',exact:true}).click();
+  await page.getByRole('button',{name:'暂停全部'}).click();
+  await page.waitForFunction(()=>window.__qa.contexts[0].state==='suspended');
+  await page.setViewportSize({width:1536,height:1024});
+  await page.screenshot({path:path.join(out,'desktop.png')});
+  await page.reload();await page.getByRole('button',{name:'播放全部'}).waitFor();
+  await page.waitForFunction(()=>document.querySelector('.sound-count')?.textContent.includes('2'));
+  assert.equal(await page.getByRole('slider',{name:'总音量',exact:true}).inputValue(),'35');
+  assert.equal(await page.getByRole('slider',{name:'混音 小雨音量',exact:true}).inputValue(),'250');
+  await page.context().setOffline(true);
+  await page.getByRole('button',{name:'播放全部'}).click();
+  await page.waitForFunction(()=>window.__qa.sources.filter(s=>!s.__stopped&&s.buffer).length===2);
+  const signal=await page.evaluate(async()=>{
+    const ctx=window.__qa.contexts[0],an=ctx.createAnalyser();an.fftSize=2048;
+    const source=window.__qa.sources.find(s=>!s.__stopped);source.connect(an);
+    await new Promise(r=>setTimeout(r,100));const data=new Float32Array(2048);an.getFloatTimeDomainData(data);
+    source.disconnect(an);return {rms:Math.sqrt(data.reduce((s,v)=>s+v*v,0)/data.length),rate:ctx.sampleRate,loop:source.loop,duration:source.buffer.duration};
+  });
+  assert.ok(signal.rms>.0001);console.log('OFFLINE AUDIO',JSON.stringify(signal));
+  await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].minimize());
+  const before=await page.evaluate(()=>window.__qa.contexts[0].currentTime);
+  await page.waitForTimeout(1200);
+  const after=await page.evaluate(()=>window.__qa.contexts[0].currentTime);
+  assert.ok(after-before>.8);console.log('BACKGROUND AUDIO seconds',after-before);
+  await page.getByRole('button',{name:'清空',exact:true}).click();
+  for(const name of eightNames)await page.getByRole('button',{name:'播放'+name,exact:true}).click();
+  await page.waitForFunction(()=>window.__qa.sources.filter(s=>!s.__stopped&&s.buffer).length===8);
+  const timerBox=await page.locator('.timer').boundingBox(),footerBox=await page.locator('.transport').boundingBox();
+  assert.ok(timerBox.y+timerBox.height<=footerBox.y,'timer remains accessible with 8 tracks');
+  await page.getByRole('button',{name:'播放'+(isPublic?'晨间鸟鸣':'鸟鸣'),exact:true}).click();
+  assert.equal(await page.locator('.mix-track').count(),8);
+  await page.getByRole('button',{name:'清空',exact:true}).click();
+  await page.getByRole('textbox',{name:'搜索声音'}).fill('粉噪声');
+  assert.equal(await page.locator('.sound-card').count(),1);
+  await page.getByRole('button',{name:'播放粉噪声',exact:true}).click();
+  await page.waitForFunction(()=>window.__qa.sources.filter(s=>!s.__stopped&&s.buffer).length===1);
+  await page.getByRole('button',{name:'清除搜索'}).click();
+  await page.getByRole('button',{name:'深林细雨',exact:true}).click();
+  await page.getByRole('button',{name:'清空',exact:true}).click();
+  await page.waitForTimeout(800);
+  assert.equal(await page.evaluate(()=>window.__qa.sources.filter(s=>!s.__stopped).length),0);
+  assert.equal(await page.getByRole('button',{name:'播放全部'}).count(),1);
+  await page.locator('input[type=file]').setInputFiles(path.join(root,'public/sounds/wav/wav-fireplace.wav'));
+  await page.getByRole('button',{name:'播放wav-fireplace',exact:true}).waitFor();
+  await page.reload();await page.getByRole('button',{name:'导入',exact:true}).click();
+  await page.getByRole('button',{name:'播放wav-fireplace',exact:true}).click();
+  await page.waitForFunction(()=>window.__qa.sources.filter(s=>!s.__stopped&&s.buffer).length===1);
+  console.log('IMPORT survives restart and plays');
+  await page.getByRole('button',{name:'wav-fireplace详情',exact:true}).click();
+  await page.getByRole('button',{name:'删除导入副本'}).click();
+  await page.waitForFunction(()=>document.querySelectorAll('.sound-card').length===0);
+  assert.equal(await page.locator('.sound-card').count(),0);
+  await page.getByRole('button',{name:'全部声音',exact:true}).click();
+  await page.getByRole('button',{name:'播放屋内听雨',exact:true}).click();
+  await page.waitForFunction(()=>window.__qa.sources.some(s=>!s.__stopped&&s.buffer));
+  const loudness=await page.evaluate(async()=>{
+    const source=window.__qa.sources.find(s=>!s.__stopped),data=source.buffer.getChannelData(0);
+    let sum=0;for(const v of data)sum+=v*v;
+    const testCtx=new OfflineAudioContext(2,48000,48000),bus=testCtx.createGain();bus.gain.value=.7/Math.sqrt(8);
+    const compressor=testCtx.createDynamicsCompressor(),ref=window.__qa.compressors[0];
+    for(const p of ['threshold','knee','ratio','attack','release'])compressor[p].value=ref[p].value;
+    const protection=testCtx.createWaveShaper();protection.curve=window.__qa.shapers[0].curve;
+    bus.connect(compressor).connect(protection).connect(testCtx.destination);
+    for(let i=0;i<8;i++){const s=testCtx.createBufferSource(),g=testCtx.createGain();s.buffer=source.buffer;g.gain.value=3;s.connect(g).connect(bus);s.start();}
+    const rendered=await testCtx.startRendering();let peak=0;for(const v of rendered.getChannelData(0))peak=Math.max(peak,Math.abs(v));
+    return {rainRms:Math.sqrt(sum/data.length),boostedEightTrackPeak:peak};
+  });
+  assert.ok(loudness.rainRms>.06);assert.ok(loudness.boostedEightTrackPeak<.95);
+  await page.getByRole('slider',{name:'混音 屋内听雨音量',exact:true}).fill('300');
+  assert.equal(await page.getByRole('slider',{name:'屋内听雨音量',exact:true}).inputValue(),'300');
+  assert.equal(await page.getByRole('slider',{name:'总音量',exact:true}).getAttribute('max'),'100');
+  console.log('LOUDNESS',JSON.stringify(loudness));
+  await page.getByRole('button',{name:'清空',exact:true}).click();
+  await page.clock.install();
+  await page.getByRole('button',{name:'深夜专注',exact:true}).click();
+  await page.waitForFunction(()=>window.__qa.sources.filter(s=>!s.__stopped&&s.buffer).length===2);
+  await page.getByRole('combobox',{name:'睡眠定时'}).selectOption('15');
+  await page.clock.fastForward(900100);
+  await page.getByRole('button',{name:'播放全部'}).waitFor();
+  assert.equal(await page.getByRole('combobox',{name:'睡眠定时'}).inputValue(),'0');
+  console.log('SLEEP TIMER expires and clears');
+  await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].restore());
+  await page.setViewportSize({width:390,height:844});
+  await page.screenshot({path:path.join(out,'mobile.png')});
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  assert.deepEqual(errors,[]);
+  await fs.writeFile(path.join(out,'desktop-results.json'),JSON.stringify({passed:true,soundCount:catalog.length,loudness,signal,backgroundSeconds:after-before,errors,checks:['live audio visualizer changes','offline PCM playback','native loop source','250% volume persistence','300% track gain','100% master ceiling','quiet indoor rain loudness','8 boosted tracks peak protection','favorites','save mix','restore settings','background minimized playback','pink noise','rapid preset clear','import persistence','delete import','timer expiry','mobile no overflow']},null,2));
+  console.log('PASS desktop acceptance');
+} finally {await app.close();}

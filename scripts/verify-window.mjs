@@ -1,0 +1,51 @@
+import {_electron as electron} from 'playwright';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+const root=process.cwd(),out=path.join(root,'test-results');
+const env={...process.env,QUIET_FIELD_TEST_DATA:path.join(out,'window-profile-'+Date.now())};delete env.ELECTRON_RUN_AS_NODE;
+const executable=process.argv[2];
+const catalog=JSON.parse(await fs.readFile(executable?path.join(path.dirname(executable),'resources/app/dist/catalog.json'):'dist/catalog.json','utf8'));
+const isPublic=catalog.some(s=>s.id==='blanket-rain');
+const windName=isPublic?'原野风声':'树林风声';
+const eightNames=isPublic?['小雨','原野风声','海浪','壁炉原录音','山间溪流','远处雷雨','餐厅原录音','棕噪声']:['小雨','树林风声','海浪','篝火','河流','雷声','咖啡馆','棕噪声'];
+const app=await electron.launch({...(executable?{executablePath:executable}:{}),args:executable?[]:[root],env,timeout:60000});
+let closed=false;
+try{
+  const page=await app.firstWindow(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.getByRole('heading',{name:'今天，听见宁静。'}).waitFor();
+  await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];w.webContents.setAudioMuted(true);w.setBounds({x:60,y:60,width:1536,height:1024});w.showInactive();});
+  await page.evaluate(()=>document.fonts.ready);
+  const native=await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];return{outer:w.getBounds(),inner:w.getContentBounds()};});
+  assert.equal(native.outer.y,native.inner.y,'no native titlebar');
+  assert.equal(native.outer.x,native.inner.x,'no native side frame');
+  // Fractional Windows display scaling can round outer bounds up by one DIP.
+  assert.ok(Math.abs(native.outer.height-native.inner.height)<=1&&Math.abs(native.outer.width-native.inner.width)<=1);
+  const assets=await page.evaluate(async()=>{
+    const img=new Image();img.src='quiet://app/art/blue-mountains.png';await img.decode();
+    return{image:[img.naturalWidth,img.naturalHeight],serif:document.fonts.check('600 40px "Quiet Serif"','今天听见宁静'),sans:document.fonts.check('400 14px "Quiet Sans"','全部声音'),heading:getComputedStyle(document.querySelector('h1')).fontFamily,glass:getComputedStyle(document.querySelector('.transport')).backdropFilter,height:document.querySelector('.transport').getBoundingClientRect().height,drag:getComputedStyle(document.querySelector('.window-drag')).getPropertyValue('-webkit-app-region')};
+  });
+  assert.ok(assets.serif&&assets.sans);assert.equal(assets.height,76);assert.ok(assets.glass.includes('blur(28px)'));assert.equal(assets.drag,'drag');
+  await page.getByRole('button',{name:'深林细雨',exact:true}).click();await page.waitForTimeout(1800);
+  await page.screenshot({path:path.join(out,'alpine-desktop.png'),scale:'css'});
+  await page.getByRole('button',{name:'最大化窗口',exact:true}).click();
+  await page.getByRole('button',{name:'还原窗口',exact:true}).waitFor();assert.ok(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isMaximized()));
+  await page.getByRole('button',{name:'还原窗口',exact:true}).click();
+  await page.getByRole('button',{name:'最大化窗口',exact:true}).waitFor();assert.equal(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isMaximized()),false);
+  await page.getByRole('button',{name:'最小化窗口',exact:true}).click();await page.waitForTimeout(300);
+  assert.ok(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isMinimized()));
+  await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];w.restore();w.setBounds({x:60,y:60,width:1180,height:660});});
+  await page.waitForTimeout(300);
+  await page.getByRole('button',{name:'清空',exact:true}).click();
+  for(const name of eightNames)await page.getByRole('button',{name:'播放'+name,exact:true}).click();
+  await page.waitForTimeout(1500);
+  const small=await page.evaluate(()=>{const rect=s=>{const r=document.querySelector(s).getBoundingClientRect();return{x:r.x,y:r.y,height:r.height,bottom:r.bottom};};return{width:innerWidth,height:innerHeight,tracks:document.querySelectorAll('.mix-track').length,timer:rect('.timer'),list:rect('.mix-list'),footer:rect('.transport'),overflow:document.documentElement.scrollWidth>innerWidth};});
+  assert.equal(small.tracks,8);assert.ok(small.list.height>60);assert.ok(small.timer.bottom<small.footer.y);assert.equal(small.overflow,false);
+  await page.screenshot({path:path.join(out,'alpine-small.png'),scale:'css'});
+  await page.emulateMedia({reducedMotion:'reduce'});await page.waitForTimeout(100);
+  const a=await page.locator('canvas.ring').evaluate(c=>c.toDataURL());await page.waitForTimeout(180);const b=await page.locator('canvas.ring').evaluate(c=>c.toDataURL());assert.equal(a,b);
+  assert.deepEqual(errors,[]);
+  const ended=app.waitForEvent('close');await page.getByRole('button',{name:'关闭窗口',exact:true}).click();await ended;closed=true;
+  await fs.writeFile(path.join(out,'window-results.json'),JSON.stringify({passed:true,native,assets,small,errors,checks:['frameless native window','bundled fonts loaded','mountain loaded','76px glass dock','maximize and restore buttons','minimize button','close button exits app','8 tracks at 1180x660','reduced motion stops spectrum']},null,2));
+  console.log('PASS window and alpine visual acceptance',JSON.stringify({assets,small}));
+}finally{if(!closed)await app.close();}
