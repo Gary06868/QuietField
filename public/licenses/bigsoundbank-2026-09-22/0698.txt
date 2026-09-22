@@ -1,0 +1,14 @@
+Sea Waves
+Author: Joseph SARDIN
+Source: https://bigsoundbank.com/sea-waves-s0698.html
+Checked at UTC: 2026-09-22T20:13:10.284613+00:00
+Source page SHA-256: 1d7f875ac194a0b8870fe71cf962700a769a303df83884b127a94b07a3326ec5
+
+License statement on source page: CC0 (public domain): Free and royalty-free
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+Source FAQ expressly permits editing, redistribution and commercial use without an account or payment.
+
+Recording: Atlantic waves recorded on the French coast between Soulac-sur-Mer and Lacanau.
+Source audio distributed unchanged.
+Audio SHA-256: bf3d671f1a35bfede601c2c089b4d8e4934c24ef71a63bebc64d93fca1256d91

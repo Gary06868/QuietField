@@ -1,0 +1,14 @@
+Campaign at Night #4
+Author: Joseph SARDIN
+Source: https://bigsoundbank.com/campaign-at-night-4-s1880.html
+Checked at UTC: 2026-09-22T20:26:15.080208+00:00
+Source page SHA-256: 6c786e7ef5f0396dd20ca40956adf59d2f6cc2fabe18dfc3c28a74d5627ecb35
+
+License statement on source page: CC0 (public domain): Free and royalty-free
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+Source FAQ expressly permits editing, redistribution and commercial use without an account or payment.
+
+Recording: Crickets and occasional frogs in a French meadow at night, recorded in May 2020.
+Source audio distributed unchanged.
+Audio SHA-256: fadf592cbf454e854c708673d0abcb916413a020b08598cd1860a62985e5add1

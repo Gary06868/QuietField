@@ -1,0 +1,59 @@
+/* The scene replaces the original page wallpaper and stays outside the layout. */
+body:has(.qf-background){background:#060e1a}
+body:has(.qf-background)::before,body:has(.qf-background)::after,.app:has(.qf-background)::before,.app:has(.qf-background)::after{content:none}
+#root:has(.qf-background){isolation:isolate}
+.qf-background{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:#060e1a;contain:strict}
+.qf-background-art,.qf-background-shade{position:absolute;inset:0}
+.qf-background-art{background-position:center bottom;background-size:cover;background-repeat:no-repeat}
+.qf-background-shade{background:linear-gradient(180deg,#030b16a6 0%,#040c1645 46%,#040c1626 100%)}
+.qf-background--forest .qf-background-art{background-position:center center}
+.qf-background--forest .qf-background-shade{background:linear-gradient(100deg,#030b1659,#040c1612 75%),linear-gradient(180deg,#030b1638,transparent 70%)}
+.qf-background--coast .qf-background-art{background-position:center center}
+.qf-background--coast .qf-background-shade{background:linear-gradient(100deg,#030b1659,#040c1612 75%),linear-gradient(180deg,#030b1630,transparent 70%)}
+.qf-background--aurora{background:radial-gradient(ellipse at 68% 85%,#153047 0%,#0b1b2e 35%,#060e1a 78%)}
+.qf-background--aurora .qf-background-shade{background:linear-gradient(180deg,#030a1533,transparent 55%,#030b1526)}
+.qf-aurora{position:absolute;width:115%;height:85%;left:-8%;top:12%;border-radius:48% 42% 52% 38%;background:radial-gradient(ellipse at 62% 65%,#48c6d326 0%,#2286a924 20%,#195ab216 38%,transparent 65%);transform:rotate(-16deg);opacity:.8;animation:qf-aurora-drift 42s ease-in-out infinite alternate;animation-play-state:paused}
+.qf-aurora--two{left:3%;top:-14%;background:radial-gradient(ellipse at 65% 60%,#388ede20 0%,#2073a91a 25%,transparent 60%);transform:rotate(21deg);animation-name:qf-aurora-return;animation-duration:54s}
+.qf-background--starlight{background:radial-gradient(ellipse at 73% 100%,#142f4a 0%,#0a182b 37%,#050d18 80%)}
+.qf-stars{position:absolute;inset:-3%;background-repeat:repeat;opacity:.72;animation:qf-star-shimmer 14s ease-in-out infinite alternate;animation-play-state:paused}
+.qf-stars--near{background-image:radial-gradient(1px 1px at 11% 19%,#c7e6ff 99%,transparent),radial-gradient(1px 1px at 28% 64%,#85bfea 99%,transparent),radial-gradient(1.3px 1.3px at 45% 33%,#add8f6 99%,transparent),radial-gradient(1px 1px at 69% 12%,#e2f2ff 99%,transparent),radial-gradient(1.2px 1.2px at 84% 78%,#88bddd 99%,transparent),radial-gradient(1px 1px at 94% 41%,#c7e6ff 99%,transparent);background-size:347px 281px}
+.qf-stars--far{background-image:radial-gradient(.7px .7px at 18% 43%,#a7c9ef 99%,transparent),radial-gradient(.8px .8px at 52% 85%,#b9daf0 99%,transparent),radial-gradient(.7px .7px at 76% 26%,#a1caec 99%,transparent),radial-gradient(.8px .8px at 95% 66%,#c2ddec 99%,transparent);background-size:223px 197px;opacity:.38;animation-duration:21s;animation-delay:-7s}
+.qf-star-haze{position:absolute;inset:0;background:radial-gradient(ellipse at 74% 90%,#29649f12,transparent 50%)}
+.qf-background[data-animate="true"] .qf-aurora,.qf-background[data-animate="true"] .qf-stars{animation-play-state:running}
+@keyframes qf-aurora-drift{from{transform:translate3d(-3%,2%,0) rotate(-16deg) scale(.96);opacity:.6}to{transform:translate3d(4%,-3%,0) rotate(-8deg) scale(1.08);opacity:1}}
+@keyframes qf-aurora-return{from{transform:translate3d(2%,-1%,0) rotate(21deg);opacity:.55}to{transform:translate3d(-4%,4%,0) rotate(12deg) scale(1.08);opacity:.9}}
+@keyframes qf-star-shimmer{from{opacity:.35}to{opacity:.76}}
+
+dialog:has(.background-picker){width:min(720px,92vw);padding:28px;border-radius:18px;scrollbar-width:thin;scrollbar-color:#50799a55 transparent}
+dialog:has(.background-picker) header{margin-bottom:12px}
+.background-picker{min-width:0}
+.background-picker .background-picker-intro{font-size:13px;line-height:1.7;color:#9cb5ce;margin:0 0 22px}
+.background-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.background-card{display:block;min-width:0;padding:4px;border:1px solid #8bc6f225;border-radius:12px;text-align:left;background:#05111f55;transition:border-color .18s,background-color .18s,box-shadow .18s}
+.background-card:hover:not(:disabled){border-color:#73c6f77a;background:#12304880}
+.background-card.is-selected{border-color:#64c8ff;background:#16436b44;box-shadow:0 0 0 1px #50bfff20,inset 0 1px #d5f2ff12}
+.background-card:focus-visible{outline:2px solid #9adfff;outline-offset:3px}
+.background-swatch{position:relative;display:block;aspect-ratio:1.45;border-radius:8px;background-size:cover;background-position:center;overflow:hidden;box-shadow:inset 0 0 0 1px #b6d9ff0a}
+.background-swatch--alpine{background-position:center bottom}
+.background-swatch--aurora{background:radial-gradient(ellipse at 70% 75%,#33778199,transparent 60%),radial-gradient(ellipse at 20% 28%,#235c9855,transparent 62%),#0a1729}
+.background-swatch--aurora::after{content:"";position:absolute;inset:-20%;background:radial-gradient(ellipse at 50% 60%,#69d0db2b,transparent 55%);transform:rotate(-25deg)}
+.background-swatch--starlight{background:radial-gradient(circle at 15% 26%,#daebffb3 .7px,transparent 1px),radial-gradient(circle at 74% 34%,#bbddffb3 .8px,transparent 1px),radial-gradient(circle at 38% 63%,#bbe1faaa .7px,transparent 1px),radial-gradient(circle at 90% 72%,#bedcf599 .7px,transparent 1px),radial-gradient(ellipse at 74% 90%,#25476c,#070f1e 80%);background-size:49px 47px,63px 53px,89px 79px,41px 67px,100% 100%}
+.background-motion-icon{position:absolute;top:9px;left:9px;color:#d4eeff;opacity:.8}
+.background-selected-mark{position:absolute;right:7px;bottom:7px;display:grid;place-items:center;width:22px;height:22px;border:1px solid #b8e7ff6b;border-radius:50%;background:#5bbef2;color:#06243c;box-shadow:0 2px 8px #0005}
+.background-card-copy{display:flex;flex-direction:column;gap:3px;padding:10px 7px 7px;min-width:0}
+.background-card-name{font-size:12px;font-weight:500;color:#cfe3f5;line-height:1.5;overflow-wrap:anywhere}
+.background-card.is-selected .background-card-name{color:#e0f4ff}
+.background-card-kind{font-size:10px;font-weight:400;color:#8da9c2;line-height:1.5}
+.background-motion-setting{position:relative;display:flex;gap:20px;align-items:center;justify-content:space-between;margin-top:23px;padding:18px 0 4px;border-top:1px solid #8dc6ee24;cursor:pointer}
+.background-motion-copy{display:flex;flex-direction:column;gap:6px;min-width:0}
+.background-motion-copy>span:first-child{color:#d8eafa;font-size:13px}
+.background-motion-copy>span:last-child{color:#9bb2c9;font-size:11px;line-height:1.7}
+.background-motion-setting input[type=checkbox]{position:absolute;right:0;top:50%;width:42px;height:24px;margin:0;padding:0;opacity:0;cursor:pointer;z-index:1}
+.background-motion-switch{position:relative;display:block;width:42px;height:24px;flex:0 0 42px;border:1px solid #8cbadb40;border-radius:20px;background:#0a192a;transition:background-color .2s,border-color .2s}
+.background-motion-switch::after{content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#8ca5bd;box-shadow:0 1px 4px #0004;transition:transform .2s,background-color .2s}
+.background-motion-setting input:checked+.background-motion-switch{background:#257fc0;border-color:#6cbef1}
+.background-motion-setting input:checked+.background-motion-switch::after{transform:translateX(18px);background:#e3f5ff}
+.background-motion-setting input:focus-visible+.background-motion-switch{outline:2px solid #9adfff;outline-offset:4px}
+.background-picker .background-picker-note{font-size:10px;color:#829ab3;line-height:1.8;margin:10px 0 0;max-width:90%}
+@media(max-width:600px){dialog:has(.background-picker){padding:22px;width:92vw}.background-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.background-swatch{aspect-ratio:1.8}.background-card-copy{padding:8px 7px 5px}.background-picker .background-picker-intro{margin-bottom:17px}.background-motion-setting{gap:12px;margin-top:19px}.background-picker .background-picker-note{max-width:none}}
+@media(prefers-reduced-motion:reduce){.qf-aurora,.qf-stars{animation:none!important}.background-card,.background-motion-switch,.background-motion-switch::after{transition:none}}

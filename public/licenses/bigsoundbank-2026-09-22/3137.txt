@@ -1,0 +1,14 @@
+Watercourse 5.2
+Author: Joseph SARDIN
+Source: https://bigsoundbank.com/watercourse-5-2-s3137.html
+Checked at UTC: 2026-09-22T20:13:13.327219+00:00
+Source page SHA-256: 5f18144608161132d5366ae3a0ccae2e3e46ba968fca46c514c2985cf16f0997
+
+License statement on source page: CC0 (public domain): Free and royalty-free
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+Source FAQ expressly permits editing, redistribution and commercial use without an account or payment.
+
+Recording: Another field recording of the La Donnette watercourse in France; the author describes it as easy to loop.
+Source audio distributed unchanged.
+Audio SHA-256: 9efc52153c44a76d68313d5ad2e43ea5531bc3483e1ba4e1a4cc15ac76d15b87

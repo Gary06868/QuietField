@@ -611,3 +611,171 @@ SHA-256: `305a5b52409921c4fdbd971148a02664efdc6a6bf3948264a4d19b8009e88520`
 ## Fonts and UI
 
 Noto Sans SC and Noto Serif SC: SIL Open Font License 1.1. Full notices are bundled under licenses/. Lucide: ISC. React: MIT. Electron includes LICENSE and LICENSES.chromium.html in the release. Mountain background and app artwork were generated for this project.
+
+## 大西洋岸浪 — Sea Waves
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/sea-waves-s0698.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 0698; no account required)
+
+SHA-256: `bf3d671f1a35bfede601c2c089b4d8e4934c24ef71a63bebc64d93fca1256d91`
+
+Source files distributed unchanged. Recording: Atlantic waves recorded on the French coast between Soulac-sur-Mer and Lacanau.
+
+## 礁石细浪 — Small waves, rocks and beach
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/petites-vagues-rochers-et-plage-s1445.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 1445; no account required)
+
+SHA-256: `66c61ca14a1abb8c15241c9451f13b3cd69bc47d67645cab9afe454b7b89cb7c`
+
+Source files distributed unchanged. Recording: Small waves breaking against shoreline rocks.
+
+## 林溪近听 — Watercourse #1
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/watercourse-1-s3132.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 3132; no account required)
+
+SHA-256: `7ae197a37c5a8ace7766332d8c42d06e4fcdcb3f6423a9bf7f09ebd78843ad40`
+
+Source files distributed unchanged. Recording: A field recording of the La Donnette watercourse in France; the author describes it as easy to loop.
+
+## 浅滩水流 — Watercourse 5.2
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/watercourse-5-2-s3137.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 3137; no account required)
+
+SHA-256: `9efc52153c44a76d68313d5ad2e43ea5531bc3483e1ba4e1a4cc15ac76d15b87`
+
+Source files distributed unchanged. Recording: Another field recording of the La Donnette watercourse in France; the author describes it as easy to loop.
+
+## 雨敲车窗 — Rain on car windshield
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/rain-on-car-windshield-s1295.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 1295; no account required)
+
+SHA-256: `f40678cf909f21200e746478021b3be75a7e2a9aa88b0b6c279ce89dc012a42e`
+
+Source files distributed unchanged. Recording: Large raindrops hitting a windshield, recorded from inside the car.
+
+## 雨落石台 — Rain on concrete
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/rain-on-concrete-s1289.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 1289; no account required)
+
+SHA-256: `e4876e37514c40728637c6caaed6068209c00f77b80557752f237bb02c7bdbef`
+
+Source files distributed unchanged. Recording: Large raindrops falling on a small concrete slab.
+
+## 炉火慢燃 — Fireplace #3
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/fireplace-3-s2855.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 2855; no account required)
+
+SHA-256: `7380e7dd9942acf261e5a28d66be8c95f4ad5641b6066a97772d8f9a3e65c51f`
+
+Source files distributed unchanged. Recording: An indoor recording of a burning fireplace, about three minutes long.
+
+## 林间风与鸟 — Forest #4
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/forest-4-s2749.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 2749; no account required)
+
+SHA-256: `bd9b507bdc08ab2abbed65eec3efc596f104ce6bae7575ba6e42bcd21a48e721`
+
+Source files distributed unchanged. Recording: Stereo field recording of wind and birds in a forest.
+
+## 溪畔森林 — Forest and Stream #1
+
+Author: Pierre SIBANARCO.
+
+Source: https://bigsoundbank.com/forest-and-stream-1-s2713.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 2713; no account required)
+
+SHA-256: `082081800974c93e797108ca8cdc052a5644a19a369cec6664648558353c6cc9`
+
+Source files distributed unchanged. Recording: A brook in the Ardennes forest in France, with birds and insects and different water textures on the left and right.
+
+## 草间风声 — Wind in Tall Grass
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/wind-in-tall-grass-s0908.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 0908; no account required)
+
+SHA-256: `e45986e15436ea41af289fb929524df889c1f3204e263fd6b1231d4140b11da1`
+
+Source files distributed unchanged. Recording: Wind moving through tall grass in a field.
+
+## 风过灌木 — Wind in shrub
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/wind-in-shrub-s0907.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 0907; no account required)
+
+SHA-256: `b475ae35034865ecfdf1468886a0618adc960155c8a66924ed9b10025f3236c9`
+
+Source files distributed unchanged. Recording: Wind moving through countryside shrubs.
+
+## 田野夜虫 — Campaign at Night #4
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/campaign-at-night-4-s1880.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 1880; no account required)
+
+SHA-256: `fadf592cbf454e854c708673d0abcb916413a020b08598cd1860a62985e5add1`
+
+Source files distributed unchanged. Recording: Crickets and occasional frogs in a French meadow at night, recorded in May 2020.

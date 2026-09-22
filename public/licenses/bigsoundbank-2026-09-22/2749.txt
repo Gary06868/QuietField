@@ -1,0 +1,14 @@
+Forest #4
+Author: Joseph SARDIN
+Source: https://bigsoundbank.com/forest-4-s2749.html
+Checked at UTC: 2026-09-22T20:25:52.774665+00:00
+Source page SHA-256: 987c0d6976390977dd8498a8d286445530cc66dbc81fcf151a1c8711ab4621c8
+
+License statement on source page: CC0 (public domain): Free and royalty-free
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+Source FAQ expressly permits editing, redistribution and commercial use without an account or payment.
+
+Recording: Stereo field recording of wind and birds in a forest.
+Source audio distributed unchanged.
+Audio SHA-256: bd9b507bdc08ab2abbed65eec3efc596f104ce6bae7575ba6e42bcd21a48e721

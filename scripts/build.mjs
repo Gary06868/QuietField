@@ -12,7 +12,7 @@ try{
  await fs.mkdir(path.join(stage,'licenses'),{recursive:true});
  for(const name of await fs.readdir(path.join(root,'public/licenses'))){
   if(!personal&&(name.startsWith('Moodist')||name==='音源与授权.md'))continue;
-  await fs.copyFile(path.join(root,'public/licenses',name),path.join(stage,'licenses',name));
+  await fs.cp(path.join(root,'public/licenses',name),path.join(stage,'licenses',name),{recursive:true});
  }
  for(const sound of catalog.filter(s=>!s.generated)){
   if(!personal&&(!sound.sha256||!sound.license||!sound.source))throw Error(`Missing provenance: ${sound.id}`);

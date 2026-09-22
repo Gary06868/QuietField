@@ -1,7 +1,7 @@
 {
   "name": "quiet-field",
   "productName": "静野",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "private": true,
   "description": "Offline seamless ambient sound mixer",
   "author": "Quiet Field contributors",
@@ -16,7 +16,8 @@
     "package": "node scripts/package.mjs",
     "fetch:audio": "node scripts/fetch-audio.mjs",
     "verify:desktop": "node scripts/verify-desktop.mjs",
-    "verify:window": "node scripts/verify-window.mjs"
+    "verify:window": "node scripts/verify-window.mjs",
+    "verify:companion": "node scripts/verify-companion.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

@@ -8,11 +8,11 @@ app.setName(publicEdition?'QuietField-Public':'QuietField');
 if(process.platform==='win32')app.setAppUserModelId(publicEdition?'org.quietfield.desktop.public':'org.quietfield.desktop');
 if(process.env.QUIET_FIELD_TEST_DATA)app.setPath('userData',process.env.QUIET_FIELD_TEST_DATA);
 protocol.registerSchemesAsPrivileged([{scheme:'quiet',privileges:{standard:true,secure:true,supportFetchAPI:true,stream:true}}]);
-let win,blocker;
+let win,blocker,companion;
 const stopBlock=()=>{if(blocker!==undefined){powerSaveBlocker.stop(blocker);blocker=undefined;}};
 if(!app.requestSingleInstanceLock())app.quit();
 else {
-  app.on('second-instance',()=>{if(win){if(win.isMinimized())win.restore();win.show();win.focus();}});
+  app.on('second-instance',()=>{if(companion)companion.showMain();else if(win){if(win.isMinimized())win.restore();win.show();win.focus();}});
   app.whenReady().then(()=>{
     const root=path.join(__dirname,'dist');
     protocol.handle('quiet',req=>{
@@ -34,20 +34,21 @@ else {
     windowState.attach(win);if(windowState.maximized)win.maximize();
     powerMonitor.on('resume',()=>{if(win&&!win.isDestroyed())win.webContents.send('system-resume');});
     const trusted=event=>win&&!win.isDestroyed()&&event.sender===win.webContents&&event.senderFrame===win.webContents.mainFrame;
-    ipcMain.handle('window-state',event=>trusted(event)?{maximized:win.isMaximized()}:null);
+    ipcMain.handle('window-state',event=>trusted(event)?{maximized:win.isMaximized(),visible:win.isVisible()&&!win.isMinimized()}:null);
     ipcMain.on('window-action',(event,action)=>{
       if(!trusted(event))return;
       if(action==='minimize')win.minimize();
       else if(action==='maximize'){if(win.isMaximized())win.unmaximize();else win.maximize();}
       else if(action==='close')win.close();
     });
-    const sendWindowState=()=>win.webContents.send('window-state-changed',{maximized:win.isMaximized()});
-    win.on('maximize',sendWindowState);win.on('unmaximize',sendWindowState);
+    const sendWindowState=()=>win.webContents.send('window-state-changed',{maximized:win.isMaximized(),visible:win.isVisible()&&!win.isMinimized()});
+    for(const event of ['maximize','unmaximize','show','hide','minimize','restore'])win.on(event,sendWindowState);
     win.webContents.setWindowOpenHandler(()=>({action:'deny'}));
     win.webContents.on('will-navigate',(event,url)=>{if(!url.startsWith('quiet://app/'))event.preventDefault();});
     ipcMain.on('playback-state',(event,playing)=>{if(event.sender!==win.webContents)return;if(playing===true){if(blocker===undefined)blocker=powerSaveBlocker.start('prevent-app-suspension');}else stopBlock();});
     win.webContents.on('render-process-gone',stopBlock);
-    win.on('closed',()=>{stopBlock();win=null;});
+    companion=require('./desktop-companion.cjs')(app,win,root);
+  win.on('closed',()=>{stopBlock();companion?.dispose();companion=null;win=null;});
     win.loadURL('quiet://app/index.html');
   });
   app.on('window-all-closed',()=>app.quit());

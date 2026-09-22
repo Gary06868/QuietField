@@ -1,0 +1,14 @@
+Forest and Stream #1
+Author: Pierre SIBANARCO
+Source: https://bigsoundbank.com/forest-and-stream-1-s2713.html
+Checked at UTC: 2026-09-22T20:26:03.291046+00:00
+Source page SHA-256: a114ce33c1fd5463cae460f6df32989aba49ddf259475cd91c4c4507864a3652
+
+License statement on source page: CC0 (public domain): Free and royalty-free
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+Source FAQ expressly permits editing, redistribution and commercial use without an account or payment.
+
+Recording: A brook in the Ardennes forest in France, with birds and insects and different water textures on the left and right.
+Source audio distributed unchanged.
+Audio SHA-256: 082081800974c93e797108ca8cdc052a5644a19a369cec6664648558353c6cc9

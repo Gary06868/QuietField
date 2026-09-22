@@ -1,8 +1,10 @@
 # 静野 · Quiet Field
 
-**留一点安静给自己。** 免费、离线的 Windows 白噪声与环境音混音工具，内置 53 种声音，可以保存自己的声音方案。
+**留一点安静给自己。** 免费、离线的 Windows 白噪声与环境音混音工具，内置 65 种声音，可以保存自己的声音方案。
 
 [English](README.md) · **简体中文**
+
+> 当前源码为 1.6.0 开发版本，包含下列新功能。已发布下载仍为 1.5.0（53 种声音）；1.6.0 尚未发布。
 
 [**下载 Windows 版**](https://github.com/Gary06868/QuietField/releases/download/v1.5.0/QuietField-1.5.0-Windows-x64-public.zip) · [在线试听与介绍](https://gary06868.github.io/QuietField/zh-CN/) · [音源清单](docs/audio-library.md) · [反馈问题](https://github.com/Gary06868/QuietField/issues/new/choose)
 
@@ -14,16 +16,22 @@
 
 ## 按自己的节奏，听见宁静
 
-- **53 种内置声音**：雨、海浪、森林、猫咪呼噜、风铃、列车等 50 段录音，加上白噪声、粉噪声和棕噪声。下载后全部离线可用。
+- **65 种内置声音**：雨、海浪、森林、猫咪呼噜、风铃、列车等 62 段录音，加上白噪声、粉噪声和棕噪声。下载后全部离线可用。
 - **保存自己的声音方案**：最多混合 8 种声音，分别调节音量，收藏喜欢的声音，并为组合命名保存。
 - **更自然地循环**：清理首尾静音、交叉淡化，由音频引擎连续循环，减少突兀接缝；明显环境事件仍可能听出重复。
 - **响度平衡**：自动调整基础响度，每路可增强到 300%，末端有峰值保护。
 - **导入自己的录音**：支持可解码的 MP3、WAV、OGG、FLAC 等，单文件不超过 40 MB、5 分钟、双声道。文件保存在本机。
+- **迷你播放器与托盘**：小窗口控制播放、音量和已存组合，可选择置顶；收起到托盘后继续播放。
+- **8 款可换背景**：雪山、雾林、月下海岸、3 款纯色及极光、星空。动态可关闭，隐藏窗口自动暂停动画。
 - **睡眠定时**：最后 15 秒逐渐淡出。
 - **中英文完整界面**：首次启动跟随系统语言，随时切换且不打断播放；两种语言的关键词都能搜索声音。
 - **免费、无广告、无账号、无遥测**：没有订阅，也不上传你的录音。
 
-内置 32 段 BigSoundBank 原始 PCM WAV，其中 17 段为 24-bit / 48 kHz。[查看音源清单与录音特点](docs/audio-library.md)。
+内置 44 段 BigSoundBank 原始 PCM WAV，其中 26 段为 24-bit / 48 kHz。[查看音源清单与录音特点](docs/audio-library.md)。
+
+![背景选择](docs/images/background-picker.png)
+
+![迷你播放器](docs/images/mini-player.png)
 
 ## 下载与使用
 
@@ -39,7 +47,7 @@
 
 ## 常见问题
 
-**安装包为什么大？** 50 段录音随包提供，很多是未重编码的原始 WAV，所以使用时无需联网。另外 3 种声音由算法生成。
+**安装包为什么大？** 当前源码包含 62 段录音（已发布的 1.5.0 为 50 段），很多是未重编码的原始 WAV，所以使用时无需联网。另外 3 种声音由算法生成。
 
 **真的可以离线用吗？** 可以。桌面程序阻止外部 HTTP/HTTPS 请求，字体、图形和声音均已打包。可选的网页试听需联网，由 GitHub Pages 托管；页面未添加统计脚本。
 
@@ -62,13 +70,14 @@ npm start
 npm run package
 ```
 
-发行目录为 `releases/1.5.0-public/`。下载和构建均检查 SHA-256；上游变化时停止等待复核。BigSoundBank 下载器遵循官网表单和匿名倒计时。
+发行目录为 `releases/1.6.0-public/`。下载和构建均检查 SHA-256；上游变化时停止等待复核。BigSoundBank 下载器遵循官网表单和匿名倒计时。
 
 桌面检查使用独立测试数据，需要桌面会话：
 
 ```sh
 npm run verify:desktop
 npm run verify:window
+npm run verify:companion
 node scripts/verify-i18n.mjs
 node scripts/verify-release.mjs
 node scripts/verify-devices.mjs

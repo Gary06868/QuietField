@@ -1,0 +1,14 @@
+Wind in Tall Grass
+Author: Joseph SARDIN
+Source: https://bigsoundbank.com/wind-in-tall-grass-s0908.html
+Checked at UTC: 2026-09-22T20:26:03.281321+00:00
+Source page SHA-256: f91b083417357e8be01c9a59a6c5f05e815e4e21fa50feffa8094ae619a84f1d
+
+License statement on source page: CC0 (public domain): Free and royalty-free
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+Source FAQ expressly permits editing, redistribution and commercial use without an account or payment.
+
+Recording: Wind moving through tall grass in a field.
+Source audio distributed unchanged.
+Audio SHA-256: e45986e15436ea41af289fb929524df889c1f3204e263fd6b1231d4140b11da1

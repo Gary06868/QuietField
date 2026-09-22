@@ -2,7 +2,9 @@
 
 [English README](../README.md) · [中文音源清单](audio-library.md)
 
-53 sounds: 50 recordings and 3 generated noises. Specifications describe source files, not a promise of equal subjective quality. The app processes boundaries at playback; originals remain unchanged.
+65 sounds: 62 recordings and 3 existing generated noises. The September 2026 expansion adds 12 real recordings (32 min 56 sec), all native 48 kHz PCM WAV under CC0 1.0. No new generated or synthetic audio was added.
+
+Specifications describe source files, not a promise of equal subjective quality. The app processes boundaries and gain during playback; source files remain unchanged.
 
 | Sound | Category | Length | Source format | Author / source | License |
 |---|---|---:|---|---|---|
@@ -59,6 +61,18 @@
 | Train carriage | Transport | 4:10 | WAV · 48 kHz / 24-bit / 2 ch | [Joseph SARDIN](https://bigsoundbank.com/train-car-s2727.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
 | Vintage subway car | Transport | 2:43 | WAV · 48 kHz / 24-bit / 2 ch | [Joseph SARDIN](https://bigsoundbank.com/old-metro-interior-s3040.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
 | High-speed train | Transport | 1:16 | WAV · 48 kHz / 16-bit / 2 ch | [Joseph SARDIN](https://bigsoundbank.com/eurostar-car-s0635.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Atlantic shore waves | Nature | 2:47 | WAV · 48 kHz / 16-bit / 2 ch | [Joseph SARDIN](https://bigsoundbank.com/sea-waves-s0698.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Waves on small rocks | Nature | 3:55 | WAV · 48 kHz / 24-bit / 2 ch | [Joseph SARDIN](https://bigsoundbank.com/petites-vagues-rochers-et-plage-s1445.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Close-up brook | Nature | 1:28 | WAV · 48 kHz / 24-bit / 1 ch | [Joseph SARDIN](https://bigsoundbank.com/watercourse-1-s3132.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Shallow stream | Nature | 1:00 | WAV · 48 kHz / 24-bit / 1 ch | [Joseph SARDIN](https://bigsoundbank.com/watercourse-5-2-s3137.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Rain on a windshield | Rain | 1:13 | WAV · 48 kHz / 24-bit / 1 ch | [Joseph SARDIN](https://bigsoundbank.com/rain-on-car-windshield-s1295.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Rain on concrete | Rain | 1:21 | WAV · 48 kHz / 24-bit / 1 ch | [Joseph SARDIN](https://bigsoundbank.com/rain-on-concrete-s1289.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Slow-burning hearth | Nature | 3:02 | WAV · 48 kHz / 24-bit / 2 ch | [Joseph SARDIN](https://bigsoundbank.com/fireplace-3-s2855.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Forest wind and birds | Nature | 3:46 | WAV · 48 kHz / 24-bit / 2 ch | [Joseph SARDIN](https://bigsoundbank.com/forest-4-s2749.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Woodland brook | Nature | 5:00 | WAV · 48 kHz / 24-bit / 2 ch | [Pierre SIBANARCO](https://bigsoundbank.com/forest-and-stream-1-s2713.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Wind through tall grass | Nature | 1:25 | WAV · 48 kHz / 16-bit / 2 ch | [Joseph SARDIN](https://bigsoundbank.com/wind-in-tall-grass-s0908.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Wind through shrubs | Nature | 3:00 | WAV · 48 kHz / 16-bit / 2 ch | [Joseph SARDIN](https://bigsoundbank.com/wind-in-shrub-s0907.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Meadow night insects | Animals | 4:59 | WAV · 48 kHz / 24-bit / 2 ch | [Joseph SARDIN](https://bigsoundbank.com/campaign-at-night-4-s1880.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
 
 ## Recording notes
 
@@ -78,5 +92,25 @@
 - **Train carriage:** Inside a train carriage in France, including a station stop and departure.
 - **Vintage subway car:** Recorded inside an older Paris subway car.
 - **High-speed train:** Ambience inside a Eurostar train carriage.
+- **Atlantic shore waves:** Atlantic waves recorded on the French coast between Soulac-sur-Mer and Lacanau.
+- **Waves on small rocks:** Small waves breaking against shoreline rocks.
+- **Close-up brook:** A field recording of the La Donnette watercourse in France; the author describes it as easy to loop.
+- **Shallow stream:** Another field recording of the La Donnette watercourse in France; the author describes it as easy to loop.
+- **Rain on a windshield:** Large raindrops hitting a windshield, recorded from inside the car.
+- **Rain on concrete:** Large raindrops falling on a small concrete slab.
+- **Slow-burning hearth:** An indoor recording of a burning fireplace, about three minutes long.
+- **Forest wind and birds:** Stereo field recording of wind and birds in a forest.
+- **Woodland brook:** A brook in the Ardennes forest in France, with birds and insects and different water textures on the left and right.
+- **Wind through tall grass:** Wind moving through tall grass in a field.
+- **Wind through shrubs:** Wind moving through countryside shrubs.
+- **Meadow night insects:** Crickets and occasional frogs in a French meadow at night, recorded in May 2020.
+
+## Review boundaries
+
+The 12 new recordings retain their original duration, sample rate and PCM bit depth. Each source page explicitly permits CC0 redistribution. Author, source, license, download method and SHA-256 are retained in the catalog and credits. No repeated slices, speed variants or renamed copies were used to increase the count.
+
+File decoding, duplicate hashes, silence and peak checks are objective checks, not a substitute for subjective listening. A few source transients reach or approach full scale; that alone does not establish audible clipping. Natural transients, background noise and recognizable repeated events may remain. Playback applies level balancing and peak protection without rewriting the originals.
+
+Objective review found 16 consecutive digital-rail samples (about 0.33 ms) in Waves on small rocks. They remain unchanged; their audible impact has not been assessed. Slow-burning hearth has a low average level with prominent brief crackles.
 
 Full credits and upstream edits: [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES.md).

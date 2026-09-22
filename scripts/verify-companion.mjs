@@ -1,0 +1,58 @@
+import {_electron as electron} from 'playwright';
+import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';
+import {chineseUI} from './test-locale.mjs';
+const root=process.cwd(),out=path.join(root,'test-results');await fs.mkdir(out,{recursive:true});
+const env={...process.env,QUIET_FIELD_TEST_DATA:path.join(out,'companion-profile-'+Date.now())};delete env.ELECTRON_RUN_AS_NODE;
+const executable=process.argv[2];
+const app=await electron.launch({...(executable?{executablePath:executable}:{}),args:executable?[]:[root],env,timeout:60000});let closed=false;
+const checks=[],errors=[];
+try{
+ const page=await app.firstWindow();page.on('pageerror',e=>errors.push(e.message));await chineseUI(page);
+ await page.context().addInitScript(()=>{window.__audioContexts=[];const Original=window.AudioContext;window.AudioContext=class extends Original{constructor(...a){super(...a);window.__audioContexts.push(this);}};});
+ await page.reload();await page.getByRole('heading',{name:'今天，听见宁静。'}).waitFor();
+ await app.evaluate(({BrowserWindow,Tray})=>{const w=BrowserWindow.getAllWindows()[0];w.webContents.setAudioMuted(true);w.setBounds({x:40,y:40,width:1180,height:660});w.showInactive();const original=Tray.prototype.setContextMenu;Tray.prototype.setContextMenu=function(menu){globalThis.__trayQA={tray:this,menu};return original.call(this,menu);};});
+ await page.waitForTimeout(200);
+ const brandBefore=await page.locator('.brand-icon').boundingBox();
+ const nav=await page.locator('.sidebar nav').evaluate(el=>{el.scrollTop=el.scrollHeight;return {scrollTop:el.scrollTop,height:el.clientHeight,content:el.scrollHeight};});
+ assert.ok(nav.scrollTop>0,'test must actually scroll the category menu');
+ const brandAfter=await page.locator('.brand-icon').boundingBox();assert.equal(brandBefore.y,brandAfter.y);checks.push('brand stays fixed while categories scroll');
+ await page.locator('.sidebar nav').evaluate(el=>{el.scrollTop=0;});
+ await page.getByRole('button',{name:'深林细雨',exact:true}).click();await page.waitForFunction(()=>document.querySelectorAll('.spin').length===0);
+ const contexts=await page.evaluate(()=>window.__audioContexts.length);assert.equal(contexts,1);
+ await page.getByRole('button',{name:'保存组合',exact:true}).click();await page.getByLabel('给组合起个名字').fill('我的雨夜 & breeze');await page.getByRole('dialog').getByRole('button',{name:'保存组合',exact:true}).click();
+ await page.getByRole('button',{name:'更换背景',exact:true}).click();assert.equal(await page.locator('.background-card').count(),8);
+ for(const id of ['forest','coast','midnight','deep-ocean','graphite','aurora','starlight','alpine']){
+  await page.locator(`.background-card:has(.background-swatch--${id})`).click();assert.equal(await page.locator('.qf-background').getAttribute('data-background'),id);
+ }
+ await page.locator('.background-card:has(.background-swatch--forest)').click();await page.screenshot({path:path.join(out,'background-picker.png'),scale:'css'});
+ await page.getByRole('button',{name:'关闭弹窗'}).click();
+ assert.equal(await page.evaluate(()=>window.__audioContexts.length),contexts);assert.ok(await page.getByRole('button',{name:'暂停全部'}).count());checks.push('8 backgrounds switch during uninterrupted playback');
+ await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].setBounds({x:40,y:40,width:1536,height:960}));await page.waitForTimeout(200);await page.screenshot({path:path.join(out,'forest-desktop.png'),scale:'css'});
+ const mainTime=await page.evaluate(()=>window.__audioContexts[0].currentTime);
+ const miniEvent=app.waitForEvent('window');await page.getByRole('button',{name:'迷你播放器',exact:true}).click();const mini=await miniEvent;mini.on('pageerror',e=>errors.push(e.message));await mini.getByRole('button',{name:'暂停全部'}).waitFor();
+ assert.equal(await mini.evaluate(()=>window.__audioContexts?.length||0),0,'mini has no audio context');
+ await mini.waitForTimeout(1200);assert.ok((await page.evaluate(()=>window.__audioContexts[0].currentTime))-mainTime>1);assert.equal(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().find(w=>!w.webContents.getURL().includes('#mini')).isVisible()),false);
+ checks.push('mini hides main while its single audio engine keeps running');
+ await mini.getByRole('slider',{name:'总音量'}).fill('37');await page.waitForFunction(()=>document.querySelector('.master input').value==='37');
+ await mini.getByRole('button',{name:'暂停全部'}).click();await page.getByRole('button',{name:'播放全部'}).waitFor();
+ await mini.getByRole('button',{name:'播放全部'}).click();await page.getByRole('button',{name:'暂停全部'}).waitFor();
+ await mini.getByRole('combobox',{name:'声音组合'}).selectOption({label:'海边放空'});await page.waitForFunction(()=>document.querySelectorAll('.mix-track').length===2);
+ await mini.getByRole('combobox',{name:'声音组合'}).selectOption({label:'我的雨夜 & breeze'});await page.waitForFunction(()=>document.querySelectorAll('.mix-track').length===3);
+ await mini.getByRole('button',{name:'窗口置顶'}).click();assert.equal(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('#mini')).isAlwaysOnTop()),true);
+ await mini.waitForFunction(()=>!document.querySelector('.mini-playing strong').textContent.includes('准备'));await mini.screenshot({path:path.join(out,'mini-player.png'),scale:'css'});checks.push('mini volume, play/pause, preset, saved mix and pin sync with main');
+ await mini.evaluate(()=>window.desktop.companionUpdate({playing:false,master:0,ready:false}));await mini.waitForTimeout(100);assert.equal((await mini.evaluate(()=>window.desktop.companionState())).ready,true);checks.push('mini cannot overwrite the trusted playback snapshot');
+ await mini.getByRole('button',{name:'收起到托盘'}).click();assert.equal(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().filter(w=>w.isVisible()).length),0);
+ const trayPause=await app.evaluate(()=>{const item=globalThis.__trayQA.menu.items.find(i=>i.label==='暂停');if(!item)return false;item.click();return true;});assert.ok(trayPause);await page.getByRole('button',{name:'播放全部'}).waitFor();
+ await app.evaluate(()=>globalThis.__trayQA.tray.emit('click'));await page.getByRole('button',{name:'迷你播放器',exact:true}).click();await mini.getByRole('button',{name:'播放全部'}).waitFor();
+ await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('#mini')).close());assert.equal(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().find(w=>!w.webContents.getURL().includes('#mini')).isVisible()),true);checks.push('tray controls work; closing mini returns safely to main');
+ await page.getByRole('button',{name:'更换背景'}).click();await page.locator('.background-card:has(.background-swatch--aurora)').click();await page.getByRole('checkbox').uncheck();assert.equal(await page.locator('.qf-background').getAttribute('data-animate'),'false');await page.getByRole('button',{name:'关闭弹窗'}).click();
+ await page.reload();await page.getByRole('heading',{name:'今天，听见宁静。'}).waitFor();assert.equal(await page.locator('.qf-background').getAttribute('data-background'),'aurora');assert.equal(await page.locator('.qf-background').getAttribute('data-animate'),'false');assert.equal(await page.getByRole('slider',{name:'总音量',exact:true}).inputValue(),'37');
+ await page.getByRole('button',{name:'更换背景'}).click();await page.getByRole('checkbox').check();await page.getByRole('button',{name:'关闭弹窗'}).click();await page.emulateMedia({reducedMotion:'reduce'});assert.equal(await page.locator('.qf-aurora').first().evaluate(el=>getComputedStyle(el).animationName),'none');
+ await page.emulateMedia({reducedMotion:'no-preference'});await page.evaluate(()=>window.desktop.companionAction('tray'));await page.waitForFunction(()=>document.querySelector('.qf-background').dataset.animate==='false');await app.evaluate(()=>globalThis.__trayQA.tray.emit('click'));await page.waitForFunction(()=>document.querySelector('.qf-background').dataset.animate==='true');
+ checks.push('background and volume preferences survive reload; reduced motion and hidden window pause animation');
+ await page.getByRole('button',{name:'EN',exact:true}).click();await page.getByRole('button',{name:'Mini player',exact:true}).click();await mini.getByRole('button',{name:'Open full player'}).waitFor();await mini.getByRole('button',{name:'Open full player'}).click();checks.push('companion follows English language switch');
+ await page.setViewportSize({width:390,height:844});await page.getByRole('button',{name:'Change background'}).click();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:path.join(out,'background-mobile.png')});await page.getByRole('button',{name:'Close dialog'}).click();checks.push('appearance picker fits 390px display');
+ assert.deepEqual(errors,[]);
+ const ended=app.waitForEvent('close');await app.evaluate(()=>globalThis.__trayQA.menu.items.find(i=>i.label==='Quit Quiet Field').click());await ended;closed=true;checks.push('tray quit closes both windows');
+ await fs.writeFile(path.join(out,'companion-results.json'),JSON.stringify({passed:true,checks,errors,nav,brandBefore,brandAfter},null,2));console.log('PASS',JSON.stringify(checks));
+}finally{if(!closed)await app.close();}

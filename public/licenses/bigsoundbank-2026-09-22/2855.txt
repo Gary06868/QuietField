@@ -1,0 +1,14 @@
+Fireplace #3
+Author: Joseph SARDIN
+Source: https://bigsoundbank.com/fireplace-3-s2855.html
+Checked at UTC: 2026-09-22T20:25:52.389201+00:00
+Source page SHA-256: 0e00c8cfb56e50ee298cd21cfb11c8d8bbbc77d9fbbe7e1a866385ed3dc2b1c6
+
+License statement on source page: CC0 (public domain): Free and royalty-free
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+Source FAQ expressly permits editing, redistribution and commercial use without an account or payment.
+
+Recording: An indoor recording of a burning fireplace, about three minutes long.
+Source audio distributed unchanged.
+Audio SHA-256: 7380e7dd9942acf261e5a28d66be8c95f4ad5641b6066a97772d8f9a3e65c51f

@@ -1,0 +1,14 @@
+Wind in shrub
+Author: Joseph SARDIN
+Source: https://bigsoundbank.com/wind-in-shrub-s0907.html
+Checked at UTC: 2026-09-22T20:26:12.445095+00:00
+Source page SHA-256: e7a5ad91b2db8363569c4d963e73284c0c59ee60b2f7f5254acf35127d02ee4a
+
+License statement on source page: CC0 (public domain): Free and royalty-free
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+Source FAQ expressly permits editing, redistribution and commercial use without an account or payment.
+
+Recording: Wind moving through countryside shrubs.
+Source audio distributed unchanged.
+Audio SHA-256: b475ae35034865ecfdf1468886a0618adc960155c8a66924ed9b10025f3236c9

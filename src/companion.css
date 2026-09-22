@@ -1,0 +1,33 @@
+.sidebar{overflow:hidden;overscroll-behavior:contain}
+.sidebar-heading,.sidebar-bottom{flex:none;min-width:0}
+.sidebar nav{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:#7cacd738 transparent;overscroll-behavior:contain;padding-right:3px}
+.sidebar-bottom{padding-top:12px;background:linear-gradient(180deg,transparent,#08132144)}
+.sidebar-bottom .language-switch{margin-top:8px}
+.sidebar-bottom .about-button{position:static;padding:12px 10px 0;margin:0}
+.appearance-button,.companion-button{display:flex;align-items:center;gap:9px;border:1px solid #9bcfff22;border-radius:10px;padding:9px 10px;margin:0 8px 6px;font-size:11px;color:#b7cbe0;background:#75bfff06;text-align:left;min-height:35px}
+.appearance-button:hover,.companion-button:hover{background:#51aefb18;color:#eaf7ff;border-color:#7dccff55}
+.sidebar-bottom .appearance-button,.sidebar-bottom .companion-button{width:calc(100% - 16px)}
+@media(max-width:850px) and (min-width:541px){.sidebar{height:calc(100dvh - 132px)}}
+@media(max-width:540px){.sidebar{position:sticky;top:32px;height:auto;z-index:25;background:#081524f5;backdrop-filter:blur(22px)}.sidebar-heading{display:flex;align-items:center;justify-content:space-between}.sidebar .tagline{margin:0;font-size:9px}.sidebar nav{flex:none;overflow-x:auto;overflow-y:hidden}.sidebar-bottom{display:flex;align-items:center;gap:6px;padding-top:0;padding-bottom:10px;flex-wrap:wrap}.sidebar-bottom .appearance-button,.sidebar-bottom .companion-button{width:auto;font-size:10px;margin:0;padding:6px}.sidebar-bottom .language-switch{margin:0}.sidebar-bottom .about-button{padding:6px;margin:0}.sidebar-bottom .language-switch button{padding:4px 8px}}
+.mini-window{background:#081524!important;min-width:0!important;overflow:hidden}
+.mini-window:before,.mini-window:after{display:none!important}
+.mini-player{width:100vw;height:100dvh;padding:0 18px 10px;background:radial-gradient(ellipse at 95% 10%,#16415c70,transparent 65%),linear-gradient(135deg,#0d2033,#08111e);border:1px solid #a9dfff25;color:#e4effc;overflow:hidden}
+.mini-header{height:43px;display:flex;align-items:center;margin:0 -8px 7px;gap:2px}
+.mini-drag{display:flex;align-items:center;gap:8px;flex:1;height:100%;-webkit-app-region:drag;app-region:drag;user-select:none;font-size:12px;letter-spacing:.8px;color:#a8bfd6}
+.mini-drag img{width:25px;height:25px;object-fit:contain}
+.mini-header button{display:grid;place-items:center;width:29px;height:29px;color:#97b2ca;border-radius:7px}
+.mini-header button:hover,.mini-header button[aria-pressed=true]{background:#48b8ff22;color:#80cfff}
+.mini-playing{display:flex;gap:13px;align-items:center;height:58px}
+.mini-playing>div:nth-child(2){min-width:0;flex:1}
+.mini-playing strong{font-size:16px;font-weight:550;letter-spacing:.2px}
+.mini-playing p{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#8ca9c2;margin:6px 0 0}
+.mini-play{flex:none;width:49px;height:49px;border:1px solid #6ac9ff80;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,#137cbb,#153552);color:#dff5ff;box-shadow:0 0 24px #208fe920}
+.mini-play:hover{background:linear-gradient(140deg,#229cdc,#1c4c75)}
+.mini-wave{display:flex;align-items:center;gap:3px;width:27px;height:28px}
+.mini-wave i{width:2px;height:calc(6px + var(--n)*3px);border-radius:2px;background:#57c1ff;opacity:.7;transform-origin:center}
+.mini-player.is-playing .mini-wave i{animation:mini-breathe 1.8s ease-in-out infinite;animation-delay:calc(var(--n)*-.25s)}
+@keyframes mini-breathe{0%,100%{transform:scaleY(.4);opacity:.4}50%{transform:scaleY(1);opacity:.9}}
+.mini-volume{display:flex;align-items:center;gap:10px;height:39px;margin-top:7px;color:#a5c4dd}.mini-volume input{flex:1;width:100%;min-width:0}.mini-volume span{font-size:10px;width:34px;text-align:right;font-variant-numeric:tabular-nums}
+.mini-mixes{width:100%;height:35px;border:1px solid #78b3dd33;border-radius:9px;background:#0c1b2c;color:#acc9e0;padding:0 10px;font:inherit;font-size:11px}
+.mini-footnote{color:#7497b3;font-size:9px;margin:11px 0 0;letter-spacing:.3px;text-align:center}
+@media(prefers-reduced-motion:reduce){.mini-player.is-playing .mini-wave i{animation:none}}

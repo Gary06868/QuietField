@@ -1,8 +1,10 @@
 # Quiet Field · 静野
 
-**Find your quiet.** A free, offline ambient sound mixer for Windows, with 53 built-in sounds and mixes you can make your own.
+**Find your quiet.** A free, offline ambient sound mixer for Windows, with 65 built-in sounds and mixes you can make your own.
 
 **English** · [简体中文](README.zh-CN.md)
+
+> The current source targets 1.6.0 with the features below. The published download is still 1.5.0 (53 sounds); 1.6.0 has not been released yet.
 
 [**Download for Windows**](https://github.com/Gary06868/QuietField/releases/download/v1.5.0/QuietField-1.5.0-Windows-x64-public.zip) · [Listen & explore](https://gary06868.github.io/QuietField/) · [Sound library](docs/audio-library.en.md) · [Feedback](https://github.com/Gary06868/QuietField/issues/new/choose)
 
@@ -14,16 +16,22 @@
 
 ## A little quiet, on your terms
 
-- **53 sounds, ready offline.** Rain, ocean waves, forests, cat purring, wind chimes, trains and more, plus white, pink and brown noise. All recordings come in the download.
+- **65 sounds, ready offline.** Rain, ocean waves, forests, cat purring, wind chimes, trains and more, plus white, pink and brown noise. All recordings come in the download.
 - **Your own soundscape.** Layer up to 8 sounds, adjust each level, favorite your picks and save named mixes locally.
 - **Natural transitions.** Edge-silence trimming, crossfading and continuous audio-buffer looping reduce abrupt restarts. Distinct events can still sound repetitive.
 - **Balanced levels.** Automatic baseline loudness adjustment, individual controls up to 300%, and output peak protection.
 - **Bring your own audio.** Import supported MP3, WAV, OGG and FLAC files: up to 40 MB, 5 minutes and 2 channels per file. Files stay on your computer.
+- **Mini player and tray controls.** Play/pause, master volume, presets and saved mixes in a small optional always-on-top window. Keep listening from the tray.
+- **8 backgrounds.** Alpine, forest, moonlit coast, three solid colors, aurora and starlight. Motion is optional and pauses when hidden.
 - **A softer finish.** A sleep timer fades out during its final 15 seconds.
 - **English & 简体中文.** Follows your system language on first launch; switch any time without interrupting playback. Search in either language.
 - **No accounts, ads or telemetry.** No subscription. No cloud upload. Free and open source.
 
-The library includes 32 original PCM WAV recordings from BigSoundBank, including 17 at 24-bit / 48 kHz. [Browse all 53 sounds and recording notes](docs/audio-library.en.md).
+The library includes 44 original PCM WAV recordings from BigSoundBank, including 26 at 24-bit / 48 kHz. [Browse all 65 sounds and recording notes](docs/audio-library.en.md).
+
+![Background picker](docs/images/background-picker.png)
+
+![Mini player](docs/images/mini-player.png)
 
 ## Download & start listening
 
@@ -39,7 +47,7 @@ No Node.js, Python, installation wizard or account is needed. Keep the executabl
 
 ## Questions
 
-**Why is the download large?** All 50 recordings ship with the app so it works offline. Many are original, uncompressed WAV files. The other 3 sounds are generated noise.
+**Why is the download large?** The current source bundles 62 recordings (50 in published version 1.5.0) so the app works offline. Many are original, uncompressed WAV files. The other 3 sounds are generated noise.
 
 **Can I use it offline?** Yes. The desktop app blocks external HTTP/HTTPS requests. Fonts, artwork and audio are bundled. Optional website previews need a connection and use GitHub Pages hosting; there is no added analytics script.
 
@@ -62,13 +70,14 @@ npm start
 npm run package
 ```
 
-Packages go to `releases/1.5.0-public/`. Downloads and builds verify the per-file SHA-256 manifest; changed upstream files stop the build for review. BigSoundBank downloads follow its official form and anonymous waiting period.
+Packages go to `releases/1.6.0-public/`. Downloads and builds verify the per-file SHA-256 manifest; changed upstream files stop the build for review. BigSoundBank downloads follow its official form and anonymous waiting period.
 
 Desktop checks require a desktop session and use isolated test data:
 
 ```sh
 npm run verify:desktop
 npm run verify:window
+npm run verify:companion
 node scripts/verify-i18n.mjs
 node scripts/verify-release.mjs
 node scripts/verify-devices.mjs

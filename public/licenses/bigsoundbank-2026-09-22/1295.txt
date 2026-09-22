@@ -1,0 +1,14 @@
+Rain on car windshield
+Author: Joseph SARDIN
+Source: https://bigsoundbank.com/rain-on-car-windshield-s1295.html
+Checked at UTC: 2026-09-22T20:13:16.515719+00:00
+Source page SHA-256: 9d3cf961657e803a01b743c6e00b44a00c93daecb1b45b343cd7cf173e77cca5
+
+License statement on source page: CC0 (public domain): Free and royalty-free
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+Source FAQ expressly permits editing, redistribution and commercial use without an account or payment.
+
+Recording: Large raindrops hitting a windshield, recorded from inside the car.
+Source audio distributed unchanged.
+Audio SHA-256: f40678cf909f21200e746478021b3be75a7e2a9aa88b0b6c279ce89dc012a42e

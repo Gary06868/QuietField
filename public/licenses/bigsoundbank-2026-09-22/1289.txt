@@ -1,0 +1,14 @@
+Rain on concrete
+Author: Joseph SARDIN
+Source: https://bigsoundbank.com/rain-on-concrete-s1289.html
+Checked at UTC: 2026-09-22T20:13:17.116177+00:00
+Source page SHA-256: fadac3d04bfa3b07f64019305dcdaada36c564b63bf8e4600c5610af7622d534
+
+License statement on source page: CC0 (public domain): Free and royalty-free
+License: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+Source FAQ expressly permits editing, redistribution and commercial use without an account or payment.
+
+Recording: Large raindrops falling on a small concrete slab.
+Source audio distributed unchanged.
+Audio SHA-256: e4876e37514c40728637c6caaed6068209c00f77b80557752f237bb02c7bdbef
