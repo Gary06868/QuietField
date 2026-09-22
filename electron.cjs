@@ -1,4 +1,4 @@
-const {app,BrowserWindow,Menu,protocol,net,ipcMain,powerSaveBlocker,session,screen,powerMonitor}=require('electron');
+const {app,BrowserWindow,Menu,protocol,net,ipcMain,powerSaveBlocker,session,screen,powerMonitor,shell}=require('electron');
 const createWindowState=require('./window-state.cjs');
 const {applyWindowBounds}=require('./window-geometry.cjs');
 const path=require('node:path');
@@ -13,7 +13,7 @@ const stopBlock=()=>{if(blocker!==undefined){powerSaveBlocker.stop(blocker);bloc
 if(!app.requestSingleInstanceLock())app.quit();
 else {
   app.on('second-instance',()=>{if(companion)companion.showMain();else if(win){if(win.isMinimized())win.restore();win.show();win.focus();}});
-  app.whenReady().then(()=>{
+  app.whenReady().then(async()=>{
     const root=path.join(__dirname,'dist');
     protocol.handle('quiet',req=>{
       const url=new URL(req.url);
@@ -49,6 +49,7 @@ else {
     win.webContents.on('render-process-gone',stopBlock);
     companion=require('./desktop-companion.cjs')(app,win,root);
   win.on('closed',()=>{stopBlock();companion?.dispose();companion=null;win=null;});
+    if(publicEdition)await require('./desktop-updates.cjs')({app,win,ipcMain,shell});
     win.loadURL('quiet://app/index.html');
   });
   app.on('window-all-closed',()=>app.quit());

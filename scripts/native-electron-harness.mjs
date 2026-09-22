@@ -1,0 +1,14 @@
+// Raw packaged Electron launch: no shell or Playwright-owned process tree.
+import {spawn} from 'node:child_process';import {chromium} from 'playwright';import path from 'node:path';
+export async function launchNativeElectron({executablePath,env}){
+ const child=spawn(executablePath,['--inspect=0','--remote-debugging-port=0'],{cwd:path.dirname(executablePath),env,windowsHide:true,stdio:['ignore','ignore','pipe']});
+ let resolveNode,resolveChrome,inspector,stderr='';const nodeURL=new Promise(r=>resolveNode=r),chromeURL=new Promise(r=>resolveChrome=r);const ended=new Promise(r=>child.once('exit',r));
+ child.stderr.on('data',b=>{stderr+=b;const node=stderr.match(/Debugger listening on (ws:\/\/[^\s]+)/),chrome=stderr.match(/DevTools listening on (ws:\/\/[^\s]+)/);if(node)resolveNode(node[1]);if(chrome)resolveChrome(chrome[1]);if(stderr.includes('Waiting for the debugger to disconnect'))inspector?.close();});
+ const timeout=(promise,ms)=>{let timer;return Promise.race([promise,new Promise((_,reject)=>timer=setTimeout(()=>reject(Error('Native Electron timeout: '+stderr.slice(-2000))),ms))]).finally(()=>clearTimeout(timer));};
+ inspector=new WebSocket(await timeout(nodeURL,60000));await new Promise((resolve,reject)=>{inspector.addEventListener('open',resolve,{once:true});inspector.addEventListener('error',reject,{once:true});});
+ let next=0;const pending=new Map();inspector.addEventListener('message',event=>{const msg=JSON.parse(event.data);if(!msg.id)return;const p=pending.get(msg.id);if(!p)return;pending.delete(msg.id);msg.error?p.reject(Error(JSON.stringify(msg.error))):p.resolve(msg.result);});inspector.addEventListener('close',()=>{for(const p of pending.values())p.reject(Error('Inspector closed'));pending.clear();});
+ const rpc=(method,params)=>new Promise((resolve,reject)=>{const id=++next;pending.set(id,{resolve,reject});inspector.send(JSON.stringify({id,method,params}));});
+ async function evaluate(fn,arg){const data=await rpc('Runtime.evaluate',{expression:`(${fn.toString()})(require('electron'),${JSON.stringify(arg)??'undefined'})`,includeCommandLineAPI:true,awaitPromise:true,returnByValue:true});if(data.exceptionDetails)throw Error(JSON.stringify(data.exceptionDetails));return data.result?.value;}
+ const endpoint=await timeout(chromeURL,60000);await evaluate(async({app})=>{await app.whenReady();return true;});const browser=await chromium.connectOverCDP(endpoint);
+ return {evaluate,firstWindow:async()=>browser.contexts()[0].pages()[0]||await browser.contexts()[0].waitForEvent('page'),waitForEvent:(name,opts)=>{if(name!=='close')throw Error('Unsupported test event');return timeout(ended,opts?.timeout||60000);},close:async()=>{void evaluate(({app})=>app.quit()).catch(()=>{});await timeout(ended,60000);await browser.close().catch(()=>{});},process:()=>child};
+}

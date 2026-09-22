@@ -4,7 +4,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-> The current source targets 1.6.0 with the features below. The published download is still 1.5.0 (53 sounds); 1.6.0 has not been released yet.
+> The current source targets 1.6.1 with the features below. The published download is still 1.5.0 (53 sounds); 1.6.1 has not been released yet.
 
 [**Download for Windows**](https://github.com/Gary06868/QuietField/releases/download/v1.5.0/QuietField-1.5.0-Windows-x64-public.zip) · [Listen & explore](https://gary06868.github.io/QuietField/) · [Sound library](docs/audio-library.en.md) · [Feedback](https://github.com/Gary06868/QuietField/issues/new/choose)
 
@@ -23,6 +23,7 @@
 - **Bring your own audio.** Import supported MP3, WAV, OGG and FLAC files: up to 40 MB, 5 minutes and 2 channels per file. Files stay on your computer.
 - **Mini player and tray controls.** Play/pause, master volume, presets and saved mixes in a small optional always-on-top window. Keep listening from the tray.
 - **8 backgrounds.** Alpine, forest, moonlit coast, three solid colors, aurora and starlight. Motion is optional and pauses when hidden.
+- **Updates without interruptions.** New versions appear in Messages with a red dot. Reading clears it permanently for that version; update when you choose, without pop-up reminders. Windows x64 public builds can download, verify and restart into a new version.
 - **A softer finish.** A sleep timer fades out during its final 15 seconds.
 - **English & 简体中文.** Follows your system language on first launch; switch any time without interrupting playback. Search in either language.
 - **No accounts, ads or telemetry.** No subscription. No cloud upload. Free and open source.
@@ -32,6 +33,8 @@ The library includes 44 original PCM WAV recordings from BigSoundBank, including
 ![Background picker](docs/images/background-picker.png)
 
 ![Mini player](docs/images/mini-player.png)
+
+![Compact window with an on-demand mixer](docs/images/compact-window.png)
 
 ## Download & start listening
 
@@ -43,13 +46,13 @@ No Node.js, Python, installation wizard or account is needed. Keep the executabl
 
 **Platform:** Windows x64. macOS, Linux and Windows ARM64 builds are not available yet. The app is unsigned, so Windows may show a reputation warning; use this repository’s official releases. Local desktop tests and Windows CI are not a substitute for testing on every PC.
 
-**Upgrading:** extract the new version into a new folder. Public-edition preferences and imports live separately under `%APPDATA%/QuietField-Public`. Keep that data folder to retain them. Language switching preserves existing sound IDs and user-written mix names.
+**Upgrading:** version 1.6.1 introduces in-app updates under **Messages** for Windows x64 portable builds in a writable folder. It verifies the official release archive, restarts when ready, and keeps a previous-version backup; failed startup rolls back. Published 1.5.0 users first need to extract a newer release into a new folder. Public-edition preferences and imports live separately under `%APPDATA%/QuietField-Public`. Keep that data folder to retain them. Language switching preserves existing sound IDs and user-written mix names.
 
 ## Questions
 
 **Why is the download large?** The current source bundles 62 recordings (50 in published version 1.5.0) so the app works offline. Many are original, uncompressed WAV files. The other 3 sounds are generated noise.
 
-**Can I use it offline?** Yes. The desktop app blocks external HTTP/HTTPS requests. Fonts, artwork and audio are bundled. Optional website previews need a connection and use GitHub Pages hosting; there is no added analytics script.
+**Can I use it offline?** Yes. Fonts, artwork and audio are bundled, and the playback interface blocks external HTTP/HTTPS requests. From 1.6.1, the public edition can check this repository’s GitHub Releases at most once a day in the background; disable this in Messages to stop automatic checks. A manual check or update connects to GitHub. No audio, mixes or usage history are uploaded. Optional website previews need a connection and use GitHub Pages hosting; there is no added analytics script.
 
 **Where are my mixes?** Favorites and mixes are in local preferences; imports are in a local database. To move to another PC, close the app and back up the entire data folder. There is no standalone mix export or cloud sync yet.
 
@@ -70,7 +73,7 @@ npm start
 npm run package
 ```
 
-Packages go to `releases/1.6.0-public/`. Downloads and builds verify the per-file SHA-256 manifest; changed upstream files stop the build for review. BigSoundBank downloads follow its official form and anonymous waiting period.
+Packages go to `releases/1.6.1-public/`. Downloads and builds verify the per-file SHA-256 manifest; changed upstream files stop the build for review. BigSoundBank downloads follow its official form and anonymous waiting period.
 
 Desktop checks require a desktop session and use isolated test data:
 
@@ -78,6 +81,9 @@ Desktop checks require a desktop session and use isolated test data:
 npm run verify:desktop
 npm run verify:window
 npm run verify:companion
+node scripts/verify-motion.mjs
+node scripts/verify-responsive.mjs
+node scripts/verify-updates.mjs
 node scripts/verify-i18n.mjs
 node scripts/verify-release.mjs
 node scripts/verify-devices.mjs

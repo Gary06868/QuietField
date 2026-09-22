@@ -12,17 +12,18 @@ body:has(.qf-background)::before,body:has(.qf-background)::after,.app:has(.qf-ba
 .qf-background--coast .qf-background-shade{background:linear-gradient(100deg,#030b1659,#040c1612 75%),linear-gradient(180deg,#030b1630,transparent 70%)}
 .qf-background--aurora{background:radial-gradient(ellipse at 68% 85%,#153047 0%,#0b1b2e 35%,#060e1a 78%)}
 .qf-background--aurora .qf-background-shade{background:linear-gradient(180deg,#030a1533,transparent 55%,#030b1526)}
-.qf-aurora{position:absolute;width:115%;height:85%;left:-8%;top:12%;border-radius:48% 42% 52% 38%;background:radial-gradient(ellipse at 62% 65%,#48c6d326 0%,#2286a924 20%,#195ab216 38%,transparent 65%);transform:rotate(-16deg);opacity:.8;animation:qf-aurora-drift 42s ease-in-out infinite alternate;animation-play-state:paused}
-.qf-aurora--two{left:3%;top:-14%;background:radial-gradient(ellipse at 65% 60%,#388ede20 0%,#2073a91a 25%,transparent 60%);transform:rotate(21deg);animation-name:qf-aurora-return;animation-duration:54s}
+.qf-aurora{position:absolute;width:140%;height:110%;left:-20%;top:0;border-radius:48% 42% 52% 38%;background:radial-gradient(ellipse 62% 50% at 62% 50%,#5ce0df70 0%,#25aeb85c 16%,#246eab30 34%,transparent 59%);transform:rotate(-16deg);opacity:.8;animation:qf-aurora-drift 18s ease-in-out infinite alternate;animation-play-state:paused}
+.qf-aurora--two{left:-8%;top:-29%;background:radial-gradient(ellipse 60% 52% at 65% 50%,#5c8ee05c 0%,#3674c23d 22%,transparent 57%);transform:rotate(21deg);animation-name:qf-aurora-return;animation-duration:20s;animation-delay:-6s}
 .qf-background--starlight{background:radial-gradient(ellipse at 73% 100%,#142f4a 0%,#0a182b 37%,#050d18 80%)}
-.qf-stars{position:absolute;inset:-3%;background-repeat:repeat;opacity:.72;animation:qf-star-shimmer 14s ease-in-out infinite alternate;animation-play-state:paused}
+.qf-stars{position:absolute;inset:-120px;background-repeat:repeat;opacity:.78;animation:qf-star-drift 36s linear infinite alternate;animation-play-state:paused}
 .qf-stars--near{background-image:radial-gradient(1px 1px at 11% 19%,#c7e6ff 99%,transparent),radial-gradient(1px 1px at 28% 64%,#85bfea 99%,transparent),radial-gradient(1.3px 1.3px at 45% 33%,#add8f6 99%,transparent),radial-gradient(1px 1px at 69% 12%,#e2f2ff 99%,transparent),radial-gradient(1.2px 1.2px at 84% 78%,#88bddd 99%,transparent),radial-gradient(1px 1px at 94% 41%,#c7e6ff 99%,transparent);background-size:347px 281px}
-.qf-stars--far{background-image:radial-gradient(.7px .7px at 18% 43%,#a7c9ef 99%,transparent),radial-gradient(.8px .8px at 52% 85%,#b9daf0 99%,transparent),radial-gradient(.7px .7px at 76% 26%,#a1caec 99%,transparent),radial-gradient(.8px .8px at 95% 66%,#c2ddec 99%,transparent);background-size:223px 197px;opacity:.38;animation-duration:21s;animation-delay:-7s}
+.qf-stars--far{background-image:radial-gradient(.7px .7px at 18% 43%,#a7c9ef 99%,transparent),radial-gradient(.8px .8px at 52% 85%,#b9daf0 99%,transparent),radial-gradient(.7px .7px at 76% 26%,#a1caec 99%,transparent),radial-gradient(.8px .8px at 95% 66%,#c2ddec 99%,transparent);background-size:223px 197px;opacity:.46;animation-name:qf-star-drift-far;animation-duration:48s;animation-delay:-12s}
 .qf-star-haze{position:absolute;inset:0;background:radial-gradient(ellipse at 74% 90%,#29649f12,transparent 50%)}
 .qf-background[data-animate="true"] .qf-aurora,.qf-background[data-animate="true"] .qf-stars{animation-play-state:running}
-@keyframes qf-aurora-drift{from{transform:translate3d(-3%,2%,0) rotate(-16deg) scale(.96);opacity:.6}to{transform:translate3d(4%,-3%,0) rotate(-8deg) scale(1.08);opacity:1}}
-@keyframes qf-aurora-return{from{transform:translate3d(2%,-1%,0) rotate(21deg);opacity:.55}to{transform:translate3d(-4%,4%,0) rotate(12deg) scale(1.08);opacity:.9}}
-@keyframes qf-star-shimmer{from{opacity:.35}to{opacity:.76}}
+@keyframes qf-aurora-drift{from{transform:translate3d(-9%,7%,0) rotate(-22deg) scale(.94);opacity:.68}to{transform:translate3d(9%,-7%,0) rotate(-4deg) scale(1.12);opacity:1}}
+@keyframes qf-aurora-return{from{transform:translate3d(7%,-5%,0) rotate(25deg);opacity:.62}to{transform:translate3d(-9%,7%,0) rotate(8deg) scale(1.12);opacity:.95}}
+@keyframes qf-star-drift{from{transform:translate3d(-35px,22px,0);opacity:.65}to{transform:translate3d(55px,-38px,0);opacity:.9}}
+@keyframes qf-star-drift-far{from{transform:translate3d(18px,-12px,0);opacity:.36}to{transform:translate3d(-37px,30px,0);opacity:.56}}
 
 dialog:has(.background-picker){width:min(720px,92vw);padding:28px;border-radius:18px;scrollbar-width:thin;scrollbar-color:#50799a55 transparent}
 dialog:has(.background-picker) header{margin-bottom:12px}
@@ -57,3 +58,5 @@ dialog:has(.background-picker) header{margin-bottom:12px}
 .background-picker .background-picker-note{font-size:10px;color:#829ab3;line-height:1.8;margin:10px 0 0;max-width:90%}
 @media(max-width:600px){dialog:has(.background-picker){padding:22px;width:92vw}.background-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.background-swatch{aspect-ratio:1.8}.background-card-copy{padding:8px 7px 5px}.background-picker .background-picker-intro{margin-bottom:17px}.background-motion-setting{gap:12px;margin-top:19px}.background-picker .background-picker-note{max-width:none}}
 @media(prefers-reduced-motion:reduce){.qf-aurora,.qf-stars{animation:none!important}.background-card,.background-motion-switch,.background-motion-switch::after{transition:none}}
+.background-motion-status{display:flex;gap:14px;align-items:center;justify-content:space-between;margin-top:12px;padding:10px 12px;border-radius:9px;background:#66baff0a;border:1px solid #78bfff20}
+.background-picker .background-motion-status p{margin:0;color:#abc8df;font-size:11px;line-height:1.7}.background-motion-status .outline{min-height:32px;padding:6px 9px;font-size:11px;white-space:nowrap;flex-shrink:0}

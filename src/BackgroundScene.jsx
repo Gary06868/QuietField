@@ -1,8 +1,15 @@
 import React,{useEffect,useState} from 'react';
 import {getBackground} from './backgrounds.js';
 
+export function useReducedMotion() {
+  const [reduced,setReduced]=useState(()=>typeof matchMedia!=='undefined'&&matchMedia('(prefers-reduced-motion:reduce)').matches);
+  useEffect(()=>{const query=matchMedia('(prefers-reduced-motion:reduce)');const change=()=>setReduced(query.matches);query.addEventListener('change',change);return()=>query.removeEventListener('change',change);},[]);
+  return reduced;
+}
+
 export function BackgroundScene({backgroundId='alpine',animateBackground=true,reducedEffects=false}) {
   const background = getBackground(backgroundId);
+  const reducedMotion = useReducedMotion();
   const [visible,setVisible] = useState(() => typeof document === 'undefined' || !document.hidden);
 
   useEffect(() => {
@@ -11,7 +18,7 @@ export function BackgroundScene({backgroundId='alpine',animateBackground=true,re
     return () => document.removeEventListener('visibilitychange',onVisibilityChange);
   },[]);
 
-  const animate = Boolean(background.animated && animateBackground && !reducedEffects && visible);
+  const animate = Boolean(background.animated && animateBackground && !reducedEffects && !reducedMotion && visible);
   const style = background.image ? {backgroundImage:`url("${background.image}")`} : {backgroundColor:background.color};
 
   return <div className={`qf-background qf-background--${background.id}`} data-background={background.id} data-animate={animate} aria-hidden="true">

@@ -1,0 +1,135 @@
+/* Keep desktop panes independent at every window size, including scaled displays. */
+.brand,.brand>span,.language-switch button{white-space:nowrap;flex-shrink:0}
+.brand{min-width:0}.language-switch button{line-height:1.5}
+.sound-toggle>span{min-width:0;white-space:normal;overflow-wrap:break-word;line-height:1.45}
+main{overscroll-behavior:contain}
+.compact-mixer-button{display:inline-flex;align-items:center;justify-content:center;gap:7px;flex-shrink:0;padding:9px 11px;border:1px solid #75c8ff55;border-radius:11px;background:#248bcc1c;color:#c1e8ff;font-size:12px;white-space:nowrap}
+.compact-mixer-button:hover{background:#218ed738}
+.compact-mixer-count{display:inline-grid;place-items:center;min-width:19px;height:19px;padding:0 4px;border-radius:6px;background:#72c9ff20;font-size:10px;font-variant-numeric:tabular-nums}
+dialog:has(>.mixer){width:min(420px,calc(100vw - 28px));max-height:calc(100dvh - 48px);padding:22px;overflow:hidden}
+dialog:has(>.mixer)>header{margin-bottom:18px}
+dialog:has(>.mixer) .mixer{display:flex;flex-direction:column;position:static;min-height:0;max-height:calc(100dvh - 142px);margin:0;padding:0;border:0;background:none;box-shadow:none;backdrop-filter:none;overflow:auto}
+dialog:has(>.mixer) .mixer-header,dialog:has(>.mixer) .offline-note{display:none}
+dialog:has(>.mixer) .mix-list{display:block;flex:1 1 auto;min-height:90px;max-height:none;overflow-y:auto}
+dialog:has(>.mixer) .mix-actions,dialog:has(>.mixer) .timer{max-width:none}
+dialog:has(>.mixer) .mix-actions{margin:0 0 18px}
+dialog:has(>.mixer) .mix-name{font-size:13px}
+dialog:has(>.mixer) .mix-track{min-height:78px;padding:10px;margin-bottom:9px}
+dialog:has(>.mixer) .timer{padding-top:16px}
+
+@media (min-width:541px) and (max-width:1280px){
+  :root{--sidebar:182px}
+  .sidebar{padding:12px 10px 8px}
+  .brand{gap:10px;padding:0 6px;font-size:25px;letter-spacing:3px}
+  .brand-icon{width:34px;height:34px}
+  html:lang(en) .brand{font-size:19px;gap:8px;letter-spacing:-.5px}
+  html:lang(en) .brand-icon{width:30px;height:30px}
+  .tagline,html:lang(en) .tagline{font-size:10px;letter-spacing:.2px;margin:5px 0 13px 7px}
+  .sidebar nav{gap:3px}
+  .nav-item,html:lang(en) .nav-item{min-height:34px;flex-shrink:0;padding:7px 10px;gap:11px;font-size:12px;line-height:1.5}
+  .nav-item svg{width:18px;height:18px}
+  .nav-divider{margin:9px 10px}
+  .sidebar-bottom{padding-top:8px}
+  .sidebar-bottom .appearance-button,.sidebar-bottom .companion-button,.sidebar-bottom .updates-entry{min-height:30px;padding:6px 9px;margin:0 4px 4px;width:calc(100% - 8px);font-size:11px;line-height:1.5}
+  .sidebar-bottom .language-switch{margin:6px 4px 0;padding:2px}
+  .sidebar-bottom .language-switch button{padding:3px 13px;font-size:11px}
+  .sidebar-bottom .about-button{padding:8px 5px 0;font-size:10px;line-height:1.6;white-space:nowrap}
+  .intro{height:145px;margin:0}
+  .intro h1{font-size:29px;line-height:1.5}
+  .intro p{font-size:12px;margin-top:8px}
+  .visualizer.ring{width:160px;height:160px;top:-1px;right:0;opacity:.5}
+  .presets{margin-top:0}
+  .section-title{margin:22px 0 15px}
+  .sound-card{min-height:113px;padding:14px 13px 11px}
+  .sound-toggle{min-height:60px;gap:12px;padding:5px 0 9px}
+  .sound-toggle>svg{width:29px;height:29px}
+  .sound-toggle>span{font-size:13px}
+  .favorite{top:6px;right:5px}
+}
+
+@media (max-width:1050px){
+  :root{--mixer:0px;--footer:94px}
+  .app{height:100dvh;min-height:0;overflow:hidden;display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr);grid-template-rows:minmax(0,1fr);padding-bottom:var(--footer)}
+  .sidebar{grid-row:auto;position:relative;top:auto;height:auto;max-height:none;min-height:0}
+  main{overflow-y:auto;overflow-x:hidden;padding:16px 22px 24px;min-height:0}
+  .toolbar{gap:12px}
+  .toolbar .search,.toolbar .import-button{height:43px;min-height:43px}
+  .intro{height:132px}
+  .intro>div{max-width:100%}
+  .intro h1{font-size:29px}
+  .intro p,html:lang(en) .intro p{max-width:100%;font-size:12px}
+  .visualizer.ring{width:146px;height:146px;top:-4px;right:2px;opacity:.4}
+  .presets{max-width:560px;gap:9px}
+  .presets .outline{font-size:12px;min-height:39px;height:39px;padding:8px}
+  .sound-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .transport{height:72px;bottom:11px;left:12px;right:12px;padding:0 17px;gap:14px}
+  .play-button{width:46px;height:46px}
+  .play-status{min-width:79px}
+  .play-status strong{font-size:15px}
+  .play-status span{font-size:9px}
+  .visualizer.bars{max-width:125px;min-width:45px}
+  .master{min-width:100px;max-width:none;padding-left:16px;gap:10px}
+  .master>span:first-child{display:none}
+  .local-status{display:none}
+}
+@media (min-width:541px) and (max-width:880px){
+  .sound-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .visualizer.bars{display:none}
+  .master{margin-left:auto}
+}
+@media (min-width:541px) and (max-height:660px){
+  .intro{height:115px}
+  .intro h1{font-size:28px}
+  .visualizer.ring{width:134px;height:134px;top:-5px}
+  .section-title{margin:19px 0 13px}
+  .sidebar .tagline{margin-bottom:10px}
+}
+@media (max-width:540px){
+  .app{display:flex;flex-direction:column;padding-top:32px;--footer:91px}
+  .sidebar{position:relative;flex:none;top:auto;padding:10px 14px 0;overflow:hidden;border:0;background:#081524d9;backdrop-filter:blur(22px)}
+  .sidebar-heading{margin-bottom:8px}
+  .brand{font-size:24px;gap:9px;letter-spacing:3px}
+  .brand-icon{width:30px;height:30px}
+  html:lang(en) .brand{font-size:21px;gap:8px}
+  .sidebar .tagline,html:lang(en) .sidebar .tagline{font-size:9px;letter-spacing:0;margin:0}
+  .sidebar nav{padding-bottom:8px;gap:6px;min-height:43px;scrollbar-width:none}
+  .nav-item{min-height:32px;padding:6px 10px;font-size:11px;line-height:1.5}
+  .sidebar-bottom{gap:5px;padding-top:0;padding-bottom:9px}
+  .sidebar-bottom .appearance-button,.sidebar-bottom .companion-button,.sidebar-bottom .updates-entry{width:auto;min-height:29px;font-size:10px;padding:5px 6px;margin:0;gap:5px}
+  .sidebar-bottom .appearance-button svg,.sidebar-bottom .companion-button svg{width:13px;height:13px}
+  .sidebar-bottom .language-switch{margin:0;padding:2px;flex:none}
+  .sidebar-bottom .language-switch button{font-size:10px;padding:2px 7px}
+  .sidebar-bottom .about-button{padding:3px;font-size:9px;line-height:1.5;gap:5px;min-height:25px}
+  .sidebar-bottom .about-button svg{width:13px;height:13px}
+  main{flex:1;min-height:0;padding:14px 15px 20px}
+  .toolbar{gap:9px}
+  .search{padding:0 10px;gap:8px}
+  .search input{font-size:12px}
+  .import-button{font-size:11px;padding:8px}
+  .intro{height:115px;margin:0}
+  .intro h1{font-size:27px;line-height:1.5;white-space:nowrap}
+  .intro p{font-size:11px;margin-top:7px}
+  html:lang(en) .intro h1{font-size:27px}
+  html:lang(en) .intro p{font-size:11px}
+  .visualizer.ring{width:120px;height:120px;right:0;top:0;opacity:.3}
+  .presets{gap:7px}
+  .presets .outline{font-size:10px;min-height:36px;height:36px;padding:6px}
+  .section-title{margin:20px 0 12px}
+  .section-title h2{font-size:18px}
+  .sound-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .sound-card{min-height:110px;padding:13px 10px 10px}
+  .sound-toggle{min-height:61px;gap:8px;padding:4px 0 9px}
+  .sound-toggle>span{font-size:12px}
+  .sound-toggle>svg{width:25px;height:25px}
+  .transport{left:8px;right:8px;bottom:9px;height:72px;gap:9px;padding:0 11px;border-radius:18px}
+  .play-button{width:42px;height:42px}
+  .play-status,html:lang(en) .transport .play-status{min-width:58px}
+  .play-status strong{font-size:12px}
+  .play-status span{font-size:8px;max-width:63px}
+  .master{min-width:75px;padding-left:8px;gap:5px}
+  .master .volume-number{font-size:10px;width:27px;min-width:27px}
+  .compact-mixer-button{padding:8px;gap:5px;font-size:11px}
+  .compact-mixer-button>svg{display:none}
+  .compact-mixer-count{min-width:16px;height:18px;font-size:9px}
+  .toast{bottom:95px}
+}

@@ -1,5 +1,9 @@
 const {contextBridge,ipcRenderer}=require('electron');
 contextBridge.exposeInMainWorld('desktop',{
+ updatesState:()=>ipcRenderer.invoke('updates-state'),
+ updatesAction:(action,value)=>ipcRenderer.invoke('updates-action',action,value),
+ updatesReady:()=>ipcRenderer.send('updates-ready'),
+ onUpdatesState:callback=>{const listener=(_event,state)=>callback(state);ipcRenderer.on('updates-state',listener);return()=>ipcRenderer.removeListener('updates-state',listener);},
   companionState:()=>ipcRenderer.invoke('companion-state'),
  companionUpdate:value=>ipcRenderer.send('companion-update',value),
  companionAction:value=>{if(['mini','main','tray','pin'].includes(value))ipcRenderer.send('companion-action',value);},
