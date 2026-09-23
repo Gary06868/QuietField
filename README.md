@@ -4,9 +4,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-> The current source targets 1.6.1 with the features below. The published download is still 1.5.0 (53 sounds); 1.6.1 has not been released yet.
-
-[**Download for Windows**](https://github.com/Gary06868/QuietField/releases/download/v1.5.0/QuietField-1.5.0-Windows-x64-public.zip) · [Listen & explore](https://gary06868.github.io/QuietField/) · [Sound library](docs/audio-library.en.md) · [Feedback](https://github.com/Gary06868/QuietField/issues/new/choose)
+[**Download for Windows**](https://github.com/Gary06868/QuietField/releases/download/v1.6.1/QuietField-1.6.1-Windows-x64-public.zip) · [Listen & explore](https://gary06868.github.io/QuietField/) · [Sound library](docs/audio-library.en.md) · [Feedback](https://github.com/Gary06868/QuietField/issues/new/choose)
 
 [![Windows build](https://github.com/Gary06868/QuietField/actions/workflows/build.yml/badge.svg)](https://github.com/Gary06868/QuietField/actions/workflows/build.yml)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
@@ -38,11 +36,11 @@ The library includes 44 original PCM WAV recordings from BigSoundBank, including
 
 ## Download & start listening
 
-1. Download **[QuietField-1.5.0-Windows-x64-public.zip](https://github.com/Gary06868/QuietField/releases/download/v1.5.0/QuietField-1.5.0-Windows-x64-public.zip)** (about 832 MB).
+1. Download **[QuietField-1.6.1-Windows-x64-public.zip](https://github.com/Gary06868/QuietField/releases/download/v1.6.1/QuietField-1.6.1-Windows-x64-public.zip)** (about 1.27 GB).
 2. Extract the **whole ZIP** into a folder.
 3. Open `QuietField-win32-x64/静野.exe` (静野 is the app’s Chinese name).
 
-No Node.js, Python, installation wizard or account is needed. Keep the executable with its accompanying files. Checksums are on the [release page](https://github.com/Gary06868/QuietField/releases/tag/v1.5.0). GitHub’s source archives contain code, **not the bundled audio**.
+No Node.js, Python, installation wizard or account is needed. Keep the executable with its accompanying files. Checksums are on the [release page](https://github.com/Gary06868/QuietField/releases/tag/v1.6.1). GitHub’s source archives contain code, **not the bundled audio**.
 
 **Platform:** Windows x64. macOS, Linux and Windows ARM64 builds are not available yet. The app is unsigned, so Windows may show a reputation warning; use this repository’s official releases. Local desktop tests and Windows CI are not a substitute for testing on every PC.
 
@@ -50,7 +48,7 @@ No Node.js, Python, installation wizard or account is needed. Keep the executabl
 
 ## Questions
 
-**Why is the download large?** The current source bundles 62 recordings (50 in published version 1.5.0) so the app works offline. Many are original, uncompressed WAV files. The other 3 sounds are generated noise.
+**Why is the download large?** The app bundles 62 recordings so the app works offline. Many are original, uncompressed WAV files. The other 3 sounds are generated noise.
 
 **Can I use it offline?** Yes. Fonts, artwork and audio are bundled, and the playback interface blocks external HTTP/HTTPS requests. From 1.6.1, the public edition can check this repository’s GitHub Releases at most once a day in the background; disable this in Messages to stop automatic checks. A manual check or update connects to GitHub. No audio, mixes or usage history are uploaded. Optional website previews need a connection and use GitHub Pages hosting; there is no added analytics script.
 

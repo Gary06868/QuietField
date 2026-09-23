@@ -4,9 +4,7 @@
 
 [English](README.md) · **简体中文**
 
-> 当前源码为 1.6.1 开发版本，包含下列新功能。已发布下载仍为 1.5.0（53 种声音）；1.6.1 尚未发布。
-
-[**下载 Windows 版**](https://github.com/Gary06868/QuietField/releases/download/v1.5.0/QuietField-1.5.0-Windows-x64-public.zip) · [在线试听与介绍](https://gary06868.github.io/QuietField/zh-CN/) · [音源清单](docs/audio-library.md) · [反馈问题](https://github.com/Gary06868/QuietField/issues/new/choose)
+[**下载 Windows 版**](https://github.com/Gary06868/QuietField/releases/download/v1.6.1/QuietField-1.6.1-Windows-x64-public.zip) · [在线试听与介绍](https://gary06868.github.io/QuietField/zh-CN/) · [音源清单](docs/audio-library.md) · [反馈问题](https://github.com/Gary06868/QuietField/issues/new/choose)
 
 [![Windows 构建](https://github.com/Gary06868/QuietField/actions/workflows/build.yml/badge.svg)](https://github.com/Gary06868/QuietField/actions/workflows/build.yml)
 [![代码 MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
@@ -38,11 +36,11 @@
 
 ## 下载与使用
 
-1. 下载 **[QuietField-1.5.0-Windows-x64-public.zip](https://github.com/Gary06868/QuietField/releases/download/v1.5.0/QuietField-1.5.0-Windows-x64-public.zip)**（约 832 MB）。
+1. 下载 **[QuietField-1.6.1-Windows-x64-public.zip](https://github.com/Gary06868/QuietField/releases/download/v1.6.1/QuietField-1.6.1-Windows-x64-public.zip)**（约 1.27 GB）。
 2. **完整解压**整个 ZIP。
 3. 运行 `QuietField-win32-x64/静野.exe`。
 
-不需要 Node.js、Python 或账号。保留程序同目录的其他文件，不要单独移出 EXE。[发布页](https://github.com/Gary06868/QuietField/releases/tag/v1.5.0)有 SHA-256 校验文件。GitHub 自动生成的源码包**不含音频**，开发者需按下面步骤获取音源。
+不需要 Node.js、Python 或账号。保留程序同目录的其他文件，不要单独移出 EXE。[发布页](https://github.com/Gary06868/QuietField/releases/tag/v1.6.1)有 SHA-256 校验文件。GitHub 自动生成的源码包**不含音频**，开发者需按下面步骤获取音源。
 
 目前提供 **Windows x64** 版本；macOS、Linux、Windows ARM64 暂无发行包。程序未代码签名，首次下载可能出现系统信誉提示，请只从此仓库的正式发布页下载。本机测试和 Windows 云端构建不代表所有电脑均已实测。
 
@@ -50,7 +48,7 @@
 
 ## 常见问题
 
-**安装包为什么大？** 当前源码包含 62 段录音（已发布的 1.5.0 为 50 段），很多是未重编码的原始 WAV，所以使用时无需联网。另外 3 种声音由算法生成。
+**安装包为什么大？** 公开版包含 62 段录音，很多是未重编码的原始 WAV，所以使用时无需联网。另外 3 种声音由算法生成。
 
 **真的可以离线用吗？** 可以。字体、图形和声音均已打包，播放界面阻止外部 HTTP/HTTPS 请求。1.6.1 起公开版可每天最多后台连接一次本仓库的 GitHub Releases；在“消息”里关闭自动检查即可停止自动联网。手动检查或更新时会连接 GitHub，不上传音频、组合或使用记录。可选的网页试听需联网，由 GitHub Pages 托管；页面未添加统计脚本。
 
