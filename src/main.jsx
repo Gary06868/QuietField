@@ -1,6 +1,6 @@
-import React,{useEffect,useRef,useState} from 'react';
+import React,{useEffect,useRef,useState,useId} from 'react';
 import {createRoot} from 'react-dom/client';
-import {AudioLines,Heart,LayoutGrid,Leaf,CloudRain,Bird,House,Car,Building2,Coffee,Search,FolderOpen,Play,Pause,Volume2,X,Save,Trash2,Clock,Repeat2,Wind,Waves,Flame,Trees,CloudLightning,Headphones,Info,Check,Plus,Music2,TrainFront,Keyboard,LoaderCircle,Download,Image,PictureInPicture2} from 'lucide-react';
+import {AudioLines,Heart,LayoutGrid,Leaf,CloudRain,Bird,House,Car,Building2,Coffee,Search,FolderOpen,Play,Pause,Volume2,X,Save,Trash2,Clock,Repeat2,Wind,Waves,Flame,Trees,CloudLightning,Headphones,Info,Check,Plus,Music2,TrainFront,Keyboard,LoaderCircle,Download,Settings,PictureInPicture2} from 'lucide-react';
 import catalog from '#catalog';
 import {AudioEngine} from './engine.js';
 import {files,readSettings} from './storage.js';
@@ -19,7 +19,7 @@ import './responsive.css';
 import {MiniPlayer} from './MiniPlayer.jsx';
 import {UpdateCenter} from './UpdateCenter.jsx';
 import {BackgroundScene} from './BackgroundScene.jsx';
-import {BackgroundPicker} from './BackgroundPicker.jsx';
+import {SettingsPanel} from './SettingsPanel.jsx';
 import {validateBackground} from './backgrounds.js';
 import {LocaleProvider,useLocale} from './LocaleContext.jsx';
 import {matchesSound,translate} from './i18n.js';
@@ -34,14 +34,14 @@ const initial=readSettings();
 const clamp=masterVolume;
 function Icon({sound,...props}) {const Component=specialIcons[sound.id]||categoryIcons[sound.category]||Music2;return <Component {...props}/>;}
 function Slider({label,value,onChange,max=300}) {const {t}=useLocale();return <input aria-label={label} aria-valuetext={`${Math.round(value*100)}%`} title={max===300?t('100% 为平衡后标准音量，最高可增强至 300%'):label} type="range" min="0" max={max} value={Math.round(value*100)} style={{'--value':`${value*100/max*100}%`}} onChange={e=>onChange(Number(e.target.value)/100)}/>;}
-function Modal({title,onClose,children}) {
-  const {t}=useLocale();const ref=useRef();
+function Modal({title,onClose,children,className}) {
+  const {t}=useLocale();const ref=useRef(),titleId=useId();
   useEffect(()=>{const previous=document.activeElement;ref.current.showModal();return()=>{ref.current?.close();if(previous instanceof HTMLElement&&previous.isConnected)previous.focus({preventScroll:true});};},[]);
-  return <dialog ref={ref} onCancel={onClose} onClick={e=>{if(e.target===ref.current)onClose();}}><header><h2>{title}</h2><button className="icon-button" aria-label={t("关闭弹窗")} onClick={onClose}><X/></button></header>{children}</dialog>;
+  return <dialog ref={ref} className={className} aria-labelledby={titleId} onCancel={onClose} onClick={e=>{if(e.target===ref.current)onClose();}}><header><h2 id={titleId}>{title}</h2><button className="icon-button" aria-label={t("关闭弹窗")} onClick={onClose}><X/></button></header>{children}</dialog>;
 }
 
 function App() {
-  const {locale,setLocale,nameOf}=useLocale();const localeRef=useRef(locale);localeRef.current=locale;const t=(key,params)=>translate(localeRef.current,key,params);
+  const {locale,nameOf}=useLocale();const localeRef=useRef(locale);localeRef.current=locale;const t=(key,params)=>translate(localeRef.current,key,params);
   const [custom,setCustom]=useState([]),[ready,setReady]=useState(false);
   const [view,setView]=useState('全部声音'),[query,setQuery]=useState('');
   const [mix,setMix]=useState({}),[playing,setPlaying]=useState(false),[loading,setLoading]=useState({});
@@ -169,11 +169,10 @@ function App() {
         <div className="nav-divider"/>
         {Object.entries(categoryIcons).map(([label,NavIcon])=><button key={label} className={view===label?'nav-item selected':'nav-item'} onClick={()=>navigate(label)}><NavIcon size={20}/><span>{t(label)}</span></button>)}
       </nav>
-      <div className="sidebar-bottom"><button className="appearance-button" onClick={()=>setModal({type:'background'})}><Image size={16}/>{t("更换背景")}</button>
+      <div className="sidebar-bottom"><button className="settings-button" onClick={()=>setModal({type:'settings'})}><Settings size={16}/>{t("设置")}</button>
       {window.desktop&&<button className="companion-button" onClick={()=>window.desktop.companionAction('mini')}><PictureInPicture2 size={16}/>{t("迷你播放器")}</button>}
       {__PUBLIC_LIBRARY__&&window.desktop&&<UpdateCenter/>}
-      <div className="language-switch" role="group" aria-label={t("Language / 语言")}><button lang="zh-CN" aria-pressed={locale==='zh-CN'} onClick={()=>setLocale('zh-CN')}>中文</button><button lang="en" aria-pressed={locale==='en'} onClick={()=>setLocale('en')}>EN</button></div>
-      <button className="about-button" onClick={()=>setModal({type:'about'})}><Info size={16}/>{t("关于声音与循环")}</button></div>
+      </div>
     </aside>
     <main>
       <div className="toolbar"><label className="search"><Search size={20}/><input aria-label={t("搜索声音")} placeholder={t("搜索声音")} value={query} onChange={e=>setQuery(e.target.value)}/>{query&&<button aria-label={t("清除搜索")} className="icon-button" onClick={()=>setQuery('')}><X size={16}/></button>}</label><button className="outline import-button" disabled={importing} onClick={()=>fileInput.current.click()}>{importing?<LoaderCircle className="spin" size={18}/>:<FolderOpen size={18}/>} {importing?t("正在导入"):t("导入音频")}</button><input ref={fileInput} type="file" accept="audio/*,.flac,.ogg,.wav,.mp3,.m4a" multiple hidden onChange={importAudio}/></div>
@@ -194,10 +193,9 @@ function App() {
     <footer className="transport"><button className="play-button" aria-label={playing?t("暂停全部"):t("播放全部")} title={t("空格键播放 / 暂停")} onClick={playPause}>{playing?<Pause fill="currentColor" size={25}/>:<Play fill="currentColor" size={25}/>}</button><div className="play-status"><strong>{playing?t("正在播放"):t("已暂停")}</strong><span>{Object.keys(loading).length?t("正在准备声音…"):t("空格键播放 / 暂停")}</span></div><div className="sound-count">{t("{count} 种声音",{count:active.length})}</div><Visualizer engine={engine} playing={playing} disabled={reducedEffects||!windowVisible} mode="bars"/><div className="master"><span>{t("总音量")}</span><Volume2 size={18}/><Slider label={t("总音量")} max={100} value={master} onChange={v=>{setMaster(v);engine.setMaster(v);}}/><span className="volume-number">{Math.round(master*100)}%</span></div>{compactLayout&&<button className="compact-mixer-button" onClick={()=>setModal({type:'mixer'})} aria-haspopup="dialog" aria-label={t("打开当前混音")}><AudioLines size={18}/><span>{t("混音")}</span><span className="compact-mixer-count">{active.length}</span></button>}<div className="local-status"><span className="status-dot"/>{t("本地播放 · 无缝循环")}<Repeat2 size={18}/></div></footer>
     {toast&&<div role="status" className="toast">{toast}</div>}
     {modal?.type==='mixer'&&compactLayout&&<Modal title={t("当前混音")} onClose={()=>setModal(null)}>{mixerContent}</Modal>}
-    {modal?.type==='background'&&<Modal title={t("选择你的背景")} onClose={()=>setModal(null)}><BackgroundPicker backgroundId={backgroundId} animateBackground={animateBackground} onSelect={setBackgroundId} onAnimateChange={setAnimateBackground} reducedEffects={reducedEffects} onDisableReducedEffects={()=>setReducedEffects(false)} locale={locale}/></Modal>}
+    {modal?.type==='settings'&&<Modal title={t("设置")} className="settings-dialog" onClose={()=>setModal(null)}><SettingsPanel backgroundId={backgroundId} animateBackground={animateBackground} onBackground={setBackgroundId} onAnimate={setAnimateBackground} reducedEffects={reducedEffects} onReducedEffects={setReducedEffects} recordingCount={catalog.filter(s=>!s.generated).length}/></Modal>}
     {modal?.type==='save'&&<Modal title={t("保存这份宁静")} onClose={()=>setModal(null)}><form onSubmit={e=>{e.preventDefault();const trimmed=name.trim();if(!trimmed)return;setSaved(prev=>[...prev,{id:crypto.randomUUID(),name:trimmed,mix:{...mixRef.current}}]);setModal(null);notify('组合已保存在本机');}}><label className="field-label" htmlFor="mix-name">{t("给组合起个名字")}</label><input id="mix-name" autoFocus maxLength={32} placeholder={t("例如：雨夜书房")} value={name} onChange={e=>setName(e.target.value)}/><p className="muted">{t("会记住每种声音和各自的音量。")}</p><button type="submit" className="primary" disabled={!name.trim()}><Check size={17}/>{t("保存组合")}</button></form></Modal>}
     {modal?.type==='sound'&&<Modal title={nameOf(modal.sound)} onClose={()=>setModal(null)}><dl><dt>{t("来源")}</dt><dd>{modal.sound.custom?t("你导入的本地文件"):modal.sound.generated?t("本机算法生成"):modal.sound.sourceLabel||t("Moodist 公开音频库")}</dd>{modal.sound.license&&<><dt>{t("作者与授权")}</dt><dd>{modal.sound.author} · {modal.sound.license}</dd><dt>{t("来源网址")}</dt><dd style={{overflowWrap:"anywhere"}}>{modal.sound.source}</dd></>}<dt>{t("文件格式")}</dt><dd>{t(modal.sound.format)}{modal.sound.bitDepth?` · ${modal.sound.bitDepth} bit PCM`:''}{modal.sound.bitrate?` · ${t("约 {bitrate} kbps",{bitrate:modal.sound.bitrate})}`:''}</dd><dt>{t("采样率 / 声道")}</dt><dd>{modal.sound.sampleRate/1000} kHz · {modal.sound.channels===2?t("立体声"):t("单声道")}{modal.sound.custom?t("（解码规格）"):''}</dd>{modal.sound.duration&&<><dt>{t("原始长度")}</dt><dd>{t("{seconds} 秒",{seconds:Math.round(modal.sound.duration)})}</dd></>}{modal.sound.sourceNote&&<><dt>{t("录音说明")}</dt><dd>{t(modal.sound.sourceNote)}</dd></>}<dt>{t("响度处理")}</dt><dd>{t("自动平衡基础响度 · 峰值保护 · 最高 300%")}</dd><dt>{t("循环处理")}</dt><dd>{t("首尾静音清理 · 最长 4 秒交叉淡化")}</dd></dl><p className="muted">{t("保留原文件，循环处理只在内存中进行。无损格式不代表原始录音一定无损；不会通过升采样冒充更高音质。")}</p>{modal.sound.custom&&<button className="outline danger" onClick={()=>deleteCustom(modal.sound)}><Trash2 size={16}/>{t("删除导入副本")}</button>}</Modal>}
-    {modal?.type==='about'&&<Modal title={t("关于静野")} onClose={()=>setModal(null)}><p>{t("一间随时可以回来的安静房间。所有声音在本机播放，不需要账户，也不会上传你的录音。")}</p><h3>{t("为什么循环更连贯？")}</h3><p>{t("先清理首尾静音，再将首尾最多 4 秒交叉混合成连续波形，交给音频引擎直接循环。播放、暂停和调节音量也会平滑过渡。每段录音会先做基础响度平衡；100% 是平衡后的标准音量，可以继续推至 300%。")}</p><p className="muted">{t("录音中的雷声、鸟鸣等事件仍会重复。系统主动休眠、合盖休眠或音频设备断开会影响播放；最小化窗口可以继续听。")}</p><h3>{t("音源与授权")}</h3><p>{t("内置 {count} 段录音和 3 种合成噪声。",{count:catalog.filter(s=>!s.generated).length})}{__PUBLIC_LIBRARY__?t("录音采用 CC0、Public Domain 或 CC BY 授权。每段录音的作者与授权可在声音详情及随附清单查看。"):t("个人音源库包含尚未逐段核实授权的 Moodist 音源，请勿将此版本作为公开音源包发布。")}</p><p className="muted">{t("音源清单、真实规格、下载校验和授权文件随应用附带。请按各录音的许可保留署名。")}</p><h3>{t("显示效果")}</h3><button className="outline" aria-pressed={reducedEffects} onClick={()=>setReducedEffects(v=>!v)}>{reducedEffects?t("轻量模式已开启"):t("开启轻量模式")}</button><p className="muted">{t("关闭频谱动画和背景模糊，降低图形负担。声音不受影响。")}</p><h3>{t("键盘操作")}</h3><p>{t("空格播放 / 暂停；Tab 切换控件；方向键调节音量。最多同时混合 8 种声音。迷你播放器可收起到托盘继续播放；关闭完整窗口或在托盘选择退出，会结束程序。")}</p></Modal>}
   </div>;
 }
 createRoot(document.getElementById('root')).render(<LocaleProvider><ErrorBoundary>{miniMode?<MiniPlayer/>:<App/>}</ErrorBoundary></LocaleProvider>);

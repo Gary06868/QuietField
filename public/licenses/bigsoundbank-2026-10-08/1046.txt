@@ -1,0 +1,11 @@
+Small Waves Facing the Ocean
+Author: Joseph SARDIN
+Source: https://bigsoundbank.com/small-waves-facing-the-ocean-s1046.html
+Checked at UTC: 2026-10-08T20:37:34.777794+00:00
+Source page SHA-256: d4c0250ea1fb28ac15ee85679aea3ea80454343acf4662bb1098d58ef24ea28b
+License: CC0 (public domain): Free and royalty-free
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+The source page explicitly permits editing and redistribution, including in apps.
+Source audio distributed unchanged.
+Audio SHA-256: 108546848717aeab4bf60f184b718f7ddb9e479ca77f9f400a620c3835ba4f81

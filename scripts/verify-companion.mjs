@@ -1,6 +1,6 @@
 import {_electron as electron} from 'playwright';
 import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';
-import {chineseUI} from './test-locale.mjs';
+import {chineseUI,englishUI,openBackground} from './test-locale.mjs';
 const root=process.cwd(),out=path.join(root,'test-results');await fs.mkdir(out,{recursive:true});
 const env={...process.env,QUIET_FIELD_TEST_DATA:path.join(out,'companion-profile-'+Date.now())};delete env.ELECTRON_RUN_AS_NODE;
 const executable=process.argv[2];
@@ -20,7 +20,7 @@ try{
  await page.getByRole('button',{name:'深林细雨',exact:true}).click();await page.waitForFunction(()=>document.querySelectorAll('.spin').length===0);
  const contexts=await page.evaluate(()=>window.__audioContexts.length);assert.equal(contexts,1);
  await page.getByRole('button',{name:'保存组合',exact:true}).click();await page.getByLabel('给组合起个名字').fill('我的雨夜 & breeze');await page.getByRole('dialog').getByRole('button',{name:'保存组合',exact:true}).click();
- await page.getByRole('button',{name:'更换背景',exact:true}).click();assert.equal(await page.locator('.background-card').count(),8);
+ await openBackground(page);assert.equal(await page.locator('.background-card').count(),8);
  for(const id of ['forest','coast','midnight','deep-ocean','graphite','aurora','starlight','alpine']){
   await page.locator(`.background-card:has(.background-swatch--${id})`).click();assert.equal(await page.locator('.qf-background').getAttribute('data-background'),id);
  }
@@ -45,13 +45,13 @@ try{
  const trayPause=await app.evaluate(()=>{const item=globalThis.__trayQA.menu.items.find(i=>i.label==='暂停');if(!item)return false;item.click();return true;});assert.ok(trayPause);await page.getByRole('button',{name:'播放全部'}).waitFor();
  await app.evaluate(()=>globalThis.__trayQA.tray.emit('click'));await page.getByRole('button',{name:'迷你播放器',exact:true}).click();await mini.getByRole('button',{name:'播放全部'}).waitFor();
  await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().find(w=>w.webContents.getURL().includes('#mini')).close());assert.equal(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().find(w=>!w.webContents.getURL().includes('#mini')).isVisible()),true);checks.push('tray controls work; closing mini returns safely to main');
- await page.getByRole('button',{name:'更换背景'}).click();await page.locator('.background-card:has(.background-swatch--aurora)').click();await page.getByRole('checkbox').uncheck();assert.equal(await page.locator('.qf-background').getAttribute('data-animate'),'false');await page.getByRole('button',{name:'关闭弹窗'}).click();
+ await openBackground(page);await page.locator('.background-card:has(.background-swatch--aurora)').click();await page.getByRole('checkbox').uncheck();assert.equal(await page.locator('.qf-background').getAttribute('data-animate'),'false');await page.getByRole('button',{name:'关闭弹窗'}).click();
  await page.reload();await page.getByRole('heading',{name:'今天，听见宁静。'}).waitFor();assert.equal(await page.locator('.qf-background').getAttribute('data-background'),'aurora');assert.equal(await page.locator('.qf-background').getAttribute('data-animate'),'false');assert.equal(await page.getByRole('slider',{name:'总音量',exact:true}).inputValue(),'37');
- await page.getByRole('button',{name:'更换背景'}).click();await page.getByRole('checkbox').check();await page.getByRole('button',{name:'关闭弹窗'}).click();await page.emulateMedia({reducedMotion:'reduce'});assert.equal(await page.locator('.qf-aurora').first().evaluate(el=>getComputedStyle(el).animationName),'none');
+ await openBackground(page);await page.getByRole('checkbox').check();await page.getByRole('button',{name:'关闭弹窗'}).click();await page.emulateMedia({reducedMotion:'reduce'});assert.equal(await page.locator('.qf-aurora').first().evaluate(el=>getComputedStyle(el).animationName),'none');
  await page.emulateMedia({reducedMotion:'no-preference'});await page.evaluate(()=>window.desktop.companionAction('tray'));await page.waitForFunction(()=>document.querySelector('.qf-background').dataset.animate==='false');await app.evaluate(()=>globalThis.__trayQA.tray.emit('click'));await page.waitForFunction(()=>document.querySelector('.qf-background').dataset.animate==='true');
  checks.push('background and volume preferences survive reload; reduced motion and hidden window pause animation');
- await page.getByRole('button',{name:'EN',exact:true}).click();await page.getByRole('button',{name:'Mini player',exact:true}).click();await mini.getByRole('button',{name:'Open full player'}).waitFor();await mini.getByRole('button',{name:'Open full player'}).click();checks.push('companion follows English language switch');
- await page.setViewportSize({width:390,height:844});await page.getByRole('button',{name:'Change background'}).click();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:path.join(out,'background-mobile.png')});await page.getByRole('button',{name:'Close dialog'}).click();checks.push('appearance picker fits 390px display');
+ await englishUI(page);await page.getByRole('button',{name:'Mini player',exact:true}).click();await mini.getByRole('button',{name:'Open full player'}).waitFor();await mini.getByRole('button',{name:'Open full player'}).click();checks.push('companion follows English language switch');
+ await page.setViewportSize({width:390,height:844});await openBackground(page);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:path.join(out,'background-mobile.png')});await page.getByRole('button',{name:'Close dialog'}).click();checks.push('appearance picker fits 390px display');
  assert.deepEqual(errors,[]);
  const ended=app.waitForEvent('close');await app.evaluate(()=>globalThis.__trayQA.menu.items.find(i=>i.label==='Quit Quiet Field').click());await ended;closed=true;checks.push('tray quit closes both windows');
  await fs.writeFile(path.join(out,'companion-results.json'),JSON.stringify({passed:true,checks,errors,nav,brandBefore,brandAfter},null,2));console.log('PASS',JSON.stringify(checks));

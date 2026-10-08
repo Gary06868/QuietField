@@ -2,7 +2,7 @@
 
 [English README](../README.md) · [中文音源清单](audio-library.md)
 
-65 sounds: 62 recordings and 3 existing generated noises. The September 2026 expansion adds 12 real recordings (32 min 56 sec), all native 48 kHz PCM WAV under CC0 1.0. No new generated or synthetic audio was added.
+71 sounds: 68 recordings and 3 existing generated noises. The September 2026 expansion adds 12 real recordings (32 min 56 sec), all native 48 kHz PCM WAV under CC0 1.0. No new generated or synthetic audio was added.
 
 Specifications describe source files, not a promise of equal subjective quality. The app processes boundaries and gain during playback; source files remain unchanged.
 
@@ -114,3 +114,14 @@ File decoding, duplicate hashes, silence and peak checks are objective checks, n
 Objective review found 16 consecutive digital-rail samples (about 0.33 ms) in Waves on small rocks. They remain unchanged; their audible impact has not been assessed. Slow-burning hearth has a low average level with prominent brief crackles.
 
 Full credits and upstream edits: [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES.md).
+
+## October 2026 additions
+
+Six CC0 original WAV recordings were added. Native sample rates are retained, including two 44.1 kHz sources; no upsampling or synthetic audio. Decode, checksum, duplicate and peak checks passed. Subjective listening review remains pending.
+
+- Facing the sea · 48 kHz / 16-bit / 2 ch · 137.6 s · [Joseph SARDIN](https://bigsoundbank.com/small-waves-facing-the-ocean-s1046.html) · CC0 1.0
+- Waves and terns · 44.1 kHz / 16-bit / 2 ch · 57.6 s · [DenisChardonnet](https://bigsoundbank.com/sea-waves-and-seagulls-s0267.html) · CC0 1.0
+- Shallow shore waves · 44.1 kHz / 16-bit / 2 ch · 57.2 s · [DenisChardonnet](https://bigsoundbank.com/beach-small-waves-s0265.html) · CC0 1.0
+- Gentle mountain brook · 48 kHz / 24-bit / 2 ch · 104.9 s · [Joseph SARDIN](https://bigsoundbank.com/small-stream-4-s1354.html) · CC0 1.0
+- Wood fire indoors · 48 kHz / 24-bit / 2 ch · 79.1 s · [Joseph SARDIN](https://bigsoundbank.com/fireplace-4-s2856.html) · CC0 1.0
+- Woodland birdsong · 48 kHz / 24-bit / 2 ch · 160.6 s · [Pierre SIBANARCO](https://bigsoundbank.com/forest-3-s2715.html) · CC0 1.0

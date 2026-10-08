@@ -1,0 +1,11 @@
+Forest #3
+Author: Pierre SIBANARCO
+Source: https://bigsoundbank.com/forest-3-s2715.html
+Checked at UTC: 2026-10-08T20:37:58.855584+00:00
+Source page SHA-256: 771642bf99b0dafb0625b218c2ebde607072595de3075e4d56a4075bc99538c0
+License: CC0 (public domain): Free and royalty-free
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+The source page explicitly permits editing and redistribution, including in apps.
+Source audio distributed unchanged.
+Audio SHA-256: 79ca81aa11e27173ab83df44a53a0969a99f3c6a4d54a461f5a82e81cfd6317c

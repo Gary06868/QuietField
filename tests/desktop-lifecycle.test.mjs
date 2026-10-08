@@ -11,7 +11,7 @@ const companionUrl = new URL('../desktop-companion.cjs',import.meta.url);
 const companionSource = readFileSync(companionUrl,'utf8');
 const companionRequire = createRequire(companionUrl);
 
-function createHarness(t) {
+function createHarness(t,{prefs={},trayUnavailable=false}={}) {
   const windows = [],trays = [],handlers = new Map();
   const ipcMain = new EventEmitter();
   ipcMain.handle = (channel,handler) => handlers.set(channel,handler);
@@ -45,7 +45,7 @@ function createHarness(t) {
     }
   }
   class FakeTray extends EventEmitter {
-    constructor() {super();this.destroyed=false;trays.push(this);}
+    constructor() {super();if(trayUnavailable)throw Error('Tray unavailable');this.destroyed=false;trays.push(this);}
     setToolTip(value) {this.tooltip=value;}
     setContextMenu(value) {this.menu=value;}
     destroy() {this.destroyed=true;}
@@ -60,7 +60,7 @@ function createHarness(t) {
   const require = id => {
     if(id === 'electron')return electron;
     // Production preferences stay completely isolated from the user's disk.
-    if(id === 'node:fs')return {readFileSync:()=>'{}',writeFileSync:()=>{throw new Error('Unexpected preferences write');}};
+    if(id === 'node:fs')return {readFileSync:()=>JSON.stringify(prefs),writeFileSync:(_path,text)=>{prefs=JSON.parse(text);}};
     return companionRequire(id);
   };
   vm.runInNewContext(companionSource,{
@@ -77,7 +77,7 @@ function createHarness(t) {
   const dispose = () => {if(!disposed){disposed=true;companion.dispose();}};
   t.after(dispose);
   return {
-    main,windows,trays,ipcMain,handlers,app,companion,dispose,
+    main,windows,trays,ipcMain,handlers,app,companion,dispose,prefs:()=>prefs,
     action(value) {
       ipcMain.emit('companion-action',{
         sender:main.webContents,
@@ -102,6 +102,41 @@ test('a delayed mini load does not override a newer full-window request',t=>{
   assert.deepEqual(h.visibility(),{main:true,mini:false});
   assert.equal(h.main.showCalls,showCalls,'late readiness does not refocus the main window');
   assert.equal(mini.showCalls,0);
+});
+
+test('closing the main window hides both windows by default, with an accessible tray',t=>{
+ const h=createHarness(t);h.action('mini');h.windows[1].emit('ready-to-show');
+ let prevented=false;h.main.emit('close',{preventDefault(){prevented=true;}});
+ assert.equal(prevented,true);assert.deepEqual(h.visibility(),{main:false,mini:false});
+ assert.equal(h.main.destroyed,false);assert.equal(h.trays[0].destroyed,false);
+ h.trays[0].emit('click');assert.equal(h.main.visible,true);
+});
+
+test('explicit quit is never intercepted by close-to-tray',t=>{
+ const h=createHarness(t);h.app.quit();let prevented=false;
+ h.main.emit('close',{preventDefault(){prevented=true;}});assert.equal(prevented,false);
+});
+
+test('close preference persists with the pin setting and rejects untrusted senders',async t=>{
+ const h=createHarness(t,{prefs:{pinned:true}}),set=h.handlers.get('companion-preferences');
+ assert.equal(typeof set,'function');
+ const trusted={sender:h.main.webContents,senderFrame:h.main.webContents.mainFrame};
+ assert.equal(await set({},false),null);assert.equal(h.prefs().closeToTray,undefined);
+ const result=await set(trusted,false);assert.equal(result.closeToTray,false);assert.equal(h.prefs().pinned,true);
+ let prevented=false;h.main.emit('close',{preventDefault(){prevented=true;}});assert.equal(prevented,false);
+ h.action('pin');assert.deepEqual(h.prefs(),{pinned:false,closeToTray:false});
+ assert.equal((await set(trusted,true)).closeToTray,true);
+});
+
+test('a saved quit preference is respected before the renderer is ready',t=>{
+ const h=createHarness(t,{prefs:{closeToTray:false}});let prevented=false;
+ h.main.emit('close',{preventDefault(){prevented=true;}});assert.equal(prevented,false);
+});
+
+test('when tray creation fails, closing minimizes instead of making the app unreachable',t=>{
+ const h=createHarness(t,{trayUnavailable:true});let minimized=false,prevented=false;
+ h.main.minimize=()=>{minimized=true;};h.main.emit('close',{preventDefault(){prevented=true;}});
+ assert.equal(prevented,true);assert.equal(minimized,true);assert.equal(h.main.destroyed,false);
 });
 
 test('a delayed mini load preserves a newer hide-to-tray request',t=>{

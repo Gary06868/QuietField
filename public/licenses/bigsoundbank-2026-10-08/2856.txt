@@ -1,0 +1,11 @@
+Fireplace #4
+Author: Joseph SARDIN
+Source: https://bigsoundbank.com/fireplace-4-s2856.html
+Checked at UTC: 2026-10-08T20:37:55.387367+00:00
+Source page SHA-256: 5d23b83ff1dce62e5b6c08d40befa88b9310377f8b20af47db8c79c833e95214
+License: CC0 (public domain): Free and royalty-free
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+The source page explicitly permits editing and redistribution, including in apps.
+Source audio distributed unchanged.
+Audio SHA-256: 9ac70d55d2a5d135aea3cb055fb2857f6664110b4df4044ca494192697e0a4ee

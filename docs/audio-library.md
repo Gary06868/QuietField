@@ -2,7 +2,7 @@
 
 [中文说明](../README.zh-CN.md) · [English sound library](audio-library.en.md)
 
-共 65 种声音：62 段录音与原有的 3 种算法噪声。2026 年 9 月新增 12 段真实录音，合计 32 分 56 秒，均为 CC0 1.0 授权的原始 48 kHz PCM WAV。本次没有新增合成音源。
+共 71 种声音：68 段录音与原有的 3 种算法噪声。2026 年 9 月新增 12 段真实录音，合计 32 分 56 秒，均为 CC0 1.0 授权的原始 48 kHz PCM WAV。本次没有新增合成音源。
 
 下列规格来自原始文件；采样率和位深不代表主观录音质量。应用在播放时处理边界与响度，源文件保持原样。
 
@@ -114,3 +114,14 @@
 本次客观检查发现：礁石细浪的原始文件有连续 16 个满幅采样点（约 0.33 毫秒），保留原样，未判定其听感影响；炉火慢燃的平均电平较低、爆裂声瞬态较突出。
 
 完整署名与上游编辑说明：[THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES.md)。
+
+## 2026 年 10 月新增
+
+新增 6 段 CC0 原始 WAV，保留真实采样率（其中两段为 44.1 kHz），没有升采样或合成音。解码、校验、重复与峰值检查通过；主观试听评价仍待确认。另两段雨声暂保留在候选区，未加入。
+
+- 面海轻浪 · 48 kHz / 16-bit / 2 ch · 137.6 s · [Joseph SARDIN](https://bigsoundbank.com/small-waves-facing-the-ocean-s1046.html) · CC0 1.0
+- 海浪与燕鸥 · 44.1 kHz / 16-bit / 2 ch · 57.6 s · [DenisChardonnet](https://bigsoundbank.com/sea-waves-and-seagulls-s0267.html) · CC0 1.0
+- 浅岸浪涌 · 44.1 kHz / 16-bit / 2 ch · 57.2 s · [DenisChardonnet](https://bigsoundbank.com/beach-small-waves-s0265.html) · CC0 1.0
+- 山泉轻流 · 48 kHz / 24-bit / 2 ch · 104.9 s · [Joseph SARDIN](https://bigsoundbank.com/small-stream-4-s1354.html) · CC0 1.0
+- 木柴暖炉 · 48 kHz / 24-bit / 2 ch · 79.1 s · [Joseph SARDIN](https://bigsoundbank.com/fireplace-4-s2856.html) · CC0 1.0
+- 林中鸟语 · 48 kHz / 24-bit / 2 ch · 160.6 s · [Pierre SIBANARCO](https://bigsoundbank.com/forest-3-s2715.html) · CC0 1.0

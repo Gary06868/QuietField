@@ -1,0 +1,11 @@
+Beach: Small Waves
+Author: DenisChardonnet
+Source: https://bigsoundbank.com/beach-small-waves-s0265.html
+Checked at UTC: 2026-10-08T20:37:40.621246+00:00
+Source page SHA-256: 26947d4e53156e756ba710b50ce8a86c104c440e7d0d70c296ee4e8ff96ea536
+License: CC0 (public domain): Free and royalty-free
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+The source page explicitly permits editing and redistribution, including in apps.
+Source audio distributed unchanged.
+Audio SHA-256: 3e3ac0640689b18cc0bdc7d068ea9403dc6a15d2f2129ac9d31e26ef364e0828

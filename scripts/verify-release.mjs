@@ -1,4 +1,4 @@
-import {chineseUI} from './test-locale.mjs';
+import {chineseUI,englishUI,openBackground} from './test-locale.mjs';
 import {_electron as electron} from 'playwright';import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';
 const root=process.cwd(),out=path.join(root,'test-results');await fs.mkdir(out,{recursive:true});
 const profile=path.join(out,'release-profile-'+Date.now());await fs.mkdir(profile,{recursive:true});
@@ -13,7 +13,7 @@ try{
  for(const value of ['null','[]','42','{','{"saved":[null],"mix":null,"master":"bad"}']){
   await page.evaluate(v=>localStorage.setItem('quiet-field-settings',v),value);await page.reload();await chineseUI(page);await page.getByRole('heading',{name:'今天，听见宁静。'}).waitFor();assert.equal(await page.getByRole('slider',{name:'总音量',exact:true}).inputValue(),'50');
  }result.checks.push('five malformed preferences recover with usable controls');
- await page.getByRole('button',{name:'关于声音与循环',exact:true}).click();await page.getByRole('button',{name:'开启轻量模式'}).click();await page.getByRole('button',{name:'关闭弹窗'}).click();
+ await page.getByRole('button',{name:'设置',exact:true}).click();await page.getByRole('checkbox',{name:'轻量模式',exact:true}).check();await page.getByRole('button',{name:'关闭弹窗'}).click();
  await page.reload();await chineseUI(page);await page.waitForSelector('.app.reduced-effects');assert.equal(await page.locator('canvas.ring').evaluate(c=>c.width),300);result.checks.push('lightweight mode persisted, spectrum drawing disabled');
  await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];w.setBounds({x:40,y:40,width:1050,height:650});});await page.waitForTimeout(600);
  const saved=await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].getNormalBounds());await app.close();app=await launch();page=await app.firstWindow();await chineseUI(page);await page.getByRole('heading',{name:'今天，听见宁静。'}).waitFor();

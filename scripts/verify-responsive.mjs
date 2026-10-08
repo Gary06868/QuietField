@@ -8,12 +8,17 @@ const exe=process.argv[2];const app=await electron.launch({...(exe?{executablePa
 const errors=[],checks=[];
 try{
  const page=await app.firstWindow();page.on('pageerror',e=>errors.push(e.message));
+ // The isolated test intentionally forces widths below the production minimum.
+ // Settle initial placement, then stop its delayed move adjustment from restoring
+ // the production minimum midway through a forced-size layout case.
+ await page.waitForTimeout(600);
+ await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].removeAllListeners('move'));
  for(const locale of ['zh-CN','en']){
   await page.evaluate(locale=>localStorage.setItem('quiet-field-settings',JSON.stringify({locale})),locale);await page.reload();await page.locator('.sound-card').first().waitFor();await page.evaluate(()=>document.fonts.ready);
   for(const [width,height] of [[826,604],[760,600],[1000,680],[1180,660],[1536,960],[390,844]]){
    await app.evaluate(({BrowserWindow},{width,height})=>{const w=BrowserWindow.getAllWindows()[0];w.webContents.setAudioMuted(true);w.setMinimumSize(320,400);w.setContentSize(width,height);w.show();},{width,height});
    await page.waitForTimeout(300);console.log(JSON.stringify({requested:[width,height],actual:await page.evaluate(()=>[innerWidth,innerHeight])}));await page.waitForFunction(({width,height})=>Math.abs(innerWidth-width)<=1&&Math.abs(innerHeight-height)<=1,{width,height},{timeout:5000});
-   const metrics=await page.evaluate(()=>{const rect=s=>{const r=document.querySelector(s).getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height,bottom:r.bottom};};const nav=document.querySelector('.sidebar nav'),main=document.querySelector('main');return{viewport:[innerWidth,innerHeight],app:rect('.app'),brand:rect('.brand'),brandText:rect('.brand span'),brandLine:parseFloat(getComputedStyle(document.querySelector('.brand span')).fontSize),language:rect('.language-switch'),navHeight:nav.clientHeight,mainHeight:main.clientHeight,mainScroll:main.scrollHeight,overflow:document.documentElement.scrollWidth>innerWidth,columns:getComputedStyle(document.querySelector('.sound-grid')).gridTemplateColumns.split(' ').length,firstCard:rect('.sound-card'),transport:rect('.transport')};});
+   const metrics=await page.evaluate(()=>{const rect=s=>{const r=document.querySelector(s).getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height,bottom:r.bottom};};const nav=document.querySelector('.sidebar nav'),main=document.querySelector('main');return{viewport:[innerWidth,innerHeight],app:rect('.app'),brand:rect('.brand'),brandText:rect('.brand span'),brandLine:parseFloat(getComputedStyle(document.querySelector('.brand span')).fontSize),settings:rect('.settings-button'),navHeight:nav.clientHeight,mainHeight:main.clientHeight,mainScroll:main.scrollHeight,overflow:document.documentElement.scrollWidth>innerWidth,columns:getComputedStyle(document.querySelector('.sound-grid')).gridTemplateColumns.split(' ').length,firstCard:rect('.sound-card'),transport:rect('.transport')};});
    await page.screenshot({path:path.join(out,`${locale}-${width}x${height}.png`),scale:'css'});
    assert.equal(metrics.overflow,false,'no horizontal page overflow');assert.ok(metrics.app.height<=metrics.viewport[1]+1,'library must not extend the whole page');
    assert.ok(metrics.brandText.height<metrics.brandLine*2,'brand stays on one line');assert.ok(metrics.firstCard.bottom<=metrics.transport.y,'first cards visible above playback');

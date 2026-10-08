@@ -1,3 +1,4 @@
+import {chineseUI,englishUI,openBackground} from './test-locale.mjs';
 import {_electron as electron} from 'playwright';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -8,12 +9,12 @@ const env={...process.env,QUIET_FIELD_TEST_DATA:profile};delete env.ELECTRON_RUN
 const app=await electron.launch({executablePath:exe,args:[],env,timeout:60000});const errors=[],checks=[];
 try{
  const page=await app.firstWindow();page.on('pageerror',e=>errors.push(e.message));
- await page.getByRole('button',{name:'中文',exact:true}).click();await page.locator('.sound-card').first().waitFor();
+ await chineseUI(page);await page.locator('.sound-card').first().waitFor();
  const runtime=await app.evaluate(({app,BrowserWindow,ipcMain})=>{const w=BrowserWindow.getAllWindows()[0];w.webContents.setAudioMuted(true);w.setContentSize(1180,760);w.show();return{appPath:app.getAppPath(),userData:app.getPath('userData'),version:app.getVersion(),updateReadyListeners:ipcMain.listenerCount('updates-ready')};});
  assert.equal(path.resolve(runtime.userData),path.resolve(profile),'isolated test profile');
  const edition=JSON.parse(await fs.readFile(path.join(runtime.appPath,'dist/edition.json'),'utf8'));
  const catalog=JSON.parse(await fs.readFile(path.join(runtime.appPath,'dist/catalog.json'),'utf8'));
- assert.equal(edition.edition,'personal');assert.equal(edition.sounds,120);assert.equal(catalog.length,120);assert.equal(await page.locator('.sound-card').count(),120);checks.push('Packaged personal edition has all 120 sounds');
+ assert.equal(edition.edition,'personal');assert.equal(edition.sounds,126);assert.equal(catalog.length,126);assert.equal(await page.locator('.sound-card').count(),126);checks.push('Packaged personal edition has all 126 sounds');
  assert.equal(await page.locator('.updates-entry').count(),0);assert.equal(runtime.updateReadyListeners,0);
  const updates=await page.evaluate(async()=>{try{await window.desktop.updatesState();return 'handler-active';}catch(e){return String(e.message);}});
  assert.match(updates,/No handler registered for 'updates-state'/);await assert.rejects(fs.access(path.join(profile,'update-settings.json')));await assert.rejects(fs.access(path.join(profile,'updates')));checks.push('No Messages entry, update IPC handler, update-ready listener or update files');
@@ -26,8 +27,8 @@ try{
  await page.getByRole('button',{name:'播放全部',exact:true}).click();await page.waitForFunction(()=>document.querySelectorAll('.spin').length===0);await page.getByRole('button',{name:'暂停全部',exact:true}).waitFor();
  await page.getByRole('button',{name:'我的组合',exact:true}).click();await page.locator('.saved-item').filter({hasText:'Personal acceptance'}).locator('.outline').click();await page.waitForFunction(()=>document.querySelectorAll('.spin').length===0);assert.equal(await page.locator('.mix-track input').inputValue(),'85');
  const playing=await page.evaluate(()=>window.desktop.companionState());assert.equal(playing.playing,true);assert.equal(playing.activeCount,1);assert.equal(playing.ready,true);
- await page.getByRole('button',{name:'我的收藏',exact:true}).click();assert.equal(await page.locator('.sound-card').count(),1);await page.getByRole('button',{name:'全部声音',exact:true}).click();await page.getByRole('button',{name:'EN',exact:true}).click();assert.equal(await page.getByRole('button',{name:'Messages',exact:true}).count(),0);checks.push('Favorites and saved mix persist; restored mix plays; English also has no Messages');
- await page.screenshot({path:path.join(out,'personal-120-english.png'),scale:'css'});
+ await page.getByRole('button',{name:'我的收藏',exact:true}).click();assert.equal(await page.locator('.sound-card').count(),1);await page.getByRole('button',{name:'全部声音',exact:true}).click();await englishUI(page);assert.equal(await page.getByRole('button',{name:'Messages',exact:true}).count(),0);checks.push('Favorites and saved mix persist; restored mix plays; English also has no Messages');
+ await page.screenshot({path:path.join(out,'personal-126-english.png'),scale:'css'});
  await assert.rejects(fs.access(path.join(profile,'update-settings.json')));await assert.rejects(fs.access(path.join(profile,'updates')));assert.deepEqual(errors,[]);
  await fs.writeFile(path.join(out,'results.json'),JSON.stringify({passed:true,executable:exe,version:runtime.version,edition,checks,errors},null,2));console.log('PASS',JSON.stringify(checks));
 }finally{await app.close();}

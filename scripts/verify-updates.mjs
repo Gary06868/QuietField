@@ -1,3 +1,4 @@
+import {chineseUI,englishUI,openBackground} from './test-locale.mjs';
 import {_electron as electron} from 'playwright';import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';
 const root=process.cwd(),out=path.join(root,'test-results/updates');await fs.mkdir(out,{recursive:true});const profile=path.join(out,'profile-'+Date.now());await fs.mkdir(profile,{recursive:true});
 const release=version=>({tag_name:'v'+version,html_url:`https://github.com/Gary06868/QuietField/releases/tag/v${version}`,draft:false,prerelease:false,body:'新版本：更多声音与体验优化。',assets:[]});
@@ -12,6 +13,6 @@ try{let page=await app.firstWindow();await page.evaluate(()=>localStorage.setIte
  await page.locator('.updates-entry').click();await page.waitForFunction(()=>!document.querySelector('.update-unread'));await page.getByRole('checkbox',{name:'自动检查新版'}).uncheck();assert.equal((await page.evaluate(()=>window.desktop.updatesState())).autoCheck,false);
  await app.evaluate(()=>{globalThis.fetch=async()=>{throw new Error('offline');};});await page.getByRole('button',{name:'检查更新',exact:true}).click();await page.getByText('暂时连不上 GitHub，请稍后重试。声音播放不受影响。',{exact:true}).waitFor();assert.ok((await page.locator('.updates-dialog').innerText()).includes('1.7.1'));await page.getByRole('button',{name:'关闭消息'}).click();
  const prefs=await page.evaluate(()=>JSON.parse(localStorage.getItem('quiet-field-settings')));assert.equal(prefs.saved[0].name,'我的宁静');assert.equal(prefs.mix['brown-noise'],.5);checks.push('disabled checks and offline errors preserve message, mixes and audio preferences');
- await page.getByRole('button',{name:'EN',exact:true}).click();await page.locator('.updates-entry').click();await page.getByRole('heading',{name:'Messages & updates'}).waitFor();await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));checks.push('bilingual message center fits small displays');
+ await englishUI(page);await page.locator('.updates-entry').click();await page.getByRole('heading',{name:'Messages & updates'}).waitFor();await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));checks.push('bilingual message center fits small displays');
  await fs.writeFile(path.join(out,'results.json'),JSON.stringify({passed:true,checks},null,2));console.log('PASS',JSON.stringify(checks));
 }finally{await app.close();}

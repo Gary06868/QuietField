@@ -24,5 +24,5 @@ try{
  await fs.writeFile(path.join(stage,'catalog.json'),JSON.stringify(catalog,null,2));
  await fs.writeFile(path.join(stage,'edition.json'),JSON.stringify({edition:personal?'personal':'public',sounds:catalog.length}));
  await fs.copyFile(path.join(root,'THIRD_PARTY_NOTICES.md'),path.join(stage,'licenses/THIRD_PARTY_NOTICES.md'));
- await build({configFile:false,base:'./',publicDir:stage,resolve:{alias:{'#catalog':catalogFile}},define:{__PUBLIC_LIBRARY__:JSON.stringify(!personal)},build:{target:'es2022'}});
+ await build({configFile:false,base:'./',publicDir:stage,resolve:{alias:{'#catalog':catalogFile}},define:{__PUBLIC_LIBRARY__:JSON.stringify(!personal),__APP_VERSION__:JSON.stringify(JSON.parse(await fs.readFile('package.json','utf8')).version)},build:{target:'es2022'}});
 }finally{await fs.rm(stage,{recursive:true,force:true});}

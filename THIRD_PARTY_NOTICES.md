@@ -779,3 +779,87 @@ Download: https://bigsoundbank.com/download.php (public WAV form, recording 1880
 SHA-256: `fadf592cbf454e854c708673d0abcb916413a020b08598cd1860a62985e5add1`
 
 Source files distributed unchanged. Recording: Crickets and occasional frogs in a French meadow at night, recorded in May 2020.
+
+## 面海轻浪 — Small Waves Facing the Ocean
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/small-waves-facing-the-ocean-s1046.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 1046)
+
+SHA-256: `108546848717aeab4bf60f184b718f7ddb9e479ca77f9f400a620c3835ba4f81`
+
+Source files distributed unchanged. Recording: Small waves recorded facing the sea on a beach in Normandy, France.
+
+## 海浪与燕鸥 — Sea Waves with Tern Calls
+
+Author: DenisChardonnet.
+
+Source: https://bigsoundbank.com/sea-waves-and-seagulls-s0267.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 0267)
+
+SHA-256: `6fa4b6a5e7bd850b615daff8984f89f995d91ff229ec2b9e9a3db49a3da2bb59`
+
+Source files distributed unchanged. Recording: Coastal field recording of waves and tern calls.
+
+## 浅岸浪涌 — Beach: Small Waves
+
+Author: DenisChardonnet.
+
+Source: https://bigsoundbank.com/beach-small-waves-s0265.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 0265)
+
+SHA-256: `3e3ac0640689b18cc0bdc7d068ea9403dc6a15d2f2129ac9d31e26ef364e0828`
+
+Source files distributed unchanged. Recording: Small beach waves, eddies and a distant ocean roar.
+
+## 山泉轻流 — Small Stream #4
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/small-stream-4-s1354.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 1354)
+
+SHA-256: `6f1a83ee0d199dd70e8b06c4026a22433ca02e46307d5f514e68619933e40419`
+
+Source files distributed unchanged. Recording: Original field recording of a small mountain stream.
+
+## 木柴暖炉 — Fireplace #4
+
+Author: Joseph SARDIN.
+
+Source: https://bigsoundbank.com/fireplace-4-s2856.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 2856)
+
+SHA-256: `9ac70d55d2a5d135aea3cb055fb2857f6664110b4df4044ca494192697e0a4ee`
+
+Source files distributed unchanged. Recording: Real indoor fireplace recording with wood crackles.
+
+## 林中鸟语 — Forest #3
+
+Author: Pierre SIBANARCO.
+
+Source: https://bigsoundbank.com/forest-3-s2715.html
+
+License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Download: https://bigsoundbank.com/download.php (public WAV form, recording 2715)
+
+SHA-256: `79ca81aa11e27173ab83df44a53a0969a99f3c6a4d54a461f5a82e81cfd6317c`
+
+Source files distributed unchanged. Recording: Stereo field recording of birds in a forest.

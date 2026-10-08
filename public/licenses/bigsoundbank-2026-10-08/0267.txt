@@ -1,0 +1,11 @@
+Sea Waves with Tern Calls
+Author: DenisChardonnet
+Source: https://bigsoundbank.com/sea-waves-and-seagulls-s0267.html
+Checked at UTC: 2026-10-08T20:37:33.629230+00:00
+Source page SHA-256: 13c5032fa2bb2040b47c7866bb259b7b0f646f3fdc781e16f5af495d4cb53a3d
+License: CC0 (public domain): Free and royalty-free
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Site terms: https://bigsoundbank.com/licenses.html
+The source page explicitly permits editing and redistribution, including in apps.
+Source audio distributed unchanged.
+Audio SHA-256: 6fa4b6a5e7bd850b615daff8984f89f995d91ff229ec2b9e9a3db49a3da2bb59

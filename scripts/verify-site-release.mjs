@@ -1,3 +1,4 @@
+import {chineseUI,englishUI,openBackground} from './test-locale.mjs';
 import {_electron as electron,chromium} from 'playwright';
 import fs from 'node:fs/promises';import path from 'node:path';import http from 'node:http';import assert from 'node:assert/strict';
 const root=process.cwd(),out=path.join(root,'test-results/release-1.6.1');await fs.mkdir(out,{recursive:true});
@@ -7,7 +8,7 @@ if(process.argv.includes('--capture-app')){
  try{const page=await app.firstWindow();await page.evaluate(()=>localStorage.setItem('quiet-field-settings',JSON.stringify({locale:'zh-CN',backgroundId:'alpine',mix:{'blanket-waves':.65,'blanket-wind':.2}})));await page.reload();await page.locator('.sound-card').first().waitFor();
  await app.evaluate(({BrowserWindow})=>{const w=BrowserWindow.getAllWindows()[0];w.webContents.setAudioMuted(true);w.setContentSize(1536,960);w.showInactive();});
  assert.equal(await page.locator('.sound-card').count(),65);await page.getByRole('button',{name:'播放全部',exact:true}).click();await page.getByText('正在准备声音…',{exact:true}).waitFor({state:'hidden'});await page.waitForTimeout(500);
- for(const locale of ['zh-CN','en']){if(locale==='en')await page.getByRole('button',{name:'EN',exact:true}).click();await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:path.join(root,'site/assets/desktop-'+locale+'.png'),scale:'css'});await fs.copyFile(path.join(root,'site/assets/desktop-'+locale+'.png'),path.join(root,'docs/images/desktop-'+locale+'.png'));}
+ for(const locale of ['zh-CN','en']){if(locale==='en')await englishUI(page);await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:path.join(root,'site/assets/desktop-'+locale+'.png'),scale:'css'});await fs.copyFile(path.join(root,'site/assets/desktop-'+locale+'.png'),path.join(root,'docs/images/desktop-'+locale+'.png'));}
  console.log('PASS actual public EXE, 65 sounds, ocean mix playback, bilingual screenshots');
  }finally{await app.close();}
 }

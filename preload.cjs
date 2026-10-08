@@ -5,6 +5,7 @@ contextBridge.exposeInMainWorld('desktop',{
  updatesReady:()=>ipcRenderer.send('updates-ready'),
  onUpdatesState:callback=>{const listener=(_event,state)=>callback(state);ipcRenderer.on('updates-state',listener);return()=>ipcRenderer.removeListener('updates-state',listener);},
   companionState:()=>ipcRenderer.invoke('companion-state'),
+ companionPreferences:closeToTray=>ipcRenderer.invoke('companion-preferences',closeToTray),
  companionUpdate:value=>ipcRenderer.send('companion-update',value),
  companionAction:value=>{if(['mini','main','tray','pin'].includes(value))ipcRenderer.send('companion-action',value);},
  companionCommand:value=>ipcRenderer.send('companion-command',value),
