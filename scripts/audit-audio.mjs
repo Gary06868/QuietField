@@ -21,7 +21,7 @@ try {
       const result=await new Promise((resolve,reject)=>{
         workerObj.onmessage=({data})=>data.error?reject(new Error(data.error)):resolve(data.result);
         workerObj.onerror=e=>reject(new Error(e.message));
-        workerObj.postMessage(sound.generated?{id:1,kind:sound.id,rate:48000}:{id:1,channels,rate:48000,seconds:4},channels?.map(c=>c.buffer)||[]);
+        workerObj.postMessage(sound.generated?{id:1,kind:sound.id,rate:48000}:{id:1,channels,rate:48000,seconds:4,preserveLoudness:sound.preserveLoudness===true},channels?.map(c=>c.buffer)||[]);
       });workerObj.terminate();
       const c=result.channels[0],n=c.length,rate=result.rate;
       let peak=0,energy=0,seamEnergy=0;

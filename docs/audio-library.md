@@ -4,7 +4,7 @@
 
 共 71 种声音：68 段录音与原有的 3 种算法噪声。2026 年 9 月新增 12 段真实录音，合计 32 分 56 秒，均为 CC0 1.0 授权的原始 48 kHz PCM WAV。本次没有新增合成音源。
 
-下列规格来自原始文件；采样率和位深不代表主观录音质量。应用在播放时处理边界与响度，源文件保持原样。
+下列规格来自原始文件；采样率和位深不代表主观录音质量。除下述「海岸浪潮」采用已确认的去风声版本外，其他源文件保持原样。应用在播放时处理循环边界与响度。
 
 | 声音 | 分类 | 时长 | 原始规格 | 作者 / 来源 | 许可 |
 |---|---|---:|---|---|---|
@@ -125,3 +125,9 @@
 - 山泉轻流 · 48 kHz / 24-bit / 2 ch · 104.9 s · [Joseph SARDIN](https://bigsoundbank.com/small-stream-4-s1354.html) · CC0 1.0
 - 木柴暖炉 · 48 kHz / 24-bit / 2 ch · 79.1 s · [Joseph SARDIN](https://bigsoundbank.com/fireplace-4-s2856.html) · CC0 1.0
 - 林中鸟语 · 48 kHz / 24-bit / 2 ch · 160.6 s · [Pierre SIBANARCO](https://bigsoundbank.com/forest-3-s2715.html) · CC0 1.0
+
+## 海岸浪潮 G / Sea Waves G
+
+已采用 G 柔和去风声处理：减弱低频轰鸣、残余风声和高频嘶声，保留原采样率与立体声；处理后保存为 24-bit WAV 不代表原始录音规格提高。
+
+Source and edits: [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES.md).

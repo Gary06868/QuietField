@@ -2,6 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {downloadRecording} from '../scripts/audio-download.mjs';
 const sound={id:'bsb-3598',downloadId:'3598',downloadMethod:'bigsoundbank-form'};
+test('a missing curated derivative never silently downloads the unprocessed original',async()=>{
+ let calls=0;await assert.rejects(downloadRecording({id:'wav-waves',downloadMethod:'bundled-derived',downloadURL:'https://soundbible.com/grab.php?id=885&type=wav'},{fetchImpl:async()=>{calls++;throw Error('Unexpected network');}}),/restore public\/processed/);assert.equal(calls,0);
+});
 const html=`<form id="dl-form" action="/modules/telecharger.php" method="POST"><input name="id" value="3598"><input name="format" value="wav"><input name="antibot_hp" value=""><input name="antibot_n" value="fixture-nonce"></form><script>var delaiMs = 5 * 1000;</script>`;
 test('public WAV download preserves form fields, session and advertised delay',async()=>{
   let call=0,waited=false;

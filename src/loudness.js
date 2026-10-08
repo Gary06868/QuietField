@@ -27,6 +27,16 @@ export function normalizeLoudness(channels,rate) {
   return {gainDb:20*Math.log10(gain),inputRms,outputRms:Math.sqrt(outputEnergy/count),limitedFraction:limited/count};
 }
 
+// Curated G audio already has its reviewed level. Raising its RMS after
+// removing wind would bring the remaining noise up again.
+export function applyPlaybackLoudness(channels,rate,preserve=false){
+  if(preserve!==true)return normalizeLoudness(channels,rate);
+  let energy=0,count=0;
+  for(const c of channels)for(const value of c){energy+=value*value;count++;}
+  const level=Math.sqrt(energy/Math.max(1,count));
+  return {gainDb:0,inputRms:level,outputRms:level,limitedFraction:0,prebalanced:true};
+}
+
 export function protectionCurve() {
   return Float32Array.from({length:16385},(_,i)=>{
     const x=i/8192-1,mag=Math.abs(x);

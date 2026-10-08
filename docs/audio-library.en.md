@@ -4,7 +4,7 @@
 
 71 sounds: 68 recordings and 3 existing generated noises. The September 2026 expansion adds 12 real recordings (32 min 56 sec), all native 48 kHz PCM WAV under CC0 1.0. No new generated or synthetic audio was added.
 
-Specifications describe source files, not a promise of equal subjective quality. The app processes boundaries and gain during playback; source files remain unchanged.
+Specifications describe source files, not a promise of equal subjective quality. Source files remain unchanged except Coastal surf, which uses the approved wind-reduced recording described below. The app processes loop boundaries and gain during playback.
 
 | Sound | Category | Length | Source format | Author / source | License |
 |---|---|---:|---|---|---|
@@ -125,3 +125,9 @@ Six CC0 original WAV recordings were added. Native sample rates are retained, in
 - Gentle mountain brook · 48 kHz / 24-bit / 2 ch · 104.9 s · [Joseph SARDIN](https://bigsoundbank.com/small-stream-4-s1354.html) · CC0 1.0
 - Wood fire indoors · 48 kHz / 24-bit / 2 ch · 79.1 s · [Joseph SARDIN](https://bigsoundbank.com/fireplace-4-s2856.html) · CC0 1.0
 - Woodland birdsong · 48 kHz / 24-bit / 2 ch · 160.6 s · [Pierre SIBANARCO](https://bigsoundbank.com/forest-3-s2715.html) · CC0 1.0
+
+## 海岸浪潮 G / Sea Waves G
+
+Uses the approved G treatment to reduce rumble, residual wind and hiss. Original sample rate and stereo channels are retained; the processed 24-bit WAV does not imply a higher-resolution original recording.
+
+Source and edits: [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES.md).

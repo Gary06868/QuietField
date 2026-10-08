@@ -3,6 +3,17 @@ import assert from 'node:assert/strict';
 import * as audio from '../src/loudness.js';
 const sine=(amplitude,n=48000)=>Float32Array.from({length:n},(_,i)=>amplitude*Math.sin(2*Math.PI*440*i/48000));
 const rms=data=>Math.sqrt(data.reduce((sum,v)=>sum+v*v,0)/data.length);
+test('approved prebalanced recordings keep their gain and stereo balance',()=>{
+ const left=sine(.03),right=sine(.015),before=[left.slice(),right.slice()];
+ const result=audio.applyPlaybackLoudness([left,right],48000,true);
+ assert.deepEqual(left,before[0]);assert.deepEqual(right,before[1]);
+ assert.equal(result.gainDb,0);assert.equal(result.prebalanced,true);
+ assert.ok(Math.abs(rms(left)/rms(right)-2)<.001);
+});
+test('ordinary recordings still receive loudness balancing through the playback path',()=>{
+ const quiet=sine(.008);const result=audio.applyPlaybackLoudness([quiet],48000,false);
+ assert.ok(rms(quiet)>.10);assert.ok(result.gainDb>15);
+});
 test('quiet and loud steady recordings converge to comparable baseline levels',()=>{
   const quiet=sine(.008),loud=sine(.4);
   audio.normalizeLoudness([quiet],48000);audio.normalizeLoudness([loud],48000);

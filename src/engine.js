@@ -46,7 +46,7 @@ export class AudioEngine {
         if(decoded.numberOfChannels>2)throw new Error('请选择单声道或双声道录音');
         makeRoom(this.cache,this.tracks,decoded.length*decoded.numberOfChannels*4,this.memoryBudget);
         const channels=Array.from({length:Math.min(2,decoded.numberOfChannels)},(_,i)=>decoded.getChannelData(i).slice());
-        processed=await this.process({channels,rate:decoded.sampleRate,seconds:sound.crossfade||4});
+        processed=await this.process({channels,rate:decoded.sampleRate,seconds:sound.crossfade||4,preserveLoudness:!sound.custom&&sound.preserveLoudness===true});
       }
       const buffer=this.ctx.createBuffer(processed.channels.length,processed.channels[0].length,processed.rate);
       processed.channels.forEach((c,i)=>buffer.copyToChannel(c,i));

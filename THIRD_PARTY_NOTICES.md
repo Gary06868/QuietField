@@ -2,7 +2,7 @@
 
 Application code: MIT. Audio is licensed separately as listed below. No endorsement by the recording authors is implied.
 
-Audio changes: source files are distributed unchanged from the specified download. Blanket recordings include upstream editing/format conversion; editor listed where credited. Quiet Field trims silence, normalizes gain and crossfades in memory during playback.
+Audio changes: source files are distributed unchanged from the specified download, except the explicitly documented Coastal surf treatment below. Blanket recordings include upstream editing/format conversion; editor listed where credited. Quiet Field trims silence, normalizes gain and crossfades in memory during playback.
 
 ## 晨间鸟鸣 — birds
 
@@ -168,9 +168,11 @@ Source: https://soundbible.com/885-Sea-Waves.html
 
 License: [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
 
-Download: https://soundbible.com/grab.php?id=885&type=wav
+Original download: https://soundbible.com/grab.php?id=885&type=wav
 
-SHA-256: `05df3e036af5700ee357be14db7593702c96eeb1307406c6998b523bac3a29e1`
+Original SHA-256: `05df3e036af5700ee357be14db7593702c96eeb1307406c6998b523bac3a29e1`
+
+The bundled recording uses the approved G treatment; see the modification notice at the end of this document.
 
 ## 屋内听雨 — Rain Inside House
 
@@ -863,3 +865,16 @@ Download: https://bigsoundbank.com/download.php (public WAV form, recording 2715
 SHA-256: `79ca81aa11e27173ab83df44a53a0969a99f3c6a4d54a461f5a82e81cfd6317c`
 
 Source files distributed unchanged. Recording: Stereo field recording of birds in a forest.
+
+## 海岸浪潮 — approved G treatment
+
+Original recording: Sea Waves by Mike Koenig.
+Source: https://soundbible.com/885-Sea-Waves.html
+License: [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+
+Modified by Quiet Field: 180 Hz high-pass, shared stereo adaptive wind reduction, gentle low-mid and high-shelf attenuation. Selected by the user on 2026-10-08. The entire original duration and sample rate are retained. The processed recording is also provided under CC BY 3.0.
+
+Original SHA-256: `05df3e036af5700ee357be14db7593702c96eeb1307406c6998b523bac3a29e1`
+Processed SHA-256: `9f950e6d7c67ff71f2095f7c52fef1ecda2fa4ce2e8e52a269ae0152be712480`
+Bundled file: `public/processed/wav-waves-g.wav`
+The source stays archived in development; this sound's app entry plays only the processed recording.

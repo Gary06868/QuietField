@@ -362,5 +362,8 @@
   "木柴暖炉": "Wood fire indoors",
   "室内壁炉的真实录音，含木柴爆裂声。": "Real indoor fireplace recording with wood crackles.",
   "林中鸟语": "Woodland birdsong",
-  "森林鸟鸣的立体声实录。": "Stereo field recording of birds in a forest."
+  "森林鸟鸣的立体声实录。": "Stereo field recording of birds in a forest.",
+  "已保留 G 处理后的音量 · 峰值保护 · 最高 300%": "Reviewed G level retained · Peak protection · Up to 300%",
+  "已减弱低频轰鸣、风声和高频嘶声，保留原采样率与立体声。处理后保存为 24-bit WAV，不代表原始录音规格提高。": "Rumble, wind and hiss have been reduced while retaining the original sample rate and stereo channels. Saving the processed recording as a 24-bit WAV does not imply a higher-resolution original source.",
+  "已保留处理后的音量 · 峰值保护 · 最高 300%": "Reviewed playback level retained · Peak protection · Up to 300%"
 }

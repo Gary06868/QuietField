@@ -2,6 +2,7 @@ import {setTimeout as sleep} from 'node:timers/promises';
 
 // Use the public download form and its advertised delay. No account is needed.
 export async function downloadRecording(sound, {fetchImpl=fetch, wait=sleep}={}) {
+  if(sound.downloadMethod==='bundled-derived')throw Error(`Missing bundled processed recording: ${sound.id}; restore public/processed from the source checkout.`);
   const request=async(url, options={})=>{
     const response=await fetchImpl(url,{...options,signal:AbortSignal.timeout(120000)});
     if(!response.ok)throw Error(`Download failed: ${sound.id} (${response.status})`);
