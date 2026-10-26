@@ -1,11 +1,12 @@
-const {app,BrowserWindow,Menu,protocol,net,ipcMain,powerSaveBlocker,session,screen,powerMonitor,shell}=require('electron');
+const {app,BrowserWindow,Menu,protocol,net,ipcMain,powerSaveBlocker,session,screen,powerMonitor,shell,dialog}=require('electron');
 const createWindowState=require('./window-state.cjs');
 const {applyWindowBounds}=require('./window-geometry.cjs');
 const path=require('node:path');
 const {pathToFileURL}=require('node:url');
-const publicEdition=require('./dist/edition.json').edition==='public';
-app.setName(publicEdition?'QuietField-Public':'QuietField');
-if(process.platform==='win32')app.setAppUserModelId(publicEdition?'org.quietfield.desktop.public':'org.quietfield.desktop');
+const editionInfo=require('./dist/edition.json');
+const publicEdition=editionInfo.edition==='public',reviewBuild=editionInfo.review===true;
+app.setName(reviewBuild?'QuietField-Review':publicEdition?'QuietField-Public':'QuietField');
+if(process.platform==='win32')app.setAppUserModelId(reviewBuild?'org.quietfield.desktop.review':publicEdition?'org.quietfield.desktop.public':'org.quietfield.desktop');
 if(process.env.QUIET_FIELD_TEST_DATA)app.setPath('userData',process.env.QUIET_FIELD_TEST_DATA);
 protocol.registerSchemesAsPrivileged([{scheme:'quiet',privileges:{standard:true,secure:true,supportFetchAPI:true,stream:true}}]);
 let win,blocker,companion;
@@ -34,6 +35,7 @@ else {
     windowState.attach(win);if(windowState.maximized)win.maximize();
     powerMonitor.on('resume',()=>{if(win&&!win.isDestroyed())win.webContents.send('system-resume');});
     const trusted=event=>win&&!win.isDestroyed()&&event.sender===win.webContents&&event.senderFrame===win.webContents.mainFrame;
+    require('./backup-export.cjs')({ipcMain,dialog,app,win,trusted});
     ipcMain.handle('window-state',event=>trusted(event)?{maximized:win.isMaximized(),visible:win.isVisible()&&!win.isMinimized()}:null);
     ipcMain.on('window-action',(event,action)=>{
       if(!trusted(event))return;
@@ -49,7 +51,7 @@ else {
     win.webContents.on('render-process-gone',stopBlock);
     companion=require('./desktop-companion.cjs')(app,win,root);
   win.on('closed',()=>{stopBlock();companion?.dispose();companion=null;win=null;});
-    if(publicEdition)await require('./desktop-updates.cjs')({app,win,ipcMain,shell});
+    if(publicEdition&&!reviewBuild)await require('./desktop-updates.cjs')({app,win,ipcMain,shell});
     win.loadURL('quiet://app/index.html');
   });
   app.on('window-all-closed',()=>app.quit());

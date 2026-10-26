@@ -878,3 +878,13 @@ Original SHA-256: `05df3e036af5700ee357be14db7593702c96eeb1307406c6998b523bac3a2
 Processed SHA-256: `9f950e6d7c67ff71f2095f7c52fef1ecda2fa4ce2e8e52a269ae0152be712480`
 Bundled file: `public/processed/wav-waves-g.wav`
 The source stays archived in development; this sound's app entry plays only the processed recording.
+
+
+## Version 1.8.0: additional CC0 recordings
+
+Public HQ MP3 derivatives supplied by Freesound (not original WAV/lossless downloads). No transcoding. Full per-file provenance and checksums: `public/licenses/review-audio-provenance.json`. Original author pages and CC0 1.0 links are included with each sound.
+
+- RobinDavidsen: https://freesound.org/people/RobinDavidsen/sounds/437212/ — CC0 1.0
+- aunrea: https://freesound.org/people/aunrea/sounds/495660/ — CC0 1.0
+- sengjinn: https://freesound.org/people/sengjinn/sounds/175020/ — CC0 1.0
+- chris_dagorne: https://freesound.org/people/chris_dagorne/sounds/563153/ — CC0 1.0

@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {build} from 'vite';
-const root=process.cwd(),personal=process.argv.includes('--personal');
+const root=process.cwd(),personal=process.argv.includes('--personal'),review=process.argv.includes('--review');
 const catalogFile=path.join(root,`src/catalog${personal?'':'.public'}.json`);
 const catalog=JSON.parse(await fs.readFile(catalogFile,'utf8'));
 // A fresh directory prevents excluded audio from leaking into a public build.
@@ -22,7 +22,7 @@ try{
   await fs.mkdir(path.dirname(dst),{recursive:true});await fs.writeFile(dst,data);
  }
  await fs.writeFile(path.join(stage,'catalog.json'),JSON.stringify(catalog,null,2));
- await fs.writeFile(path.join(stage,'edition.json'),JSON.stringify({edition:personal?'personal':'public',sounds:catalog.length}));
+ await fs.writeFile(path.join(stage,'edition.json'),JSON.stringify({edition:personal?'personal':'public',sounds:catalog.length,review}));
  await fs.copyFile(path.join(root,'THIRD_PARTY_NOTICES.md'),path.join(stage,'licenses/THIRD_PARTY_NOTICES.md'));
- await build({configFile:false,base:'./',publicDir:stage,resolve:{alias:{'#catalog':catalogFile}},define:{__PUBLIC_LIBRARY__:JSON.stringify(!personal),__APP_VERSION__:JSON.stringify(JSON.parse(await fs.readFile('package.json','utf8')).version)},build:{target:'es2022'}});
+ await build({configFile:false,base:'./',publicDir:stage,resolve:{alias:{'#catalog':catalogFile}},define:{__PUBLIC_LIBRARY__:JSON.stringify(!personal),__REVIEW_BUILD__:JSON.stringify(review),__APP_VERSION__:JSON.stringify(review?'1.8.0-review.1':JSON.parse(await fs.readFile('package.json','utf8')).version)},build:{target:'es2022'}});
 }finally{await fs.rm(stage,{recursive:true,force:true});}

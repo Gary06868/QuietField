@@ -1,10 +1,10 @@
 # Quiet Field · 静野
 
-**Find your quiet.** A free, offline ambient sound mixer for Windows, with 71 built-in sounds and mixes you can make your own.
+**Find your quiet.** A free, offline ambient sound mixer for Windows, with 75 built-in sounds and mixes you can make your own.
 
 **English** · [简体中文](README.zh-CN.md)
 
-[**Download for Windows**](https://github.com/Gary06868/QuietField/releases/download/v1.7.0/QuietField-1.7.0-Windows-x64-public.zip) · [Listen & explore](https://gary06868.github.io/QuietField/) · [Sound library](docs/audio-library.en.md) · [Feedback](https://github.com/Gary06868/QuietField/issues/new/choose)
+[**Download for Windows**](https://github.com/Gary06868/QuietField/releases/download/v1.8.0/QuietField-1.8.0-Windows-x64-public.zip) · [Listen & explore](https://gary06868.github.io/QuietField/) · [Sound library](docs/audio-library.en.md) · [Feedback](https://github.com/Gary06868/QuietField/issues/new/choose)
 
 [![Windows build](https://github.com/Gary06868/QuietField/actions/workflows/build.yml/badge.svg)](https://github.com/Gary06868/QuietField/actions/workflows/build.yml)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
@@ -14,7 +14,7 @@
 
 ## A little quiet, on your terms
 
-- **71 sounds, ready offline.** Rain, ocean waves, forests, cat purring, wind chimes, trains and more, plus white, pink and brown noise. All recordings come in the download.
+- **75 sounds, ready offline.** Rain, ocean waves, forests, cat purring, wind chimes, trains and more, plus white, pink and brown noise. All recordings come in the download.
 - **Your own soundscape.** Layer up to 8 sounds, adjust each level, favorite your picks and save named mixes locally.
 - **Natural transitions.** Edge-silence trimming, crossfading and continuous audio-buffer looping reduce abrupt restarts. Distinct events can still sound repetitive.
 - **Balanced levels.** Automatic baseline loudness adjustment, individual controls up to 300%, and output peak protection.
@@ -27,7 +27,7 @@
 - **English & 简体中文.** Follows your system language on first launch; switch any time without interrupting playback. Search in either language.
 - **No accounts, ads or telemetry.** No subscription. No cloud upload. Free and open source.
 
-The library includes 50 original PCM WAV recordings from BigSoundBank, including 29 at 24-bit / 48 kHz. [Browse all 71 sounds and recording notes](docs/audio-library.en.md).
+The library includes 50 original PCM WAV recordings from BigSoundBank, including 29 at 24-bit / 48 kHz. [Browse all 75 sounds and recording notes](docs/audio-library.en.md).
 
 ![Unified settings](docs/images/settings.png)
 
@@ -37,17 +37,17 @@ The library includes 50 original PCM WAV recordings from BigSoundBank, including
 
 ![Compact window with an on-demand mixer](docs/images/compact-window.png)
 
-## New in 1.7.0
+## New in 1.8.0
 
-Six more licensed recordings bring the library to 71 sounds. Settings are together, closing defaults to the tray, and Coastal surf uses a softer recording with reduced rumble, wind and hiss. Rain and stream recordings remain unchanged. Existing sound IDs, imports and saved mixes are retained.
+Four more CC0 recordings bring the library to 75 sounds. Saved mixes now crossfade smoothly; optional dynamic levels and automatic mix rotation add gentle variation. Focus/break cycles, Natural/Soft/Deep tone choices, custom sleep timing and +10 minutes are available without changing the final 15-second sleep fade. Local JSON backup restores favorites and saved mixes (audio files are not embedded), deletion can be undone, and up to 1,000 saved mixes survive restart. Imports report successes and failures. The version and local update notes are visible in Settings.
 
 ## Download & start listening
 
-1. Download **[QuietField-1.7.0-Windows-x64-public.zip](https://github.com/Gary06868/QuietField/releases/download/v1.7.0/QuietField-1.7.0-Windows-x64-public.zip)** (about 1.41 GB).
+1. Download **[QuietField-1.8.0-Windows-x64-public.zip](https://github.com/Gary06868/QuietField/releases/download/v1.8.0/QuietField-1.8.0-Windows-x64-public.zip)** (about 1.42 GB).
 2. Extract the **whole ZIP** into a folder.
 3. Open `QuietField-win32-x64/静野.exe` (静野 is the app’s Chinese name).
 
-No Node.js, Python, installation wizard or account is needed. Keep the executable with its accompanying files. Checksums are on the [release page](https://github.com/Gary06868/QuietField/releases/tag/v1.7.0). Source archives omit the full sound library; the documented processed Coastal surf asset is included. Developers fetch the remaining recordings using the source manifest.
+No Node.js, Python, installation wizard or account is needed. Keep the executable with its accompanying files. Checksums are on the [release page](https://github.com/Gary06868/QuietField/releases/tag/v1.8.0). Source archives omit the full sound library; the documented processed Coastal surf asset and four new public HQ MP3 recordings are included. Developers fetch the remaining recordings using the source manifest.
 
 **Platform:** Windows x64. macOS, Linux and Windows ARM64 builds are not available yet. The app is unsigned, so Windows may show a reputation warning; use this repository’s official releases. Local desktop tests and Windows CI are not a substitute for testing on every PC.
 
@@ -55,11 +55,11 @@ No Node.js, Python, installation wizard or account is needed. Keep the executabl
 
 ## Questions
 
-**Why is the download large?** The app bundles 68 recordings so the app works offline. Many are original, uncompressed WAV files. The other 3 sounds are generated noise.
+**Why is the download large?** The app bundles 72 recordings so the app works offline. Many are original, uncompressed WAV files. The other 3 sounds are generated noise.
 
 **Can I use it offline?** Yes. Fonts, artwork and audio are bundled, and the playback interface blocks external HTTP/HTTPS requests. From 1.6.1, the public edition can check this repository’s GitHub Releases at most once a day in the background; disable this in Messages to stop automatic checks. A manual check or update connects to GitHub. No audio, mixes or usage history are uploaded. Optional website previews need a connection and use GitHub Pages hosting; there is no added analytics script.
 
-**Where are my mixes?** Favorites and mixes are in local preferences; imports are in a local database. To move to another PC, close the app and back up the entire data folder. There is no standalone mix export or cloud sync yet.
+**Where are my mixes?** Favorites and mixes are in local preferences; imports are in a local database. To move to another PC, close the app and back up the entire data folder. Settings → Backup can export and merge favorites and saved mixes as validated local JSON. Imported audio bytes are not included: keep the entire data folder when migrating those files. There is no cloud sync.
 
 **What about displays and performance?** The window adapts to the system’s scaled work area; the layout responds to its width. Settings → General includes a reduced-effects mode. Cached and playing PCM has an admission budget, not a cap on total process memory. Real mixed-DPI hot-plugging, Bluetooth switching and overnight playback still need wider field testing.
 
@@ -78,7 +78,7 @@ npm start
 npm run package
 ```
 
-Packages go to `releases/1.7.0-public/`. Downloads and builds verify the per-file SHA-256 manifest; changed upstream files stop the build for review. BigSoundBank downloads follow its official form and anonymous waiting period.
+Packages go to `releases/1.8.0-public/`. Downloads and builds verify the per-file SHA-256 manifest; changed upstream files stop the build for review. BigSoundBank downloads follow its official form and anonymous waiting period.
 
 Desktop checks require a desktop session and use isolated test data:
 

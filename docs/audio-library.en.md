@@ -2,7 +2,7 @@
 
 [English README](../README.md) · [中文音源清单](audio-library.md)
 
-71 sounds: 68 recordings and 3 existing generated noises. The September 2026 expansion adds 12 real recordings (32 min 56 sec), all native 48 kHz PCM WAV under CC0 1.0. No new generated or synthetic audio was added.
+75 sounds: 72 recordings and 3 existing generated noises. The September 2026 expansion adds 12 real recordings (32 min 56 sec), all native 48 kHz PCM WAV under CC0 1.0. No new generated or synthetic audio was added.
 
 Specifications describe source files, not a promise of equal subjective quality. Source files remain unchanged except Coastal surf, which uses the approved wind-reduced recording described below. The app processes loop boundaries and gain during playback.
 
@@ -131,3 +131,17 @@ Six CC0 original WAV recordings were added. Native sample rates are retained, in
 Uses the approved G treatment to reduce rumble, residual wind and hiss. Original sample rate and stereo channels are retained; the processed 24-bit WAV does not imply a higher-resolution original recording.
 
 Source and edits: [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES.md).
+
+
+## Added in 1.8.0
+
+Four CC0 public HQ MP3 derivatives from Freesound, without transcoding. These are not lossless originals.
+
+| Sound | Author / original source | Format | License |
+|---|---|---|---|
+| Rain on a caravan roof | [RobinDavidsen](https://freesound.org/people/RobinDavidsen/sounds/437212/) | HQ MP3 · 44.1 kHz / 2 ch | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Close fireplace | [aunrea](https://freesound.org/people/aunrea/sounds/495660/) | HQ MP3 · 48 kHz / 1 ch | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Midnight crickets | [sengjinn](https://freesound.org/people/sengjinn/sounds/175020/) | HQ MP3 · 48 kHz / 2 ch | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Winter woodland wind and robin | [chris_dagorne](https://freesound.org/people/chris_dagorne/sounds/563153/) | HQ MP3 · 44.1 kHz / 2 ch | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+
+[Per-file provenance and SHA-256](../public/licenses/review-audio-provenance.json).

@@ -2,7 +2,7 @@
 
 [中文说明](../README.zh-CN.md) · [English sound library](audio-library.en.md)
 
-共 71 种声音：68 段录音与原有的 3 种算法噪声。2026 年 9 月新增 12 段真实录音，合计 32 分 56 秒，均为 CC0 1.0 授权的原始 48 kHz PCM WAV。本次没有新增合成音源。
+共 75 种声音：72 段录音与原有的 3 种算法噪声。2026 年 9 月新增 12 段真实录音，合计 32 分 56 秒，均为 CC0 1.0 授权的原始 48 kHz PCM WAV。本次没有新增合成音源。
 
 下列规格来自原始文件；采样率和位深不代表主观录音质量。除下述「海岸浪潮」采用已确认的去风声版本外，其他源文件保持原样。应用在播放时处理循环边界与响度。
 
@@ -131,3 +131,17 @@
 已采用 G 柔和去风声处理：减弱低频轰鸣、残余风声和高频嘶声，保留原采样率与立体声；处理后保存为 24-bit WAV 不代表原始录音规格提高。
 
 Source and edits: [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES.md).
+
+
+## 1.8.0 新增录音
+
+以下为 Freesound 公开 HQ MP3 副本，均为 CC0，未转码，不标注为无损原始录音。
+
+| 声音 | 作者 / 原始来源 | 格式 | 许可 |
+|---|---|---|---|
+| 房车顶雨 | [RobinDavidsen](https://freesound.org/people/RobinDavidsen/sounds/437212/) | HQ MP3 · 44.1 kHz / 2 ch | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| 近听炉火 | [aunrea](https://freesound.org/people/aunrea/sounds/495660/) | HQ MP3 · 48 kHz / 1 ch | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| 午夜虫声 | [sengjinn](https://freesound.org/people/sengjinn/sounds/175020/) | HQ MP3 · 48 kHz / 2 ch | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| 冬林风与知更鸟 | [chris_dagorne](https://freesound.org/people/chris_dagorne/sounds/563153/) | HQ MP3 · 44.1 kHz / 2 ch | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+
+[逐段来源与 SHA-256](../public/licenses/review-audio-provenance.json)。
