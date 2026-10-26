@@ -1,7 +1,7 @@
 import {chineseUI,englishUI,openBackground} from './test-locale.mjs';
 import {_electron as electron,chromium} from 'playwright';
 import fs from 'node:fs/promises';import path from 'node:path';import http from 'node:http';import assert from 'node:assert/strict';
-const root=process.cwd(),out=path.join(root,'test-results/release-1.8.0');await fs.mkdir(out,{recursive:true});
+const root=process.cwd(),out=path.join(root,'test-results/release-1.8.1');await fs.mkdir(out,{recursive:true});
 if(process.argv.includes('--capture-app')){
  const env={...process.env,QUIET_FIELD_TEST_DATA:path.join(out,'capture-'+Date.now())};delete env.ELECTRON_RUN_AS_NODE;
  const app=await electron.launch({executablePath:process.argv[2],env});
@@ -19,10 +19,10 @@ const browser=await chromium.launch({channel:'msedge',headless:true,args:['--mut
 try{const page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
  for(const [suffix,lang] of [['','en'],['zh-CN/','zh-CN']]){
   await page.goto(base+suffix);assert.equal(await page.locator('html').getAttribute('lang'),lang);
-  assert.match(await page.locator('.primary').getAttribute('href'),/v1\.8\.0\/QuietField-1\.8\.0-Windows-x64-public.zip$/);
+  assert.match(await page.locator('.primary').getAttribute('href'),/v1\.8\.1\/QuietField-1\.8\.1-Windows-x64-public.zip$/);
   assert.equal(await page.locator('.star-support').getAttribute('href'),'https://github.com/Gary06868/QuietField');assert.equal(await page.locator('.star-support').getAttribute('rel'),'noopener noreferrer');
-  assert.match(await page.locator('.facts').innerText(),/1.8.0/);assert.match(await page.locator('.big-number').innerText(),/75/);
-  const schema=JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());assert.equal(schema.softwareVersion,'1.8.0');
+  assert.match(await page.locator('.facts').innerText(),/1.8.1/);assert.match(await page.locator('.big-number').innerText(),/75/);
+  const schema=JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());assert.equal(schema.softwareVersion,'1.8.1');
   for(const width of [1440,768,390]){await page.setViewportSize({width,height:980});await page.locator('.screenshot').scrollIntoViewIfNeeded();await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));await page.evaluate(()=>scrollTo(0,0));assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'horizontal overflow '+lang+' '+width);await page.screenshot({path:path.join(out,lang+'-'+width+'.png'),fullPage:true});}
   for(let i=0;i<3;i++){await page.locator('.sample-play').nth(i).click();await page.waitForFunction(i=>document.querySelectorAll('audio')[i].currentTime>.2,i);assert.equal(await page.locator('audio').evaluateAll(a=>a.filter(x=>!x.paused).length),1);}
   await page.locator('.sample-play').nth(2).click();assert.equal(await page.locator('audio').evaluateAll(a=>a.filter(x=>!x.paused).length),0);

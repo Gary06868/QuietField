@@ -1,0 +1,81 @@
+/* Shared utility controls, with the existing Quiet Field color and type system. */
+.app .sidebar-bottom{display:flex;flex-direction:column;gap:6px;padding:10px 4px 0}
+.app .sidebar-bottom>button{display:flex;align-items:center;gap:9px;width:100%;min-height:36px;margin:0;padding:8px 10px;border:1px solid #79b9ee2e;border-radius:9px;background:#0b1e2e66;color:#b9cfe2;font-size:12px;line-height:1.5;text-align:left}
+.app .sidebar-bottom>button:hover{background:#298fc327;border-color:#79c4fa66;color:#e1f2ff}
+.app .sidebar-bottom>button svg{width:16px;height:16px;flex:none}
+.app .sidebar-bottom .version-entry{font-variant-numeric:tabular-nums;overflow:hidden}
+.version-entry .version-badge{margin-left:auto;font-size:10px;color:#98b5cd;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(min-width:1051px){:root{--mixer:clamp(310px,23vw,384px)}}
+.app>.mixer{margin:19px 18px 16px 0;padding:20px 18px;display:flex;flex-direction:column;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+.mixer .offline-note{display:none}
+.mixer .mixer-header{flex:none;padding:0 0 16px}
+.mixer .mixer-header h2{font-size:17px;letter-spacing:.3px}
+.mixer .mix-list,dialog .mixer .mix-list{display:block;flex:0 0 auto;min-height:150px;max-height:clamp(180px,34dvh,340px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain}
+.mixer .mix-track{min-height:76px;padding:12px 10px;margin-bottom:8px;border-radius:10px}
+.mixer .mix-name{margin-bottom:8px;font-size:12px}
+.mixer .mix-name>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mixer .mix-track>svg{width:23px;height:23px}
+.mixer .mix-empty{padding:26px 4px 16px}
+.mixer .gain-hint{margin:12px 0 10px;font-size:10px}
+.mixer .mix-actions{flex:none;margin:0 0 19px;gap:8px}
+.mixer .mix-actions .primary,.mixer .mix-actions .outline{min-height:38px;font-size:12px;padding:8px 12px}
+/* Labels describe a single control, rather than drawing a second box around it. */
+.mixer .enhanced-timer{max-width:none;flex:none;padding-top:18px;border-top:1px solid #82b9e72e}
+.enhanced-timer h3{font-size:14px!important;letter-spacing:0;margin-bottom:11px!important}
+.mixer .enhanced-timer label{border:0;border-radius:0;background:none;padding:0;gap:6px}
+.mixer .enhanced-timer .timer-select{display:flex;align-items:center;border:1px solid #79b9ee42;border-radius:9px;background:#0c203280;padding:0 10px;gap:9px}
+.enhanced-timer .timer-select select{min-width:0;height:38px;font-size:12px;background:transparent;color:#cde5f6}
+.enhanced-timer .timer-custom{display:grid;grid-template-columns:minmax(62px,1fr) auto auto;align-items:end;gap:7px;margin-top:12px}
+.enhanced-timer .timer-custom label,.enhanced-timer .focus-durations label{display:flex;flex-direction:column;align-items:stretch;min-width:0;font-size:11px;color:#9eb7cc}
+.mixer .enhanced-timer input[type=number]{display:block;width:100%;height:36px;min-width:0;margin:0;padding:7px 9px;border:1px solid #79b9ee42;border-radius:8px;background:#0b1b2b80;color:#d7e9f8;font-size:12px}
+.mixer .enhanced-timer button{min-height:36px;padding:7px 10px;font-size:11px;white-space:nowrap;border-radius:8px;line-height:1.5}
+.mixer .enhanced-timer p{font-size:10px;line-height:1.7;margin:9px 0 0;color:#96afc5}
+.enhanced-timer .focus-timer{margin-top:16px;padding-top:0;border-top:1px solid #79b9ee29}
+.focus-timer summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 0 2px;list-style:none;cursor:pointer;color:#cde5f6;font-size:13px}
+.focus-timer summary::-webkit-details-marker{display:none}
+.focus-timer summary svg{transition:transform .15s}
+.focus-timer[open] summary svg{transform:rotate(180deg)}
+.focus-timer summary:focus-visible{outline:2px solid #77cdff;outline-offset:3px;border-radius:4px}
+.focus-timer .focus-durations{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0 12px}
+.focus-timer .focus-start{width:100%}
+.focus-timer .focus-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.focus-timer .focus-status{font-size:12px!important;color:#bce9ff!important;font-variant-numeric:tabular-nums}
+dialog .mixer.mixer{overflow:auto;max-height:calc(100dvh - 152px);min-height:0;padding:0;scrollbar-gutter:stable}
+/* A stable shell keeps the title, close button and tabs in place on every tab. */
+dialog.settings-dialog{width:min(680px,calc(100vw - 28px));height:min(680px,calc(100dvh - 64px));max-height:calc(100dvh - 64px);padding:24px;overflow:hidden}
+dialog.settings-dialog[open]{display:flex;flex-direction:column}
+.settings-dialog>header{flex:none;margin:0 0 17px}
+.settings-dialog .settings-panel{display:flex;flex-direction:column;flex:1;min-height:0}
+.settings-dialog .settings-tabs{flex:none;min-height:47px;overflow-x:auto;overflow-y:hidden}
+.settings-dialog .settings-content{flex:1;min-height:0;padding:8px 10px 18px 0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:#5d9ccf66 transparent;scrollbar-gutter:stable;overscroll-behavior:contain}
+.settings-content:focus-visible{outline:1px solid #77cdff66;outline-offset:-1px}
+.tone-control{display:flex;align-items:center;gap:8px;min-width:0;min-height:38px;padding:0 10px;border:1px solid #79b9ee42;border-radius:9px;background:#0b203280;color:#c8e2f5;font-size:12px}
+.tone-control select{height:36px;min-width:70px;max-width:100%;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;outline-offset:0}
+.tone-control option{background:#102336;color:#d5e8f8}
+.transport>.tone-control{flex:none;margin-left:auto}
+.transport .visualizer.bars{max-width:150px}
+.mini-window .mini-player{padding:0 16px 10px}
+.mini-player .mini-header{height:39px;margin-bottom:4px}
+.mini-player .mini-playing{height:54px}
+.mini-player .mini-volume{height:34px;margin-top:4px}
+.mini-player .mini-mixes{height:34px;font-size:11px}
+.mini-tools{display:flex;align-items:stretch;gap:8px;margin-top:9px}
+.mini-tools .tone-control{flex:1;min-height:32px;gap:6px;padding:0 8px;font-size:11px}
+.mini-tools .tone-control select{height:30px;min-width:0;width:100%}
+.mini-tools .tone-label{display:none}
+.mini-rotation{display:flex;justify-content:center;align-items:center;gap:7px;flex:1;min-width:0;min-height:32px;padding:5px 8px;border:1px solid #79b9ee42;border-radius:9px;background:#0b203280;color:#adcce2;font-size:11px;white-space:nowrap}
+.mini-rotation[aria-pressed=true]{border-color:#61c4ff88;background:#1988c733;color:#bceaff}
+.mini-player .mini-footnote{font-size:9px;line-height:1.5;min-height:14px;margin:9px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:0}
+@media(max-width:1280px){.transport .visualizer.bars{display:none}.transport{gap:14px}.tone-control{gap:6px;font-size:11px;padding:0 8px}}
+@media(max-width:720px){.transport .tone-label{display:none}.transport .sound-count{display:none}.transport{gap:9px}.transport>.tone-control{margin-left:0}.transport .tone-control select{min-width:62px}.transport .play-status{min-width:60px}}
+@media(max-width:540px){.app .sidebar-bottom{flex-direction:row;flex-wrap:wrap;gap:5px;padding:0 0 9px}.app .sidebar-bottom>button{width:auto;min-height:31px;padding:5px 8px;font-size:11px}.app .sidebar-bottom .version-entry{gap:5px}.app .sidebar-bottom>button svg{width:14px;height:14px}.transport .play-status{display:none}.transport>.tone-control{padding:0 6px;min-height:34px}.transport>.tone-control>svg{display:none}.transport .tone-control select{height:32px}.transport .master{min-width:62px}.settings-dialog .settings-tabs button{font-size:11px;padding:8px 7px;gap:5px}dialog.settings-dialog{padding:18px;height:calc(100dvh - 40px);max-height:calc(100dvh - 40px)}}
+@media(prefers-reduced-motion:reduce){.focus-timer summary svg{transition:none}}
+
+/* Override the legacy English-wide dialog rule as well as base modal sizing. */
+.app dialog.settings-dialog{height:min(680px,calc(100dvh - 64px));max-height:calc(100dvh - 64px);overflow:hidden}
+.app dialog.mixer-dialog{width:min(420px,calc(100vw - 28px));height:min(720px,calc(100dvh - 48px));max-height:calc(100dvh - 48px);padding:20px;overflow:hidden}
+.app dialog.mixer-dialog[open]{display:flex;flex-direction:column}
+.app dialog.mixer-dialog>header{flex:none;margin:0 0 16px}
+.app dialog.mixer-dialog>.mixer{flex:1;min-height:0;max-height:none;margin:0;padding:0;overflow-y:auto;overflow-x:hidden}
+.mixer .mix-list{overscroll-behavior:auto}
+@media(max-width:540px){.app dialog.settings-dialog{height:calc(100dvh - 40px);max-height:calc(100dvh - 40px)}}

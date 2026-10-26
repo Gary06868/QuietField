@@ -6,7 +6,7 @@ import './settings.css';
 import {BackupPanel} from './BackupPanel.jsx';
 import {reviewNotes,REVIEW_LABEL} from './review-notes.js';
 
-export function SettingsPanel({backgroundId,animateBackground,onBackground,onAnimate,reducedEffects,onReducedEffects,recordingCount,dynamicSoundscape,onDynamic,tone,onTone,onExport,onImportBackup,initialTab='general'}) {
+export function SettingsPanel({backgroundId,animateBackground,onBackground,onAnimate,reducedEffects,onReducedEffects,recordingCount,dynamicSoundscape,onDynamic,onExport,onImportBackup,initialTab='general'}) {
  const {locale,setLocale,t}=useLocale();
  const [tab,setTab]=useState(initialTab||'general'),[desktopState,setDesktopState]=useState(null),[pending,setPending]=useState(false),[error,setError]=useState('');
  useEffect(()=>{let live=true;window.desktop?.companionState?.().then(state=>{if(live)setDesktopState(state);}).catch(()=>{if(live)setError(t('窗口设置暂时不可用，请重新打开设置'));});return()=>{live=false;};},[]);
@@ -20,12 +20,12 @@ export function SettingsPanel({backgroundId,animateBackground,onBackground,onAni
   <div className="settings-tabs" role="tablist" aria-label={t('设置分类')}>
    {tabs.map(([id,label,Icon],index)=><button key={id} id={'settings-tab-'+id} type="button" role="tab" aria-selected={tab===id} aria-controls={'settings-'+id} tabIndex={tab===id?0:-1} onClick={()=>setTab(id)} onKeyDown={event=>{if(['ArrowRight','ArrowLeft','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;setTab(tabs[next][0]);document.getElementById('settings-tab-'+tabs[next][0])?.focus();}}}><Icon size={16}/>{t(label)}</button>)}
   </div>
-  <section role="tabpanel" id={'settings-'+tab} aria-labelledby={'settings-tab-'+tab} className="settings-content">
+  <section key={tab} tabIndex={0} role="tabpanel" id={'settings-'+tab} aria-labelledby={'settings-tab-'+tab} className="settings-content">
    {tab==='general'&&<>
     <div className="settings-row"><div><h3>{t('界面语言')}</h3><p>{t('立即切换，声音继续播放。')}</p></div><div className="language-switch" role="group" aria-label={t('Language / 语言')}><button lang="zh-CN" aria-pressed={locale==='zh-CN'} onClick={()=>setLocale('zh-CN')}>中文</button><button lang="en" aria-pressed={locale==='en'} onClick={()=>setLocale('en')}>English</button></div></div>
     <label className="settings-row settings-toggle"><div><h3>{t('轻量模式')}</h3><p id="light-mode-hint">{t('暂停动态背景和频谱，减少模糊效果，声音不受影响。')}</p></div><input type="checkbox" aria-label={t('轻量模式')} aria-describedby="light-mode-hint" checked={reducedEffects} onChange={event=>onReducedEffects(event.target.checked)}/><span className="settings-switch" aria-hidden="true"/></label>
     <label className="settings-row settings-toggle"><div><h3>{t('动态声景')}</h3><p id="sound-motion-hint">{t('让各声音缓慢轻微起伏，最高保持在你设定的音量；静音仍为静音。')}</p></div><input type="checkbox" aria-label={t('动态声景')} aria-describedby="sound-motion-hint" checked={dynamicSoundscape} onChange={event=>onDynamic(event.target.checked)}/><span className="settings-switch" aria-hidden="true"/></label>
-    <div className="settings-row settings-close"><div><h3>{t('音色')}</h3><p>{t('温和调节高低频，不改动录音文件。')}</p></div><select aria-label={t('音色')} value={tone} onChange={event=>onTone(event.target.value)}><option value="natural">{t('原声')}</option><option value="soft">{t('柔和')}</option><option value="deep">{t('低沉')}</option></select></div>
+    <p className="settings-note">{t('音色可以在底部播放栏随时切换。')}</p>
     {window.desktop&&<div className="settings-row settings-close"><div><h3>{t('点击关闭按钮时')}</h3><p id="close-behavior-hint">{t('收起到托盘后，声音继续播放，任务栏不显示窗口。右键托盘图标可以退出。')}</p></div><select aria-label={t('点击关闭按钮时')} aria-describedby="close-behavior-hint" value={desktopState?.closeToTray===false?'quit':'tray'} disabled={!desktopState||pending} onChange={changeClose}><option value="tray">{t('收起到托盘（默认）')}</option><option value="quit">{t('直接退出程序')}</option></select></div>}
     {desktopState?.trayAvailable===false&&<p className="settings-note">{t('系统托盘暂时不可用，关闭时会改为普通最小化，方便再次打开。')}</p>}
     {error&&<p className="settings-error" role="alert">{error}</p>}

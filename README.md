@@ -4,7 +4,7 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
-[**Download for Windows**](https://github.com/Gary06868/QuietField/releases/download/v1.8.0/QuietField-1.8.0-Windows-x64-public.zip) · [Listen & explore](https://gary06868.github.io/QuietField/) · [Sound library](docs/audio-library.en.md) · [Feedback](https://github.com/Gary06868/QuietField/issues/new/choose)
+[**Download for Windows**](https://github.com/Gary06868/QuietField/releases/download/v1.8.1/QuietField-1.8.1-Windows-x64-public.zip) · [Listen & explore](https://gary06868.github.io/QuietField/) · [Sound library](docs/audio-library.en.md) · [Feedback](https://github.com/Gary06868/QuietField/issues/new/choose)
 
 [![Windows build](https://github.com/Gary06868/QuietField/actions/workflows/build.yml/badge.svg)](https://github.com/Gary06868/QuietField/actions/workflows/build.yml)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
@@ -37,17 +37,17 @@ The library includes 50 original PCM WAV recordings from BigSoundBank, including
 
 ![Compact window with an on-demand mixer](docs/images/compact-window.png)
 
-## New in 1.8.0
+## New in 1.8.1
 
-Four more CC0 recordings bring the library to 75 sounds. Saved mixes now crossfade smoothly; optional dynamic levels and automatic mix rotation add gentle variation. Focus/break cycles, Natural/Soft/Deep tone choices, custom sleep timing and +10 minutes are available without changing the final 15-second sleep fade. Local JSON backup restores favorites and saved mixes (audio files are not embedded), deletion can be undone, and up to 1,000 saved mixes survive restart. Imports report successes and failures. The version and local update notes are visible in Settings.
+Opening focus controls no longer collapses the mixer tracks, and the right panel uses the space above it. Sidebar utilities share consistent sizing. Settings keeps one size across tabs and languages, scrolling its contents internally. Natural/Soft/Deep tone is directly available on the playback bar. Mini player shares saved-mix rotation, the current mix and tone with the full window; opening it or enabling rotation while paused does not start playback. The 75-sound library and audio/timing algorithms are unchanged from 1.8.0.
 
 ## Download & start listening
 
-1. Download **[QuietField-1.8.0-Windows-x64-public.zip](https://github.com/Gary06868/QuietField/releases/download/v1.8.0/QuietField-1.8.0-Windows-x64-public.zip)** (about 1.42 GB).
+1. Download **[QuietField-1.8.1-Windows-x64-public.zip](https://github.com/Gary06868/QuietField/releases/download/v1.8.1/QuietField-1.8.1-Windows-x64-public.zip)** (about 1.41 GB).
 2. Extract the **whole ZIP** into a folder.
 3. Open `QuietField-win32-x64/静野.exe` (静野 is the app’s Chinese name).
 
-No Node.js, Python, installation wizard or account is needed. Keep the executable with its accompanying files. Checksums are on the [release page](https://github.com/Gary06868/QuietField/releases/tag/v1.8.0). Source archives omit the full sound library; the documented processed Coastal surf asset and four new public HQ MP3 recordings are included. Developers fetch the remaining recordings using the source manifest.
+No Node.js, Python, installation wizard or account is needed. Keep the executable with its accompanying files. Checksums are on the [release page](https://github.com/Gary06868/QuietField/releases/tag/v1.8.1). Source archives omit the full sound library; the documented processed Coastal surf asset and four new public HQ MP3 recordings are included. Developers fetch the remaining recordings using the source manifest.
 
 **Platform:** Windows x64. macOS, Linux and Windows ARM64 builds are not available yet. The app is unsigned, so Windows may show a reputation warning; use this repository’s official releases. Local desktop tests and Windows CI are not a substitute for testing on every PC.
 
@@ -78,7 +78,7 @@ npm start
 npm run package
 ```
 
-Packages go to `releases/1.8.0-public/`. Downloads and builds verify the per-file SHA-256 manifest; changed upstream files stop the build for review. BigSoundBank downloads follow its official form and anonymous waiting period.
+Packages go to `releases/1.8.1-public/`. Downloads and builds verify the per-file SHA-256 manifest; changed upstream files stop the build for review. BigSoundBank downloads follow its official form and anonymous waiting period.
 
 Desktop checks require a desktop session and use isolated test data:
 

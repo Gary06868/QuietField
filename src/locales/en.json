@@ -445,5 +445,10 @@
   "近听炉火": "Close fireplace",
   "午夜虫声": "Midnight crickets",
   "冬林风与知更鸟": "Winter canopy and robin",
-  "备份保存失败，请检查磁盘空间和权限": "Could not save the backup. Check disk space and file permissions."
+  "备份保存失败，请检查磁盘空间和权限": "Could not save the backup. Check disk space and file permissions.",
+  "版本": "Version",
+  "音色可以在底部播放栏随时切换。": "Change tone at any time from the bottom playback bar.",
+  "侧栏与计时布局整理，设置页签保持相同尺寸": "Refined sidebar and timer layout; Settings keeps the same size across tabs",
+  "底部播放栏可直接切换原声、柔和和低沉": "Switch Natural, Soft and Deep tone directly from the playback bar",
+  "迷你播放器同步组合轮播、当前组合与音色": "Mini player shares mix rotation, the current mix and tone"
 }

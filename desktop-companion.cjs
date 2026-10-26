@@ -11,13 +11,13 @@ module.exports=function createCompanion(app,main,root){
  const snapshot=()=>({...state,pinned,closeToTray,trayAvailable:!!tray});
  const broadcast=()=>{if(mini&&!mini.isDestroyed())mini.webContents.send('companion-state',snapshot());};
  const showMain=()=>{if(quitting||main.isDestroyed())return;mode='main';if(mini&&!mini.isDestroyed())mini.hide();if(main.isMinimized())main.restore();main.show();main.focus();};
- const command=value=>{const c=cleanCommand(value);if(!c||!state.ready||main.isDestroyed())return;if(c.type==='mix'&&!state.mixes.some(m=>m.id===c.id))return;main.webContents.send('companion-command',c);};
+ const command=value=>{const c=cleanCommand(value);if(!c||!state.ready||main.isDestroyed())return;if(c.type==='mix'&&!state.mixes.some(m=>m.id===c.id))return;main.webContents.send('companion-command',c);if(c.type==='rotation-settings')showMain();};
  const hideToTray=()=>{if(!tray)return;mode='tray';main.hide();mini?.hide();};
  function showMini(){
   if(quitting||main.isDestroyed())return;mode='mini';
   if(mini&&!mini.isDestroyed()){if(miniReady){mini.show();mini.focus();main.hide();}return;}
   const area=screen.getDisplayMatching(main.getBounds()).workArea;
-  mini=new BrowserWindow({width:360,height:246,x:Math.max(area.x,area.x+area.width-384),y:Math.max(area.y,area.y+area.height-270),frame:false,resizable:false,maximizable:false,fullscreenable:false,alwaysOnTop:pinned,show:false,icon:path.join(root,'icon.ico'),title:'Quiet Field · Mini',backgroundColor:'#081524',webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
+  mini=new BrowserWindow({width:360,height:280,x:Math.max(area.x,area.x+area.width-384),y:Math.max(area.y,area.y+area.height-304),frame:false,resizable:false,maximizable:false,fullscreenable:false,alwaysOnTop:pinned,show:false,icon:path.join(root,'icon.ico'),title:'Quiet Field · Mini',backgroundColor:'#081524',webPreferences:{preload:path.join(__dirname,'preload.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true}});
   mini.webContents.setWindowOpenHandler(()=>({action:'deny'}));
   mini.webContents.on('will-navigate',(event,url)=>{if(url!=='quiet://app/index.html#mini')event.preventDefault();});
   const created=mini;miniReady=false;

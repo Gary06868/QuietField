@@ -4,7 +4,7 @@
 
 [English](README.md) · **简体中文**
 
-[**下载 Windows 版**](https://github.com/Gary06868/QuietField/releases/download/v1.8.0/QuietField-1.8.0-Windows-x64-public.zip) · [在线试听与介绍](https://gary06868.github.io/QuietField/zh-CN/) · [音源清单](docs/audio-library.md) · [反馈问题](https://github.com/Gary06868/QuietField/issues/new/choose)
+[**下载 Windows 版**](https://github.com/Gary06868/QuietField/releases/download/v1.8.1/QuietField-1.8.1-Windows-x64-public.zip) · [在线试听与介绍](https://gary06868.github.io/QuietField/zh-CN/) · [音源清单](docs/audio-library.md) · [反馈问题](https://github.com/Gary06868/QuietField/issues/new/choose)
 
 [![Windows 构建](https://github.com/Gary06868/QuietField/actions/workflows/build.yml/badge.svg)](https://github.com/Gary06868/QuietField/actions/workflows/build.yml)
 [![代码 MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
@@ -37,17 +37,17 @@
 
 ![小窗口布局：固定侧栏，按需展开混音](docs/images/compact-window.png)
 
-## 1.8.0 更新
+## 1.8.1 更新
 
-新增 4 段 CC0 录音，声音库增至 75 种。切换组合平滑过渡，可选动态声景和收藏组合轮播；新增专注/休息循环、自然/柔和/低沉音色、自定义睡眠计时与延长 10 分钟，保留最后 15 秒淡出。可用本地 JSON 备份收藏与组合（不内嵌自定义音频），删除组合可撤销，最多 1000 套组合完整保存与恢复。批量导入会汇总成功与失败原因，设置中可查看版本与本版更新说明。
+修复展开专注区后混音列表被压缩、右侧顶部空间未利用的问题；侧栏设置、迷你播放器、版本与消息入口统一尺寸。设置页签和中英文切换保持同一窗口大小，内容在内部滚动。原声/柔和/低沉可在底部播放栏直接切换；迷你播放器同步组合自动轮播、当前组合与音色，打开小窗或在暂停时开启轮播都不会自动播放。75 种声音及音频/计时算法与 1.8.0 相同。
 
 ## 下载与使用
 
-1. 下载 **[QuietField-1.8.0-Windows-x64-public.zip](https://github.com/Gary06868/QuietField/releases/download/v1.8.0/QuietField-1.8.0-Windows-x64-public.zip)**（约 1.42 GB）。
+1. 下载 **[QuietField-1.8.1-Windows-x64-public.zip](https://github.com/Gary06868/QuietField/releases/download/v1.8.1/QuietField-1.8.1-Windows-x64-public.zip)**（约 1.41 GB）。
 2. **完整解压**整个 ZIP。
 3. 运行 `QuietField-win32-x64/静野.exe`。
 
-不需要 Node.js、Python 或账号。保留程序同目录的其他文件，不要单独移出 EXE。[发布页](https://github.com/Gary06868/QuietField/releases/tag/v1.8.0)有 SHA-256 校验文件。源码包不含完整声音库；已注明修改的「海岸浪潮」文件和新增 4 段公开 HQ MP3 随源码提供，其他录音由开发者按下面步骤获取。
+不需要 Node.js、Python 或账号。保留程序同目录的其他文件，不要单独移出 EXE。[发布页](https://github.com/Gary06868/QuietField/releases/tag/v1.8.1)有 SHA-256 校验文件。源码包不含完整声音库；已注明修改的「海岸浪潮」文件和新增 4 段公开 HQ MP3 随源码提供，其他录音由开发者按下面步骤获取。
 
 目前提供 **Windows x64** 版本；macOS、Linux、Windows ARM64 暂无发行包。程序未代码签名，首次下载可能出现系统信誉提示，请只从此仓库的正式发布页下载。本机测试和 Windows 云端构建不代表所有电脑均已实测。
 
@@ -78,7 +78,7 @@ npm start
 npm run package
 ```
 
-发行目录为 `releases/1.8.0-public/`。下载和构建均检查 SHA-256；上游变化时停止等待复核。BigSoundBank 下载器遵循官网表单和匿名倒计时。
+发行目录为 `releases/1.8.1-public/`。下载和构建均检查 SHA-256；上游变化时停止等待复核。BigSoundBank 下载器遵循官网表单和匿名倒计时。
 
 桌面检查使用独立测试数据，需要桌面会话：
 
