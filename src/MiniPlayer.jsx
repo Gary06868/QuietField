@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react';
 import {Play,Pause,Pin,PinOff,Maximize2,Volume2,Minus,Repeat2} from 'lucide-react';
 import {ToneControl} from './ToneControl.jsx';
 export function MiniPlayer(){
- const [state,setState]=useState({ready:false,master:.5,mixes:[],locale:'zh-CN',tone:'natural'});
+ const [state,setState]=useState({ready:false,master:.5,mixes:[],locale:'zh-CN',tone:0});
  useEffect(()=>{let live=true;const off=window.desktop?.onCompanionState(s=>{if(live)setState(s);});window.desktop?.companionState().then(s=>{if(live&&s)setState(s);});return()=>{live=false;off?.();};},[]);
  const en=state.locale==='en',t=(zh,english)=>en?english:zh;
  const command=value=>window.desktop?.companionCommand(value),action=value=>window.desktop?.companionAction(value);

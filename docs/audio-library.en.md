@@ -2,7 +2,7 @@
 
 [English README](../README.md) · [中文音源清单](audio-library.md)
 
-75 sounds: 72 recordings and 3 existing generated noises. The September 2026 expansion adds 12 real recordings (32 min 56 sec), all native 48 kHz PCM WAV under CC0 1.0. No new generated or synthetic audio was added.
+77 sounds: 74 recordings and 3 existing generated noises. The September 2026 expansion adds 12 real recordings (32 min 56 sec), all native 48 kHz PCM WAV under CC0 1.0. No new generated or synthetic audio was added.
 
 Specifications describe source files, not a promise of equal subjective quality. Source files remain unchanged except Coastal surf, which uses the approved wind-reduced recording described below. The app processes loop boundaries and gain during playback.
 
@@ -145,3 +145,10 @@ Four CC0 public HQ MP3 derivatives from Freesound, without transcoding. These ar
 | Winter woodland wind and robin | [chris_dagorne](https://freesound.org/people/chris_dagorne/sounds/563153/) | HQ MP3 · 44.1 kHz / 2 ch | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
 
 [Per-file provenance and SHA-256](../public/licenses/review-audio-provenance.json).
+
+## 1.9.0
+
+| Sound | Length | Source format | Author / source | License |
+|---|---:|---|---|---|
+| Normandy shore waves | 89.82 s | WAV · 48 kHz / 16-bit / stereo | [Joseph SARDIN](https://bigsoundbank.com/small-waves-back-to-the-ocean-s1047.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Woodland brook and birds | 229.57 s | WAV · 48 kHz / 24-bit / stereo | [Pierre SIBANARCO](https://bigsoundbank.com/forest-and-stream-2-s2714.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |

@@ -2,6 +2,7 @@ import {validateBackground} from './backgrounds.js';
 import {trackVolume,masterVolume} from './loudness.js';
 import {normalizeRotation} from './listening-options.js';
 import {normalizeFocus} from './focus-timer.js';
+import {normalizeTone} from '../tone.mjs';
 export const MAX_SAVED_MIXES=1000;
 export const MAX_FAVORITES=5000;
 export const validSettingId=id=>typeof id==='string'&&id.length>0&&id.length<=180&&!['__proto__','constructor','prototype'].includes(id);
@@ -18,6 +19,6 @@ export function normalizeSettings(value){
     if(seen.has(p.id))return [];seen.add(p.id);
     return [{id:p.id,name:p.name.trim().slice(0,80),mix:cleanMix(p.mix)}];
   });
-  return {version:2,locale:['en','zh-CN'].includes(v.locale)?v.locale:null,master:typeof v.master==='number'&&Number.isFinite(v.master)?masterVolume(v.master):.5,mix:cleanMix(v.mix),favorites:[...new Set((Array.isArray(v.favorites)?v.favorites:[]).filter(validId))].slice(0,MAX_FAVORITES),saved,backgroundId:validateBackground(v.backgroundId),animateBackground:v.animateBackground!==false,reducedEffects:v.reducedEffects===true,dynamicSoundscape:v.dynamicSoundscape===true,rotation:normalizeRotation(v.rotation,saved),tone:['natural','soft','deep'].includes(v.tone)?v.tone:'natural',focus:normalizeFocus(v.focus)};
+  return {version:2,locale:['en','zh-CN'].includes(v.locale)?v.locale:null,master:typeof v.master==='number'&&Number.isFinite(v.master)?masterVolume(v.master):.5,mix:cleanMix(v.mix),favorites:[...new Set((Array.isArray(v.favorites)?v.favorites:[]).filter(validId))].slice(0,MAX_FAVORITES),saved,backgroundId:validateBackground(v.backgroundId),animateBackground:v.animateBackground!==false,reducedEffects:v.reducedEffects===true,dynamicSoundscape:v.dynamicSoundscape===true,rotation:normalizeRotation(v.rotation,saved),tone:normalizeTone(v.tone),focus:normalizeFocus(v.focus)};
 }
 export function parseSettings(raw){try{return normalizeSettings(JSON.parse(raw||'{}'));}catch{return normalizeSettings({});}}

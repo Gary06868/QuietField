@@ -50,8 +50,8 @@ dialog.settings-dialog[open]{display:flex;flex-direction:column}
 .settings-dialog .settings-content{flex:1;min-height:0;padding:8px 10px 18px 0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:#5d9ccf66 transparent;scrollbar-gutter:stable;overscroll-behavior:contain}
 .settings-content:focus-visible{outline:1px solid #77cdff66;outline-offset:-1px}
 .tone-control{display:flex;align-items:center;gap:8px;min-width:0;min-height:38px;padding:0 10px;border:1px solid #79b9ee42;border-radius:9px;background:#0b203280;color:#c8e2f5;font-size:12px}
-.tone-control select{height:36px;min-width:70px;max-width:100%;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;outline-offset:0}
-.tone-control option{background:#102336;color:#d5e8f8}
+.tone-control input[type=range]{flex:1;min-width:40px;width:clamp(64px,7vw,104px);margin:0}
+.tone-value{min-width:3.8em;text-align:right;white-space:nowrap;color:#a9cbee;font-variant-numeric:tabular-nums}
 .transport>.tone-control{flex:none;margin-left:auto}
 .transport .visualizer.bars{max-width:150px}
 .mini-window .mini-player{padding:0 16px 10px}
@@ -61,14 +61,14 @@ dialog.settings-dialog[open]{display:flex;flex-direction:column}
 .mini-player .mini-mixes{height:34px;font-size:11px}
 .mini-tools{display:flex;align-items:stretch;gap:8px;margin-top:9px}
 .mini-tools .tone-control{flex:1;min-height:32px;gap:6px;padding:0 8px;font-size:11px}
-.mini-tools .tone-control select{height:30px;min-width:0;width:100%}
+.mini-tools .tone-control input[type=range]{width:100%}
 .mini-tools .tone-label{display:none}
 .mini-rotation{display:flex;justify-content:center;align-items:center;gap:7px;flex:1;min-width:0;min-height:32px;padding:5px 8px;border:1px solid #79b9ee42;border-radius:9px;background:#0b203280;color:#adcce2;font-size:11px;white-space:nowrap}
 .mini-rotation[aria-pressed=true]{border-color:#61c4ff88;background:#1988c733;color:#bceaff}
 .mini-player .mini-footnote{font-size:9px;line-height:1.5;min-height:14px;margin:9px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:0}
 @media(max-width:1280px){.transport .visualizer.bars{display:none}.transport{gap:14px}.tone-control{gap:6px;font-size:11px;padding:0 8px}}
-@media(max-width:720px){.transport .tone-label{display:none}.transport .sound-count{display:none}.transport{gap:9px}.transport>.tone-control{margin-left:0}.transport .tone-control select{min-width:62px}.transport .play-status{min-width:60px}}
-@media(max-width:540px){.app .sidebar-bottom{flex-direction:row;flex-wrap:wrap;gap:5px;padding:0 0 9px}.app .sidebar-bottom>button{width:auto;min-height:31px;padding:5px 8px;font-size:11px}.app .sidebar-bottom .version-entry{gap:5px}.app .sidebar-bottom>button svg{width:14px;height:14px}.transport .play-status{display:none}.transport>.tone-control{padding:0 6px;min-height:34px}.transport>.tone-control>svg{display:none}.transport .tone-control select{height:32px}.transport .master{min-width:62px}.settings-dialog .settings-tabs button{font-size:11px;padding:8px 7px;gap:5px}dialog.settings-dialog{padding:18px;height:calc(100dvh - 40px);max-height:calc(100dvh - 40px)}}
+@media(max-width:720px){.transport .tone-label{display:none}.transport .sound-count{display:none}.transport{gap:9px}.transport>.tone-control{margin-left:0}.transport .play-status{min-width:60px}}
+@media(max-width:540px){.app .sidebar-bottom{flex-direction:row;flex-wrap:wrap;gap:5px;padding:0 0 9px}.app .sidebar-bottom>button{width:auto;min-height:31px;padding:5px 8px;font-size:11px}.app .sidebar-bottom .version-entry{gap:5px}.app .sidebar-bottom>button svg{width:14px;height:14px}.transport .play-status{display:none}.transport>.tone-control{padding:0 6px;min-height:34px}.transport>.tone-control>svg{display:none}.transport .tone-control input[type=range]{width:56px}.transport .master{min-width:62px}.settings-dialog .settings-tabs button{font-size:11px;padding:8px 7px;gap:5px}dialog.settings-dialog{padding:18px;height:calc(100dvh - 40px);max-height:calc(100dvh - 40px)}}
 @media(prefers-reduced-motion:reduce){.focus-timer summary svg{transition:none}}
 
 /* Override the legacy English-wide dialog rule as well as base modal sizing. */

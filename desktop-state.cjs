@@ -1,5 +1,5 @@
 const text=value=>typeof value==='string'?value.slice(0,120):'';
-const tones=['natural','soft','deep'];
+const {isToneLevel,normalizeTone}=require('./tone.mjs');
 function cleanState(value={}) {
  const v=value&&typeof value==='object'?value:{};
  const all=(Array.isArray(v.mixes)?v.mixes:[]).filter(m=>m&&typeof m.id==='string'&&typeof m.name==='string').map(m=>({id:text(m.id),name:text(m.name)}));
@@ -11,7 +11,7 @@ function cleanState(value={}) {
  master:typeof v.master==='number'&&Number.isFinite(v.master)?Math.max(0,Math.min(1,v.master)):.5,
  activeCount:Number.isInteger(v.activeCount)?Math.max(0,Math.min(8,v.activeCount)):0,
  label:text(v.label),sleepLabel:text(v.sleepLabel),loading:v.loading===true,mixes,
- currentMixId:current?.id||'',currentMixName:current?.name||'',tone:tones.includes(v.tone)?v.tone:'natural',focusRest:v.focusRest===true,
+ currentMixId:current?.id||'',currentMixName:current?.name||'',tone:normalizeTone(v.tone),focusRest:v.focusRest===true,
  rotationAvailable,rotationEnabled,rotationInterval:[1,5,10,15,30].includes(v.rotationInterval)?v.rotationInterval:5,
  rotationStatus:rotationEnabled&&['playing','paused','rest','sleep'].includes(v.rotationStatus)?v.rotationStatus:'off'};
 }
@@ -20,7 +20,7 @@ function cleanCommand(v) {
  if(v.type==='toggle')return {type:'toggle'};
  if(v.type==='master'&&typeof v.value==='number'&&Number.isFinite(v.value))return {type:'master',value:Math.max(0,Math.min(1,v.value))};
  if(v.type==='mix'&&typeof v.id==='string'&&v.id.length<=120)return {type:'mix',id:v.id};
- if(v.type==='tone'&&tones.includes(v.value))return {type:'tone',value:v.value};
+ if(v.type==='tone'&&isToneLevel(v.value))return {type:'tone',value:v.value};
  if(v.type==='rotation'&&typeof v.enabled==='boolean')return {type:'rotation',enabled:v.enabled};
  if(v.type==='rotation-settings')return {type:'rotation-settings'};
  return null;

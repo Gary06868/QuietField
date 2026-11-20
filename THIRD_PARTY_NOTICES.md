@@ -888,3 +888,21 @@ Public HQ MP3 derivatives supplied by Freesound (not original WAV/lossless downl
 - aunrea: https://freesound.org/people/aunrea/sounds/495660/ — CC0 1.0
 - sengjinn: https://freesound.org/people/sengjinn/sounds/175020/ — CC0 1.0
 - chris_dagorne: https://freesound.org/people/chris_dagorne/sounds/563153/ — CC0 1.0
+
+## 1.9.0 recordings / 1.9.0 新增实录
+
+### 诺曼底细浪 — Small Waves Back to the Ocean
+
+Joseph SARDIN · [Original source](https://bigsoundbank.com/small-waves-back-to-the-ocean-s1047.html) · [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Original WAV · 48000 Hz / 16-bit / 2 channels · 89.82 s.
+
+SHA-256: `770fbd7036ad8d2c85821c25ee1a34ef6a388a4fc4f78758eecfce46ce80c7a5`
+
+### 林涧与鸟鸣 — Forest and stream #2
+
+Pierre SIBANARCO · [Original source](https://bigsoundbank.com/forest-and-stream-2-s2714.html) · [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+Original WAV · 48000 Hz / 24-bit / 2 channels · 229.57 s.
+
+SHA-256: `fafe62d225c95d9499b182b5e40e6b5ddfdd2419b483e36431336e03f19afd26`

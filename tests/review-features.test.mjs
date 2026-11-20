@@ -29,7 +29,8 @@ test('backup quota failure is atomic and undo reservation cannot be consumed by 
  const full={saved:Array.from({length:999},(_,i)=>({id:'x'+i,name:'X',mix:{rain:1}})),favorites:[]};assert.throws(()=>mergeBackup(full,incoming,{reserve:1}));assert.equal(full.saved.length,999);
 });
 test('focus and tone settings migrate safely with bounded configuration',async()=>{
- const {normalizeSettings}=await import('../src/settings.js');const s=normalizeSettings({tone:'invalid',focus:{focusMinutes:0,restMinutes:999}});assert.equal(s.tone,'natural');assert.deepEqual(s.focus,{focusMinutes:25,restMinutes:5});
+ const {normalizeSettings}=await import('../src/settings.js');const s=normalizeSettings({tone:'invalid',focus:{focusMinutes:0,restMinutes:999}});assert.equal(s.tone,0);assert.deepEqual(s.focus,{focusMinutes:25,restMinutes:5});
+ for(const [before,after] of [['natural',0],['soft',50],['deep',100],[37,37]])assert.equal(normalizeSettings({tone:before}).tone,after);
 });
 
 test('re-importing an already copied conflict is idempotent',async()=>{const {mergeBackup}=await import('../src/backup.js');const current={saved:[{id:'same',name:'Original',mix:{rain:.4}}],favorites:[]},incoming={saved:[{id:'same',name:'Changed',mix:{wind:.3}}],favorites:[]};const first=mergeBackup(current,incoming,{makeId:()=> 'first'}),second=mergeBackup(first,incoming,{makeId:()=> 'second'});assert.equal(first.saved.length,2);assert.equal(second.saved.length,2);assert.equal(second.skipped,1);});

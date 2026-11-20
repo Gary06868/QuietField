@@ -1,10 +1,10 @@
 # Quiet Field · 静野
 
-**Find your quiet.** A free, offline ambient sound mixer for Windows, with 75 built-in sounds and mixes you can make your own.
+**Find your quiet.** A free, offline ambient sound mixer for Windows, with 77 built-in sounds and mixes you can make your own.
 
 **English** · [简体中文](README.zh-CN.md)
 
-[**Download for Windows**](https://github.com/Gary06868/QuietField/releases/download/v1.8.1/QuietField-1.8.1-Windows-x64-public.zip) · [Listen & explore](https://gary06868.github.io/QuietField/) · [Sound library](docs/audio-library.en.md) · [Feedback](https://github.com/Gary06868/QuietField/issues/new/choose)
+[**Download for Windows**](https://github.com/Gary06868/QuietField/releases/download/v1.9.0/QuietField-1.9.0-Windows-x64-public.zip) · [Listen & explore](https://gary06868.github.io/QuietField/) · [Sound library](docs/audio-library.en.md) · [Feedback](https://github.com/Gary06868/QuietField/issues/new/choose)
 
 [![Windows build](https://github.com/Gary06868/QuietField/actions/workflows/build.yml/badge.svg)](https://github.com/Gary06868/QuietField/actions/workflows/build.yml)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
@@ -14,7 +14,7 @@
 
 ## A little quiet, on your terms
 
-- **75 sounds, ready offline.** Rain, ocean waves, forests, cat purring, wind chimes, trains and more, plus white, pink and brown noise. All recordings come in the download.
+- **77 sounds, ready offline.** Rain, ocean waves, forests, cat purring, wind chimes, trains and more, plus white, pink and brown noise. All recordings come in the download.
 - **Your own soundscape.** Layer up to 8 sounds, adjust each level, favorite your picks and save named mixes locally.
 - **Natural transitions.** Edge-silence trimming, crossfading and continuous audio-buffer looping reduce abrupt restarts. Distinct events can still sound repetitive.
 - **Balanced levels.** Automatic baseline loudness adjustment, individual controls up to 300%, and output peak protection.
@@ -27,7 +27,7 @@
 - **English & 简体中文.** Follows your system language on first launch; switch any time without interrupting playback. Search in either language.
 - **No accounts, ads or telemetry.** No subscription. No cloud upload. Free and open source.
 
-The library includes 50 original PCM WAV recordings from BigSoundBank, including 29 at 24-bit / 48 kHz. [Browse all 75 sounds and recording notes](docs/audio-library.en.md).
+The library includes 52 original PCM WAV recordings from BigSoundBank, including 30 at 24-bit / 48 kHz. [Browse all 77 sounds and recording notes](docs/audio-library.en.md).
 
 ![Unified settings](docs/images/settings.png)
 
@@ -37,17 +37,19 @@ The library includes 50 original PCM WAV recordings from BigSoundBank, including
 
 ![Compact window with an on-demand mixer](docs/images/compact-window.png)
 
-## New in 1.8.1
+## New in 1.9.0
 
-Opening focus controls no longer collapses the mixer tracks, and the right panel uses the space above it. Sidebar utilities share consistent sizing. Settings keeps one size across tabs and languages, scrolling its contents internally. Natural/Soft/Deep tone is directly available on the playback bar. Mini player shares saved-mix rotation, the current mix and tone with the full window; opening it or enabling rotation while paused does not start playback. The 75-sound library and audio/timing algorithms are unchanged from 1.8.0.
+Drag the tone slider in either the main or mini player. Both players share the same setting, and earlier Natural, Soft and Deep preferences map to 0, 50 and 100. Settings now offers desktop shortcut creation and GitHub Issues, and About links to the repository. Two new CC0 recordings bring the library to 77 sounds.
 
 ## Download & start listening
 
-1. Download **[QuietField-1.8.1-Windows-x64-public.zip](https://github.com/Gary06868/QuietField/releases/download/v1.8.1/QuietField-1.8.1-Windows-x64-public.zip)** (about 1.41 GB).
+1. Download **[QuietField-1.9.0-Windows-x64-public.zip](https://github.com/Gary06868/QuietField/releases/download/v1.9.0/QuietField-1.9.0-Windows-x64-public.zip)** (about 1.50 GB).
 2. Extract the **whole ZIP** into a folder.
 3. Open `QuietField-win32-x64/静野.exe` (静野 is the app’s Chinese name).
 
-No Node.js, Python, installation wizard or account is needed. Keep the executable with its accompanying files. Checksums are on the [release page](https://github.com/Gary06868/QuietField/releases/tag/v1.8.1). Source archives omit the full sound library; the documented processed Coastal surf asset and four new public HQ MP3 recordings are included. Developers fetch the remaining recordings using the source manifest.
+Keep the extracted folder in a permanent location. To create a desktop shortcut, open Settings → General. If you move the folder, recreate the shortcut and pin the app again.
+
+No Node.js, Python, installation wizard or account is needed. Keep the executable with its accompanying files. Checksums are on the [release page](https://github.com/Gary06868/QuietField/releases/tag/v1.9.0). Source archives omit the full sound library; the documented processed Coastal surf asset and four new public HQ MP3 recordings are included. Developers fetch the remaining recordings using the source manifest.
 
 **Platform:** Windows x64. macOS, Linux and Windows ARM64 builds are not available yet. The app is unsigned, so Windows may show a reputation warning; use this repository’s official releases. Local desktop tests and Windows CI are not a substitute for testing on every PC.
 
@@ -55,7 +57,7 @@ No Node.js, Python, installation wizard or account is needed. Keep the executabl
 
 ## Questions
 
-**Why is the download large?** The app bundles 72 recordings so the app works offline. Many are original, uncompressed WAV files. The other 3 sounds are generated noise.
+**Why is the download large?** The app bundles 74 recordings so the app works offline. Many are original, uncompressed WAV files. The other 3 sounds are generated noise.
 
 **Can I use it offline?** Yes. Fonts, artwork and audio are bundled, and the playback interface blocks external HTTP/HTTPS requests. From 1.6.1, the public edition can check this repository’s GitHub Releases at most once a day in the background; disable this in Messages to stop automatic checks. A manual check or update connects to GitHub. No audio, mixes or usage history are uploaded. Optional website previews need a connection and use GitHub Pages hosting; there is no added analytics script.
 
@@ -67,7 +69,7 @@ No Node.js, Python, installation wizard or account is needed. Keep the executabl
 
 ## Build from source
 
-Requires Node.js 22 and npm. Installing dependencies and the first audio download require a connection.
+Requires Node.js 22.12 or newer and npm. Installing dependencies and the first audio download require a connection.
 
 ```sh
 npm ci
@@ -78,7 +80,7 @@ npm start
 npm run package
 ```
 
-Packages go to `releases/1.8.1-public/`. Downloads and builds verify the per-file SHA-256 manifest; changed upstream files stop the build for review. BigSoundBank downloads follow its official form and anonymous waiting period.
+Packages go to `releases/1.9.0-public/`. Downloads and builds verify the per-file SHA-256 manifest; changed upstream files stop the build for review. BigSoundBank downloads follow its official form and anonymous waiting period.
 
 Desktop checks require a desktop session and use isolated test data:
 

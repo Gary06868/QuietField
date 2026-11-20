@@ -1,6 +1,7 @@
 import {files} from './storage.js';
 import {protectionCurve,trackVolume,masterVolume} from './loudness.js';
 import {SerialQueue,makeRoom,pcmBytes,PCM_LIMIT,MiB} from './audio-budget.js';
+import {normalizeTone, toneGains} from '../tone.mjs';
 export const MIX_FADE_SECONDS=.8;
 export class AudioEngine {
   constructor() {this.tracks=new Map(); this.cache=new Map(); this.pending=new Map(); this.jobs=new Map(); this.serial=0; this.masterValue=.5; this.playing=false; this.sleepAt=0; this.token=0;this.decodeQueue=new SerialQueue();this.memoryBudget=(globalThis.navigator?.deviceMemory<=4?192:384)*MiB;this.mixRequest=0;this.preparing=new Map();this.sourceRefs=new Map();this.transition=null;this.motions=new Map();this.dynamicSoundscape=false;this.tone='natural';this.focusQuiet=false;}
@@ -81,8 +82,8 @@ export class AudioEngine {
   }
   protectedTracks() {return new Map([...this.tracks,...(this.transition?.old.tracks||[]),...this.preparing]);}
   setTone(value){
-    this.tone=['natural','soft','deep'].includes(value)?value:'natural';if(!this.toneLow)return;
-    const now=this.ctx.currentTime,values=this.tone==='deep'?[2,-8]:this.tone==='soft'?[0,-6]:[0,0];
+    this.tone=normalizeTone(value);if(!this.toneLow)return;
+    const now=this.ctx.currentTime,values=toneGains(this.tone);
     [this.toneLow.gain,this.toneHigh.gain].forEach((param,i)=>{param.cancelAndHoldAtTime(now);param.setTargetAtTime(values[i],now,.12);});
   }
   setFocusQuiet(value){this.focusQuiet=value===true;if(this.focusGain){const p=this.focusGain.gain,now=this.ctx.currentTime;p.cancelAndHoldAtTime(now);p.linearRampToValueAtTime(this.focusQuiet?0:1,now+.3);}}

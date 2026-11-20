@@ -1,6 +1,8 @@
 const {contextBridge,ipcRenderer}=require('electron');
 contextBridge.exposeInMainWorld('desktop',{
  saveBackup:(text,locale)=>ipcRenderer.invoke('export-backup',text,locale),
+ projectLink:destination=>ipcRenderer.invoke('project-link',destination),
+ ...(process.platform==='win32'&&{desktopShortcut:()=>ipcRenderer.invoke('desktop-shortcut')}),
  updatesState:()=>ipcRenderer.invoke('updates-state'),
  updatesAction:(action,value)=>ipcRenderer.invoke('updates-action',action,value),
  updatesReady:()=>ipcRenderer.send('updates-ready'),

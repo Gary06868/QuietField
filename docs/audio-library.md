@@ -2,7 +2,7 @@
 
 [中文说明](../README.zh-CN.md) · [English sound library](audio-library.en.md)
 
-共 75 种声音：72 段录音与原有的 3 种算法噪声。2026 年 9 月新增 12 段真实录音，合计 32 分 56 秒，均为 CC0 1.0 授权的原始 48 kHz PCM WAV。本次没有新增合成音源。
+共 77 种声音：74 段录音与原有的 3 种算法噪声。2026 年 9 月新增 12 段真实录音，合计 32 分 56 秒，均为 CC0 1.0 授权的原始 48 kHz PCM WAV。本次没有新增合成音源。
 
 下列规格来自原始文件；采样率和位深不代表主观录音质量。除下述「海岸浪潮」采用已确认的去风声版本外，其他源文件保持原样。应用在播放时处理循环边界与响度。
 
@@ -145,3 +145,10 @@ Source and edits: [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES.md).
 | 冬林风与知更鸟 | [chris_dagorne](https://freesound.org/people/chris_dagorne/sounds/563153/) | HQ MP3 · 44.1 kHz / 2 ch | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
 
 [逐段来源与 SHA-256](../public/licenses/review-audio-provenance.json)。
+
+## 1.9.0
+
+| Sound | Length | Source format | Author / source | License |
+|---|---:|---|---|---|
+| 诺曼底细浪 | 89.82 s | WAV · 48 kHz / 16-bit / stereo | [Joseph SARDIN](https://bigsoundbank.com/small-waves-back-to-the-ocean-s1047.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |
+| 林涧与鸟鸣 | 229.57 s | WAV · 48 kHz / 24-bit / stereo | [Pierre SIBANARCO](https://bigsoundbank.com/forest-and-stream-2-s2714.html) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) |

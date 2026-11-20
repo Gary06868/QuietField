@@ -984,5 +984,43 @@
     "evidence": "./licenses/bigsoundbank-2026-10-08/2715.txt",
     "recordingNote": "Stereo field recording of birds in a forest.",
     "subjectiveAuditionPerformed": false
+  },
+  {
+    "id": "bsb-1047",
+    "title": "Small Waves Back to the Ocean",
+    "author": "Joseph SARDIN",
+    "source": "https://bigsoundbank.com/small-waves-back-to-the-ocean-s1047.html",
+    "license": "CC0 1.0",
+    "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licenseStatement": "CC0 (public domain): Free and royalty-free",
+    "siteLicenseURL": "https://bigsoundbank.com/licenses.html",
+    "checkedAtUTC": "2026-11-20T05:02:31.293264+00:00",
+    "sourcePageSHA256": "5374e7f4c1c92b6112df9c1257f210e657acaadbd5033be8674a7e9f5f1b41b0",
+    "downloadMethod": "bigsoundbank-form",
+    "downloadId": "1047",
+    "audioSHA256": "770fbd7036ad8d2c85821c25ee1a34ef6a388a4fc4f78758eecfce46ce80c7a5",
+    "format": "WAV",
+    "bitDepth": 16,
+    "sampleRate": 48000,
+    "channels": 2
+  },
+  {
+    "id": "bsb-2714",
+    "title": "Forest and stream #2",
+    "author": "Pierre SIBANARCO",
+    "source": "https://bigsoundbank.com/forest-and-stream-2-s2714.html",
+    "license": "CC0 1.0",
+    "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "licenseStatement": "CC0 (public domain): Free and royalty-free",
+    "siteLicenseURL": "https://bigsoundbank.com/licenses.html",
+    "checkedAtUTC": "2026-11-20T05:02:31.974555+00:00",
+    "sourcePageSHA256": "5fea2c03b3bb336b87192b43d56bc4205e4c3d412bfeb0c9e68dbe851a0054a8",
+    "downloadMethod": "bigsoundbank-form",
+    "downloadId": "2714",
+    "audioSHA256": "fafe62d225c95d9499b182b5e40e6b5ddfdd2419b483e36431336e03f19afd26",
+    "format": "WAV",
+    "bitDepth": 24,
+    "sampleRate": 48000,
+    "channels": 2
   }
 ]

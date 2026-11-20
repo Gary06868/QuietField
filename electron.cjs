@@ -2,11 +2,13 @@ const {app,BrowserWindow,Menu,protocol,net,ipcMain,powerSaveBlocker,session,scre
 const createWindowState=require('./window-state.cjs');
 const {applyWindowBounds}=require('./window-geometry.cjs');
 const path=require('node:path');
+const fs=require('node:fs');
 const {pathToFileURL}=require('node:url');
 const editionInfo=require('./dist/edition.json');
 const publicEdition=editionInfo.edition==='public',reviewBuild=editionInfo.review===true;
 app.setName(reviewBuild?'QuietField-Review':publicEdition?'QuietField-Public':'QuietField');
-if(process.platform==='win32')app.setAppUserModelId(reviewBuild?'org.quietfield.desktop.review':publicEdition?'org.quietfield.desktop.public':'org.quietfield.desktop');
+const appId=reviewBuild?'org.quietfield.desktop.review':publicEdition?'org.quietfield.desktop.public':'org.quietfield.desktop';
+if(process.platform==='win32')app.setAppUserModelId(appId);
 if(process.env.QUIET_FIELD_TEST_DATA)app.setPath('userData',process.env.QUIET_FIELD_TEST_DATA);
 protocol.registerSchemesAsPrivileged([{scheme:'quiet',privileges:{standard:true,secure:true,supportFetchAPI:true,stream:true}}]);
 let win,blocker,companion;
@@ -35,6 +37,26 @@ else {
     windowState.attach(win);if(windowState.maximized)win.maximize();
     powerMonitor.on('resume',()=>{if(win&&!win.isDestroyed())win.webContents.send('system-resume');});
     const trusted=event=>win&&!win.isDestroyed()&&event.sender===win.webContents&&event.senderFrame===win.webContents.mainFrame;
+    ipcMain.handle('project-link',async(event,destination)=>{
+      if(!trusted(event))return false;
+      const repo='https://github.com/Gary06868/QuietField';
+      if(destination!=='feedback'&&destination!=='repository')return false;
+      await shell.openExternal(destination==='feedback'?repo+'/issues/new/choose':repo);
+      return true;
+    });
+    ipcMain.handle('desktop-shortcut',event=>{
+      if(!trusted(event)||process.platform!=='win32'||!app.isPackaged)return 'unavailable';
+      const target=fs.realpathSync(process.execPath);
+      const temp=fs.realpathSync(app.getPath('temp'));
+      const relative=path.relative(temp,target);
+      if(!path.isAbsolute(relative)&&relative!=='..'&&!relative.startsWith('..'+path.sep))return 'temporary';
+      const name=reviewBuild?'静野审核版':publicEdition?'静野':'静野个人版';
+      const desktop=process.env.QUIET_FIELD_TEST_DATA?app.getPath('userData'):app.getPath('desktop');
+      const link=path.join(desktop,name+'.lnk');
+      if(fs.existsSync(link)&&shell.readShortcutLink(link).appUserModelId!==appId)return 'exists';
+      const saved=shell.writeShortcutLink(link,{target,cwd:path.dirname(target),icon:target,iconIndex:0,description:name,appUserModelId:appId});
+      return saved?'created':'unavailable';
+    });
     require('./backup-export.cjs')({ipcMain,dialog,app,win,trusted});
     ipcMain.handle('window-state',event=>trusted(event)?{maximized:win.isMaximized(),visible:win.isVisible()&&!win.isMinimized()}:null);
     ipcMain.on('window-action',(event,action)=>{
